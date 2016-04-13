@@ -1,0 +1,47 @@
+//
+//  Common-Prefix.pch
+//  CommonProject
+//
+//  Created by wuyoujian on 16/4/13.
+//  Copyright © 2016年 wuyoujian. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_7_0
+#warning "This project uses features only available in iOS SDK 7.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "AppDelegate.h"
+
+
+#import "NSString+Utility.h"
+#import "UIColor+Utility.h"
+#import "UIImage+Utility.h"
+#import "LineView.h"
+#import "WYJNavigationController.h"
+#import "FadePromptView.h"
+#import "SVProgressHUD.h"
+#endif
+
+#define screenStartY self.navigationController.navigationBarHidden ? 20:0
+#define IsIOS7 ([[[[UIDevice currentDevice] systemVersion] substringToIndex:1] intValue]>=7)
+#define IsIOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define navigationBarHeight (IsIOS7 ? 64 : 44)
+
+#define screenHeight [UIScreen mainScreen].bounds.size.height
+#define screenWidth [UIScreen mainScreen].bounds.size.width
+
+// 服务器地址
+#define kNetworkServerIP            @"http://101.69.181.210"
+#define kNetworkAPIServer           kNetworkServerIP@"/tuwen_web"
+
+// 日志开关
+#if DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
