@@ -9,5 +9,4 @@
 #import "NetResultBase.h"
 
 @interface LoginResult : NetResultBase
-
 @end

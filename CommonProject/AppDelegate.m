@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SharedManager.h"
 
 @interface AppDelegate ()
 

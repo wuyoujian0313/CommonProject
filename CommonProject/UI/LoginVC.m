@@ -8,7 +8,9 @@
 
 #import "LoginVC.h"
 
-@interface LoginVC ()
+#import "QRViewController.h"
+
+@interface LoginVC ()<QRCodeFinishDelegate>
 
 @end
 
@@ -34,8 +36,28 @@
 
 - (void)buttonAction:(UIButton *)sender {
     
-    AppDelegate *app = [AppDelegate shareMyApplication];
-    [app.mainVC switchToHomeVC];
+    QRViewController *vc = [[QRViewController alloc] init];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:^{
+        //
+    }];
+    
+//    AppDelegate *app = [AppDelegate shareMyApplication];
+//    [app.mainVC switchToHomeVC];
+}
+
+- (void)qrCodeFinishWithController:(QRViewController*)viewController result:(NSString*)code error:(NSError*)error {
+    
+    [FadePromptView showPromptStatus:code duration:2.0 finishBlock:nil];
+    
+    [viewController dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
+}
+- (void)qrCodeCancelWithController:(QRViewController*)viewController {
+    [viewController dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
