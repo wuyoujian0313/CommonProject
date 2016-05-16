@@ -7,11 +7,10 @@
 //
 
 #import "LoginVC.h"
+#import "ImagePickerController.h"
+#import "LocalAbilityManager.h"
 
-#import "QRViewController.h"
-
-@interface LoginVC ()<QRCodeFinishDelegate>
-
+@interface LoginVC ()
 @end
 
 @implementation LoginVC
@@ -36,27 +35,12 @@
 
 - (void)buttonAction:(UIButton *)sender {
     
-    QRViewController *vc = [[QRViewController alloc] init];
-    vc.delegate = self;
-    [self presentViewController:vc animated:YES completion:^{
+    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+    [obj pickerCameraController:self type:LocalAbilityTypePickerQRCode finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
         //
-    }];
-    
-//    AppDelegate *app = [AppDelegate shareMyApplication];
-//    [app.mainVC switchToHomeVC];
-}
-
-- (void)qrCodeFinishWithController:(QRViewController*)viewController result:(NSString*)code error:(NSError*)error {
-    
-    [FadePromptView showPromptStatus:code duration:2.0 finishBlock:nil];
-    
-    [viewController dismissViewControllerAnimated:YES completion:^{
-        //
-    }];
-}
-- (void)qrCodeCancelWithController:(QRViewController*)viewController {
-    [viewController dismissViewControllerAnimated:YES completion:^{
-        //
+        if (status == ImagePickerStatusSuccess) {
+            [FadePromptView showPromptStatus:data duration:2.0 finishBlock:nil];
+        }
     }];
 }
 

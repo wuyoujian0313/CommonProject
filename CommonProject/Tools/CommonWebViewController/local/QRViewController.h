@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@class QRViewController;
-@protocol QRCodeFinishDelegate <NSObject>
-- (void)qrCodeFinishWithController:(QRViewController*)viewController result:(NSString*)code error:(NSError*)error;
-- (void)qrCodeCancelWithController:(QRViewController*)viewController;
-@end
+typedef NS_ENUM(NSInteger, QRCodeScanStatus) {
+    QRCodeScanStatusSuccess,
+    QRCodeScanStatusFail,
+    QRCodeScanStatusCancel,
+};
 
+typedef void(^QRCodeFinishBlock)(NSString *result, QRCodeScanStatus status);
 
 @interface QRViewController : UIViewController
 
-@property (nonatomic, weak) id <QRCodeFinishDelegate> delegate;
+@property (nonatomic, copy) QRCodeFinishBlock finishBlock;
+
+- (void)startScanQRCode;
+- (void)startScanQRCodeWithFinish:(QRCodeFinishBlock)finishBlock;
 
 @end

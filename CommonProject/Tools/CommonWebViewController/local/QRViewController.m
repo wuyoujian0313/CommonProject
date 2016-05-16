@@ -15,7 +15,8 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer    *preview;
 @property (nonatomic, strong) UIImageView                   *lineImageView;
 
-@property (nonatomic ,strong) DispatchTimer                 *timer;
+@property (nonatomic, strong) DispatchTimer                 *timer;
+
 @end
 
 @implementation QRViewController
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor blackColor]];
     [self layoutCaptureView];
 }
 
@@ -38,11 +40,8 @@
     NSError *error = nil;
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
     
-    if (error) {
-        if ([_delegate respondsToSelector:@selector(qrCodeFinishWithController:result:error:)]) {
-            [_delegate qrCodeFinishWithController:self result:nil error:error];
-        }
-        return;
+    if (_finishBlock) {
+        _finishBlock(nil,QRCodeScanStatusFail);
     }
     
     AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
@@ -61,7 +60,7 @@
     output.metadataObjectTypes = @[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeQRCode];
     
     self.preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
-    self.preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.preview.videoGravity = AVLayerVideoGravityResize;
     
     self.preview.frame = previewFrame;
     
@@ -72,10 +71,17 @@
     } else {
         [self.session setSessionPreset:AVCaptureSessionPresetHigh];
     }
-    
+}
+
+- (void)startScanQRCode {
     [self.session startRunning];
 }
 
+- (void)startScanQRCodeWithFinish:(QRCodeFinishBlock)finishBlock {
+    self.finishBlock = finishBlock;
+    
+    [self startScanQRCode];
+}
 
 - (void)layoutCaptureView {
     
@@ -114,11 +120,10 @@
 }
 
 - (void)cancelBtnClick:(id)sender {
-    if ([_delegate respondsToSelector:@selector(qrCodeCancelWithController:)]) {
-        [_delegate qrCodeCancelWithController:self];
+    if (_finishBlock) {
+        _finishBlock(nil,QRCodeScanStatusCancel);
     }
 }
-
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
@@ -131,8 +136,8 @@
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         val = obj.stringValue;
         
-        if ([_delegate respondsToSelector:@selector(qrCodeFinishWithController:result:error:)]) {
-            [_delegate qrCodeFinishWithController:self result:val error:nil];
+        if (_finishBlock) {
+            _finishBlock(val,QRCodeScanStatusSuccess);
         }
     }
 }

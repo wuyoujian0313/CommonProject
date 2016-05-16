@@ -24,9 +24,7 @@ typedef NS_ENUM(NSInteger, SharedWayType) {
 
 typedef void(^SharedFinishBlock)(SharedWayType wayType,SharedStatusCode statusCode);
 
-// 不提供单例模式，需要及时回收内存
 @interface SharedManager : NSObject
-
 
 /**
  *  分享
