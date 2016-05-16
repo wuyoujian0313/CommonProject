@@ -15,22 +15,18 @@ typedef NS_ENUM(NSInteger, SharedStatusCode) {
     SharedStatusCodeCancel,
 };
 
-typedef NS_ENUM(NSInteger, SharedWayType) {
-    SharedWayTypeMail,
-    SharedWayTypeSMS,
-    SharedWayTypeWeixin,
-    SharedWayTypeQQ,
-};
-
-typedef void(^SharedFinishBlock)(SharedWayType wayType,SharedStatusCode statusCode);
+typedef void(^SharedFinishBlock)(SharedStatusCode statusCode);
 
 @interface SharedManager : NSObject
+
+// 建议不用单例，可以只用局部变量或者作为类的一个strong成员变量
++ (SharedManager *)sharedSharedManager;
 
 /**
  *  分享
  *
  *  @param viewController 弹出
  */
-- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel sharedWay:(SharedWayType)wayType finish:(SharedFinishBlock)finishBlock;
+- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock;
 
 @end

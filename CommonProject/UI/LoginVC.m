@@ -9,8 +9,12 @@
 #import "LoginVC.h"
 #import "ImagePickerController.h"
 #import "LocalAbilityManager.h"
+#import "SharedManager.h"
+#import "SharedDataModel.h"
+#import "MailSMSController.h"
 
 @interface LoginVC ()
+@property (nonatomic, strong)LocalAbilityManager *obj;
 @end
 
 @implementation LoginVC
@@ -38,7 +42,7 @@
     [self.view addSubview:imageView];
     
     
-    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(20, 320, 200, 100)];
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(20, 300, 200, 100)];
     imageView1.image = [UIImage generateBarCode:@"12345679012345" width:200 height:100];
     [self.view addSubview:imageView1];
     
@@ -46,13 +50,40 @@
 
 - (void)buttonAction:(UIButton *)sender {
     
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    [obj pickerCameraController:self type:LocalAbilityTypePickerQRCode finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+//    SharedManager *obj = [[SharedManager alloc] init];
+//    
+//    SharedDataModel *mObj = [[SharedDataModel alloc] init];
+//    mObj.title = @"title";
+//    mObj.content = @"content";
+//    mObj.data = @"www.baidu.com";
+//    
+//    [obj sharedDataFromViewController:self withData:mObj finish:^(SharedStatusCode statusCode) {
+//        //
+//        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
+//    }];
+ 
+//    // 建议这么使用
+//    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+//    self.obj = obj;
+//    [obj pickerCameraController:self type:LocalAbilityTypePickerImage finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+//        //
+//        if (status == ImagePickerStatusSuccess) {
+//            [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
+//        }
+//        
+//    }];
+    
+    LocalAbilityManager *sharedObj = [LocalAbilityManager sharedLocalAbilityManager];
+    [sharedObj pickerMailSMSController:self type:LocalAbilityTypeSMS andSubject:nil andContent:@"wuyoujian测试" finish:^(SendType type, SendStatus status) {
         //
-        if (status == ImagePickerStatusSuccess) {
-            [FadePromptView showPromptStatus:data duration:2.0 finishBlock:nil];
-        }
+        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
     }];
+    
+//    MailSMSController *obj = [MailSMSController  sharedMailSMSController];
+//    [obj pickerMessageComposeViewController:self andContent:@"wuyoujian" finish:^(SendType type, SendStatus status){
+//        //
+//        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

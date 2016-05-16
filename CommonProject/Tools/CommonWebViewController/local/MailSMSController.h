@@ -9,16 +9,28 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 
+
+typedef NS_ENUM(NSInteger, SendStatus) {
+    
+    SendStatusSuccess,
+    SendStatusFail,
+    SendStatusSave,
+    SendStatusCancel,
+};
+
+typedef NS_ENUM(NSInteger, SendType) {
+    SendTypeMail,
+    SendTypeSMS,
+};
+
+//
+typedef void(^SendFinishBlock)(SendType type, SendStatus status);
+
 @interface MailSMSController : NSObject<MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate>
 
-/**
- *  邮件分享:默认取UIWindow的rootViewController
- *
- *  @param subject 邮件主题
- *  @param content 邮件内容
- */
-- (void)sendEmailWithSubject:(NSString*)subject andContent:(NSString*)content;
-
+// 建议不用单例，建议把MailSMSController作为类一个strong成员变量
+// 可以跟随使用的页面对象释放而释放
++ (MailSMSController *)sharedMailSMSController;
 
 /**
  *  邮件分享
@@ -26,14 +38,7 @@
  *  @param subject 邮件主题
  *  @param content 邮件内容
  */
-- (void)sendEmailWithViewController:(UIViewController*)viewController andSubject:(NSString*)subject andContent:(NSString*)content;
-
-/**
- *  短信分享:默认取UIWindow的rootViewController
- *
- *  @param content 短信内容
- */
-- (void)sendSmsWithContent:(NSString*)content;
+- (void)pickerMailComposeViewController:(UIViewController*)viewController andSubject:(NSString*)subject andContent:(NSString*)content finish:(SendFinishBlock)finishBlock;
 
 /**
  *  短信分享
@@ -41,6 +46,6 @@
  *  @param viewController 当前的VC，主要从哪个VC弹出SMS VC
  *  @param content 短信内容
  */
-- (void)sendSmsWithViewController:(UIViewController*)viewController andContent:(NSString*)content;
+- (void)pickerMessageComposeViewController:(UIViewController*)viewController andContent:(NSString*)content finish:(SendFinishBlock)finishBlock;
 
 @end

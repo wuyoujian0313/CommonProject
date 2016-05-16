@@ -35,6 +35,19 @@
 
 @implementation SharedManager
 
++ (SharedManager *)sharedSharedManager {
+    static SharedManager *obj = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        obj = [[self alloc] init];
+    });
+    return obj;
+}
+
+- (void)dealloc {
+    self.finishBlock = nil;
+}
+
 
 - (instancetype)init {
     
@@ -87,7 +100,7 @@
           }];
 }
 
-- (void)shared2OpenPlatformWithView:(UIView*)view withData:(SharedDataModel*)dataModel sharedWay:(SharedWayType)wayType {
+- (void)shared2OpenPlatformWithView:(UIView*)view withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock {
     
     //1、创建分享参数
     NSString *title = dataModel.title;
@@ -123,6 +136,9 @@
                                                                      cancelButtonTitle:@"确定"
                                                                      otherButtonTitles:nil];
                            [alertView show];
+                           if (finishBlock) {
+                               finishBlock(SharedStatusCodeSuccess);
+                           }
                            break;
                        }
                            
@@ -152,10 +168,9 @@
      ];
 }
 
-- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel sharedWay:(SharedWayType)wayType finish:(SharedFinishBlock)finishBlock {
+- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock {
     
-    self.finishBlock = finishBlock;
-    [self shared2OpenPlatformWithView:viewController.view withData:dataModel sharedWay:wayType];
+    [self shared2OpenPlatformWithView:viewController.view withData:dataModel finish:finishBlock];
 }
 
 @end

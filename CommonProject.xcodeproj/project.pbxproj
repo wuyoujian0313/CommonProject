@@ -1596,9 +1596,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CommonProject/ThirdSDKs/ShareSDK_3.1.5/extends/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.wuyjapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.answer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd841096-9596-43b8-900a-c85bf713c136";
+				PROVISIONING_PROFILE = "32c6fda4-41cb-49ca-bf26-2c3320bb3249";
 			};
 			name = Debug;
 		};
@@ -1621,7 +1621,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CommonProject/ThirdSDKs/ShareSDK_3.1.5/extends/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.wuyjapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.answer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

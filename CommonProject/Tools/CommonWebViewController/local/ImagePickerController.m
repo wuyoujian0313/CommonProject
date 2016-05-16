@@ -21,9 +21,20 @@
 
 @implementation ImagePickerController
 
-- (void)dealloc {
++ (ImagePickerController *)sharedImagePickerController {
     
+    static ImagePickerController *obj = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        obj = [[self alloc] init];
+    });
+    return obj;
 }
+
+- (void)dealloc {
+    self.finishBlock = nil;
+}
+
 
 /**
  *  照片选择

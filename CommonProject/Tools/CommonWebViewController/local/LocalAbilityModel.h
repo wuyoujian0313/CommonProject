@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// 本地能力可以不用model
 @interface LocalAbilityModel : NSObject
 
 @end

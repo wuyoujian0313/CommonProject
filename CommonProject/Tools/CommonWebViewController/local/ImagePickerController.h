@@ -9,14 +9,12 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, ImagePickerStatus) {
-    
     ImagePickerStatusSuccess,
     ImagePickerStatusFail,
     ImagePickerTypeQRCancel,
 };
 
 typedef NS_ENUM(NSInteger, ImagePickerType) {
-    
     ImagePickerTypeImage,
     ImagePickerTypePhoto,
     ImagePickerTypeVideo,
@@ -28,6 +26,10 @@ typedef NS_ENUM(NSInteger, ImagePickerType) {
 typedef void(^ImagePickerFinishBlock)(ImagePickerType type, ImagePickerStatus status, id data);
 
 @interface ImagePickerController : NSObject
+
+// 建议不用单例，建议把ImagePickerController作为类一个strong成员变量
+// 可以跟随使用的页面对象释放而释放
++ (ImagePickerController *)sharedImagePickerController;
 
 /**
  *  照片选择

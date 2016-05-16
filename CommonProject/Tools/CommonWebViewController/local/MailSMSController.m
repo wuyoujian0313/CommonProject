@@ -10,19 +10,40 @@
 #import "DeviceInfo.h"
 #import "FadePromptView.h"
 
+@interface MailSMSController ()
+
+@property (nonatomic, copy) SendFinishBlock finishBlock;
+
+@end
+
 
 @implementation MailSMSController
 
++ (MailSMSController *)sharedMailSMSController {
+    
+    static MailSMSController *obj = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        obj = [[self alloc] init];
+    });
+    return obj;
+}
+
+- (void)dealloc {
+    self.finishBlock = nil;
+}
+
 /**
  *  邮件分享
- *
+ *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
  *  @param subject 邮件主题
  *  @param content 邮件内容
  */
 
-- (void)pickerMailComposeViewController:(UIViewController*)viewController andSubject:(NSString*)subject andContent:(NSString*)content {
+- (void)pickerMailComposeViewController:(UIViewController*)viewController andSubject:(NSString*)subject andContent:(NSString*)content finish:(SendFinishBlock)finishBlock {
     
     Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+    self.finishBlock = finishBlock;
     
     if (mailClass != nil) {
         if ([mailClass canSendMail]) {
@@ -39,34 +60,16 @@
     }
 }
 
-
-
-- (void)sendEmailWithSubject:(NSString*)subject andContent:(NSString*)content {
-    
-    UIViewController *ownen = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([DeviceInfo isOS7]) {
-        ownen = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController];
-    }
-    
-    [self pickerMailComposeViewController:ownen andSubject:subject andContent:content];
-}
-
 /**
- *  邮件分享
- *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
- *  @param subject 邮件主题
- *  @param content 邮件内容
+ *  短信分享
+ *
+ *  @param viewController 当前的VC，主要从哪个VC弹出SMS VC
+ *  @param content 短信内容
  */
-- (void)sendEmailWithViewController:(UIViewController*)viewController andSubject:(NSString*)subject andContent:(NSString*)content {
-    
-    [self pickerMailComposeViewController:viewController andSubject:subject andContent:content];
-}
-
-
-- (void)pickerMessageComposeViewController:(UIViewController*)viewController andContent:(NSString*)content  {
+- (void)pickerMessageComposeViewController:(UIViewController*)viewController andContent:(NSString*)content finish:(SendFinishBlock)finishBlock {
     
     Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
-    
+    self.finishBlock = finishBlock;
     if (messageClass != nil) {
         if ([messageClass canSendText]) {
             MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
@@ -81,77 +84,83 @@
     }
 }
 
-
-/**
- *  短信分享
- *
- *  @param content 短信内容
- */
-- (void)sendSmsWithContent:(NSString*)content {
-    UIViewController *ownen = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if ([DeviceInfo isOS7]) {
-        ownen = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController];
-    }
-    
-    [self pickerMessageComposeViewController:ownen andContent:content];
-}
-
-/**
- *  短信分享
- *
- *  @param viewController 当前的VC，主要从哪个VC弹出SMS VC
- *  @param content 短信内容
- */
-- (void)sendSmsWithViewController:(UIViewController*)viewController andContent:(NSString*)content {
-    [self pickerMessageComposeViewController:viewController andContent:content];
-}
-
 #pragma mark - MFMessageComposeViewControllerDelegate
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-    
+
     // Notifies users about errors associated with the interface
     switch (result) {
         case MessageComposeResultCancelled:
             //用户自己取消，不用提醒
+            if (_finishBlock) {
+                _finishBlock(SendTypeSMS,SendStatusCancel);
+            }
             break;
         case MessageComposeResultSent:
+            if (_finishBlock) {
+                _finishBlock(SendTypeSMS,SendStatusSuccess);
+            }
+            
             break;
         case MessageComposeResultFailed:
-            [FadePromptView showPromptStatus:@"短信发送失败" duration:1.0 finishBlock:nil];
+            if (_finishBlock) {
+                _finishBlock(SendTypeSMS,SendStatusFail);
+            }
+            
             break;
         default:
-            [FadePromptView showPromptStatus:@"短信没有发送" duration:1.0 finishBlock:nil];
+            if (_finishBlock) {
+                _finishBlock(SendTypeSMS,SendStatusFail);
+            }
+            
             break;
     }
     
-    UIViewController *_ownen = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [_ownen dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
+    
     switch (result) {
         case MFMailComposeResultCancelled:
             //用户取消，不在提醒
+            if (_finishBlock) {
+                _finishBlock(SendTypeMail,SendStatusCancel);
+            }
+            
             break;
         case MFMailComposeResultSaved:
             //邮件已经保存，不在提醒
+            //
+            if (_finishBlock) {
+                _finishBlock(SendTypeMail,SendStatusSave);
+            }
+            
             break;
         case MFMailComposeResultSent:
+            if (_finishBlock) {
+                _finishBlock(SendTypeMail,SendStatusSuccess);
+            }
+            
             break;
         case MFMailComposeResultFailed:
-            [FadePromptView showPromptStatus:@"邮件发送失败" duration:1.0 finishBlock:nil];
+            if (_finishBlock) {
+                _finishBlock(SendTypeMail,SendStatusFail);
+            }
             break;
         default:
-            [FadePromptView showPromptStatus:@"邮件未能发出" duration:1.0 finishBlock:nil];
+            if (_finishBlock) {
+                _finishBlock(SendTypeMail,SendStatusFail);
+            }
+            
+
             break;
     }
     
-    UIViewController *_ownen = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [_ownen dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
