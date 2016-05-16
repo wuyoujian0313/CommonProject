@@ -31,6 +31,17 @@
     [loginBtn setFrame:CGRectMake(11, 120, self.view.frame.size.width - 22, 45)];
     [loginBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 180, 100, 100)];
+    imageView.image = [UIImage generateQRCode:@"北京！！1234%%%===" width:100 height:100];
+    [self.view addSubview:imageView];
+    
+    
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 300, 100, 32)];
+    imageView1.image = [UIImage generateBarCode:@"wuyoujian" width:100 height:100];
+    [self.view addSubview:imageView1];
+    
 }
 
 - (void)buttonAction:(UIButton *)sender {

@@ -93,5 +93,45 @@
     return image;
 }
 
++ (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height {
+    
+    // 生成二维码图片
+    CIImage *qrcodeImage;
+    NSData *data = [code dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false];
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [filter setDefaults];
+    
+    [filter setValue:data forKey:@"inputMessage"];
+    [filter setValue:@"H" forKey:@"inputCorrectionLevel"];
+    qrcodeImage = [filter outputImage];
+    
+    // 消除模糊
+    CGFloat scaleX = width / qrcodeImage.extent.size.width; // extent 返回图片的frame
+    CGFloat scaleY = height / qrcodeImage.extent.size.height;
+    CIImage *transformedImage = [qrcodeImage imageByApplyingTransform:CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY)];
+    
+    return [UIImage imageWithCIImage:transformedImage];
+}
+
+
+// 条形码目前有问题
++ (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height {
+    // 生成条形码
+    CIImage *barcodeImage;
+    NSData *data = [code dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:false];
+    CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
+    [filter setDefaults];
+    
+    [filter setValue:data forKey:@"inputMessage"];
+    barcodeImage = [filter outputImage];
+    
+    // 消除模糊
+    CGFloat scaleX = width / barcodeImage.extent.size.width; // extent 返回图片的frame
+    CGFloat scaleY = height / barcodeImage.extent.size.height;
+    CIImage *transformedImage = [barcodeImage imageByApplyingTransform:CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY)];
+    
+    return [UIImage imageWithCIImage:transformedImage];
+}
+
 
 @end

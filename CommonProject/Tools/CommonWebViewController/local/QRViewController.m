@@ -21,6 +21,8 @@
 
 @implementation QRViewController
 
+
+
 -(void)dealloc {
     [_timer stopDispatchTimer];
 }
@@ -57,7 +59,9 @@
         [self.session addOutput:output];
     }
     
-    output.metadataObjectTypes = @[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeQRCode];
+    output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeEAN8Code,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode39Code,AVMetadataObjectTypePDF417Code,AVMetadataObjectTypeAztecCode,AVMetadataObjectTypeCode93Code,AVMetadataObjectTypeEAN13Code,AVMetadataObjectTypeCode39Mod43Code];
+    
+    
     
     self.preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.preview.videoGravity = AVLayerVideoGravityResize;
@@ -71,6 +75,8 @@
     } else {
         [self.session setSessionPreset:AVCaptureSessionPresetHigh];
     }
+    
+    [output rectOfInterest];
 }
 
 - (void)startScanQRCode {

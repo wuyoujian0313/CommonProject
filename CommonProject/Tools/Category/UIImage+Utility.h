@@ -16,4 +16,7 @@
 
 + (UIImage *)screenShotImage:(UIView*)view;
 
++ (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
++ (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
+
 @end
