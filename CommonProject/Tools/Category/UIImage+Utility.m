@@ -11,19 +11,10 @@
 @implementation UIImage (Utility)
 
 + (UIImage *)imageFromColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context,[color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+   return [[self class] imageFromColor:color size:CGSizeMake(1, 1)];
 }
 
-+ (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size
-{
++ (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -79,8 +70,7 @@
     return scaledImage;
 }
 
-
-
+// 截图
 + (UIImage *)screenShotImage:(UIView*)view {
     
     //创建图片
@@ -93,44 +83,69 @@
     return image;
 }
 
+// 生成二维码图片
 + (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height {
     
-    // 生成二维码图片
-    CIImage *qrcodeImage;
-    NSData *data = [code dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false];
+    
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [filter setDefaults];
     
+    NSData *data = [code dataUsingEncoding:NSUTF8StringEncoding];
     [filter setValue:data forKey:@"inputMessage"];
     [filter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    qrcodeImage = [filter outputImage];
+    CIImage *outputImage = [filter outputImage];
     
-    // 消除模糊
-    CGFloat scaleX = width / qrcodeImage.extent.size.width; // extent 返回图片的frame
-    CGFloat scaleY = height / qrcodeImage.extent.size.height;
-    CIImage *transformedImage = [qrcodeImage imageByApplyingTransform:CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY)];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:outputImage
+                                       fromRect:[outputImage extent]];
     
-    return [UIImage imageWithCIImage:transformedImage];
+    UIImage *image = [UIImage imageWithCGImage:cgImage
+                                         scale:1.
+                                   orientation:UIImageOrientationUp];
+    
+    UIImage *resized = nil;
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    CGContextRef contextCurrent = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(contextCurrent, kCGInterpolationNone);
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    resized = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGImageRelease(cgImage);
+    
+    return resized;
 }
 
-
-// 条形码目前有问题
+// 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height {
-    // 生成条形码
-    CIImage *barcodeImage;
-    NSData *data = [code dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:false];
+    
     CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
     [filter setDefaults];
     
+    NSData *data = [code dataUsingEncoding:NSUTF8StringEncoding];
     [filter setValue:data forKey:@"inputMessage"];
-    barcodeImage = [filter outputImage];
+    [filter setValue:@(5.00) forKey:@"inputQuietSpace"];
+    CIImage *outputImage = [filter outputImage];
     
-    // 消除模糊
-    CGFloat scaleX = width / barcodeImage.extent.size.width; // extent 返回图片的frame
-    CGFloat scaleY = height / barcodeImage.extent.size.height;
-    CIImage *transformedImage = [barcodeImage imageByApplyingTransform:CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY)];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:outputImage
+                                       fromRect:[outputImage extent]];
     
-    return [UIImage imageWithCIImage:transformedImage];
+    UIImage *image = [UIImage imageWithCGImage:cgImage
+                                         scale:1.
+                                   orientation:UIImageOrientationUp];
+  
+    UIImage *resized = nil;
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    CGContextRef contextCurrent = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(contextCurrent, kCGInterpolationNone);
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    resized = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGImageRelease(cgImage);
+
+    return resized;
 }
 
 

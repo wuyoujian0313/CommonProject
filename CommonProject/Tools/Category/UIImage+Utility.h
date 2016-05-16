@@ -14,9 +14,12 @@
 + (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size;
 + (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)targetSize;
 
+// 截图
 + (UIImage *)screenShotImage:(UIView*)view;
 
+// 生成二维码
 + (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
+// 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
 
 @end

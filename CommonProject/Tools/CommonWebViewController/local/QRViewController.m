@@ -65,7 +65,6 @@
     
     self.preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.preview.videoGravity = AVLayerVideoGravityResize;
-    
     self.preview.frame = previewFrame;
     
     [self.view.layer addSublayer:self.preview];

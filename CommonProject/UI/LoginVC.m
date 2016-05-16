@@ -38,8 +38,8 @@
     [self.view addSubview:imageView];
     
     
-    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 300, 100, 32)];
-    imageView1.image = [UIImage generateBarCode:@"wuyoujian" width:100 height:100];
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(20, 320, 200, 100)];
+    imageView1.image = [UIImage generateBarCode:@"12345679012345" width:200 height:100];
     [self.view addSubview:imageView1];
     
 }
