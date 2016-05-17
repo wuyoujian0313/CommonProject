@@ -15,6 +15,7 @@
 		AF04B4681CE95787009AB8F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF04B4671CE95787009AB8F6 /* AssetsLibrary.framework */; };
 		AF04B46B1CE95C2B009AB8F6 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = AF04B46A1CE95C2B009AB8F6 /* UIImage+ResizeMagick.m */; };
 		AF04B46D1CE95FD3009AB8F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */; };
+		AF146EC81CEAF134009116E1 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF146EC71CEAF134009116E1 /* URLParseManager.m */; };
 		AF24B7741CE587BE003E3B19 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF24B7731CE587BE003E3B19 /* MessageUI.framework */; };
 		AF24B7781CE5959C003E3B19 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AF24B7771CE5959C003E3B19 /* DeviceInfo.m */; };
 		AF24B77B1CE5AAB0003E3B19 /* UIView+SizeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF24B77A1CE5AAB0003E3B19 /* UIView+SizeUtility.m */; };
@@ -196,6 +197,8 @@
 		AF04B4691CE95C2B009AB8F6 /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeMagick.h"; sourceTree = "<group>"; };
 		AF04B46A1CE95C2B009AB8F6 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeMagick.m"; sourceTree = "<group>"; };
 		AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		AF146EC61CEAF134009116E1 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
+		AF146EC71CEAF134009116E1 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
 		AF24B7731CE587BE003E3B19 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AF24B7761CE5959C003E3B19 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
 		AF24B7771CE5959C003E3B19 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				AFB4AD1C1CE413E0007D3802 /* shared */,
 				AFB4AD111CE40DE1007D3802 /* CommonWebViewController.h */,
 				AFB4AD121CE40DE1007D3802 /* CommonWebViewController.m */,
+				AF146EC61CEAF134009116E1 /* URLParseManager.h */,
+				AF146EC71CEAF134009116E1 /* URLParseManager.m */,
 			);
 			path = CommonWebViewController;
 			sourceTree = "<group>";
@@ -1374,6 +1379,7 @@
 				AFBAEDE01CBDE8F4006B9056 /* OHParagraphStyle.m in Sources */,
 				AFE14A611CCDB24F000ADD20 /* JPCoreGraphics.m in Sources */,
 				AF24B7811CE5B1D8003E3B19 /* ImagePickerController.m in Sources */,
+				AF146EC81CEAF134009116E1 /* URLParseManager.m in Sources */,
 				AFBAEDE61CBDE8F4006B9056 /* MKAnnotationView+WebCache.m in Sources */,
 				AFBAEDE71CBDE8F4006B9056 /* NSData+ImageContentType.m in Sources */,
 				AFE14A5F1CCDB24F000ADD20 /* JPCGPath.m in Sources */,

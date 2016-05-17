@@ -113,7 +113,7 @@
         ImagePickerController *obj = [[ImagePickerController alloc] init];
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
-        [obj pickerPhotoController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+        [obj pickerPhotographController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
             //
             
             if (finishBlock) {
@@ -126,7 +126,7 @@
         ImagePickerController *obj = [[ImagePickerController alloc] init];
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
-        [obj pickerVideoController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+        [obj pickerVideotapeController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
             //
             
             if (finishBlock) {

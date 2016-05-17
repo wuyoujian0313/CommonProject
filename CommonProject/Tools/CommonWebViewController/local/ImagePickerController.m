@@ -106,7 +106,7 @@
  *  调用摄像头拍照
  *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
  */
-- (void)pickerPhotoController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
+- (void)pickerPhotographController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
     self.finishBlock = finishBlock;
     //
     [self pickerCameraController:picker isPhoto:YES];
@@ -116,7 +116,7 @@
  *  调用摄像头录像
  *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
  */
-- (void)pickerVideoController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
+- (void)pickerVideotapeController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
     self.finishBlock = finishBlock;
     //
     [self pickerCameraController:picker isPhoto:NO];

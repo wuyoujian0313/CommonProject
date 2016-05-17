@@ -41,13 +41,13 @@ typedef void(^ImagePickerFinishBlock)(ImagePickerType type, ImagePickerStatus st
  *  调用摄像头拍照
  *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
  */
-- (void)pickerPhotoController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock;
+- (void)pickerPhotographController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock;
 
 /**
  *  调用摄像头录像
  *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC
  */
-- (void)pickerVideoController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock;
+- (void)pickerVideotapeController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock;
 
 /**
  *  二维码识别
