@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LocalAbilityModel.h"
 #import "ImagePickerController.h"
 #import "MailSMSController.h"
 
@@ -15,9 +16,10 @@ typedef NS_ENUM(NSInteger, LocalAbilityType) {
     LocalAbilityTypeSMS,
     LocalAbilityTypeDail,
     LocalAbilityTypePickerImage,
-    LocalAbilityTypePickerPhoto,
-    LocalAbilityTypePickerQRCode,
-    LocalAbilityTypePickerVideo,
+    LocalAbilityTypePickerPhotograph,
+    LocalAbilityTypePickerScanQRCode,
+    LocalAbilityTypePickerGenerateQRCode,
+    LocalAbilityTypePickerVideotape,
 };
 
 @interface LocalAbilityManager : NSObject

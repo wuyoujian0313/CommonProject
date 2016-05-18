@@ -79,7 +79,7 @@
 
 - (void)pickerCameraController:(UIViewController*)picker type:(LocalAbilityType)type finish:(ImagePickerFinishBlock)finishBlock {
     
-    if (type == LocalAbilityTypePickerQRCode) {
+    if (type == LocalAbilityTypePickerScanQRCode) {
         //
         ImagePickerController *obj = [[ImagePickerController alloc] init];
         self.cameraPickerCtrl = obj;
@@ -109,7 +109,7 @@
             LocalAbilityManager *sSelf = wSelf;
             sSelf.cameraPickerCtrl = nil;
         }];
-    } else if (type == LocalAbilityTypePickerPhoto) {
+    } else if (type == LocalAbilityTypePickerPhotograph) {
         ImagePickerController *obj = [[ImagePickerController alloc] init];
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
@@ -122,7 +122,7 @@
             LocalAbilityManager *sSelf = wSelf;
             sSelf.cameraPickerCtrl = nil;
         }];
-    } else if (type == LocalAbilityTypePickerVideo) {
+    } else if (type == LocalAbilityTypePickerVideotape) {
         ImagePickerController *obj = [[ImagePickerController alloc] init];
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;

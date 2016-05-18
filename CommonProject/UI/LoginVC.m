@@ -13,6 +13,8 @@
 #import "SharedDataModel.h"
 #import "MailSMSController.h"
 
+#import "CommonWebViewController.h"
+
 @interface LoginVC ()
 @property (nonatomic, strong)LocalAbilityManager *obj;
 @end
@@ -50,13 +52,18 @@
 
 - (void)buttonAction:(UIButton *)sender {
     
+    CommonWebViewController *vc = [[CommonWebViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
 //    SharedManager *obj = [[SharedManager alloc] init];
 //    
 //    SharedDataModel *mObj = [[SharedDataModel alloc] init];
 //    mObj.title = @"title";
 //    mObj.content = @"content";
 //    mObj.data = @"www.baidu.com";
-//    
+//
 //    [obj sharedDataFromViewController:self withData:mObj finish:^(SharedStatusCode statusCode) {
 //        //
 //        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
@@ -73,11 +80,11 @@
 //        
 //    }];
     
-    LocalAbilityManager *sharedObj = [LocalAbilityManager sharedLocalAbilityManager];
-    [sharedObj pickerMailSMSController:self type:LocalAbilityTypeSMS andSubject:nil andContent:@"wuyoujian测试" finish:^(SendType type, SendStatus status) {
-        //
-        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
-    }];
+//    LocalAbilityManager *sharedObj = [LocalAbilityManager sharedLocalAbilityManager];
+//    [sharedObj pickerMailSMSController:self type:LocalAbilityTypeSMS andSubject:nil andContent:@"wuyoujian测试" finish:^(SendType type, SendStatus status) {
+//        //
+//        [FadePromptView showPromptStatus:@"success" duration:2.0 finishBlock:nil];
+//    }];
     
 //    MailSMSController *obj = [MailSMSController  sharedMailSMSController];
 //    [obj pickerMessageComposeViewController:self andContent:@"wuyoujian" finish:^(SendType type, SendStatus status){

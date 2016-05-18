@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PayDataModel.h"
 
 @interface PayManager : NSObject
 

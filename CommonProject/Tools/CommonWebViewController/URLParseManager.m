@@ -9,9 +9,9 @@
 #import "URLParseManager.h"
 
 // 主服务
-NSString* const kSharedProtocol=@"SharedTo";
-NSString* const kPayProtocol=@"PayTo";
-NSString* const kLocalAbilityProtocol=@"LocalAbilityTo";
+NSString* const kSharedProtocol=@"sharedto";
+NSString* const kPayProtocol=@"payto";
+NSString* const kLocalAbilityProtocol=@"localabilityto";
 
 // 子服务
 NSString* const kSharedServer=@"SharedServer";
@@ -26,12 +26,23 @@ NSString* const kGenerateQRCodeServer=@"GenerateQRCodeServer";
 
 @implementation URLParseManager
 
-- (void)urlParseWithURL:(NSURL*)url finish:(URLParseFinishBlock)finishBlock {
++ (BOOL)isCustomURL:(NSURL*)url {
+    if ([url.scheme isEqualToString:kSharedProtocol] ||
+        [url.scheme isEqualToString:kPayProtocol] ||
+        [url.scheme isEqualToString:kLocalAbilityProtocol]) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (void)urlParseWithURL:(NSURL*)url finish:(URLParseFinishBlock)finishBlock {
 
     InvokeServerType serverType = InvokeServerTypeNone;
     InvokeServerSubType subType = InvokeServerSubTypeNone;
     
-    if ([url.scheme isEqualToString:kSharedServer]) {
+    if ([url.scheme isEqualToString:kSharedProtocol]) {
         // 分享
         serverType = InvokeServerTypeShared;
         if ([url.host isEqualToString:kSharedServer]) {

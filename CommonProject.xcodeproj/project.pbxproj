@@ -16,6 +16,7 @@
 		AF04B46B1CE95C2B009AB8F6 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = AF04B46A1CE95C2B009AB8F6 /* UIImage+ResizeMagick.m */; };
 		AF04B46D1CE95FD3009AB8F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */; };
 		AF146EC81CEAF134009116E1 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF146EC71CEAF134009116E1 /* URLParseManager.m */; };
+		AF146ECA1CEB0D72009116E1 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = AF146EC91CEB0D72009116E1 /* template.html */; };
 		AF24B7741CE587BE003E3B19 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF24B7731CE587BE003E3B19 /* MessageUI.framework */; };
 		AF24B7781CE5959C003E3B19 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AF24B7771CE5959C003E3B19 /* DeviceInfo.m */; };
 		AF24B77B1CE5AAB0003E3B19 /* UIView+SizeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF24B77A1CE5AAB0003E3B19 /* UIView+SizeUtility.m */; };
@@ -199,6 +200,7 @@
 		AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		AF146EC61CEAF134009116E1 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
 		AF146EC71CEAF134009116E1 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
+		AF146EC91CEB0D72009116E1 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		AF24B7731CE587BE003E3B19 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AF24B7761CE5959C003E3B19 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfo.h; sourceTree = "<group>"; };
 		AF24B7771CE5959C003E3B19 /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfo.m; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				AFB4AD121CE40DE1007D3802 /* CommonWebViewController.m */,
 				AF146EC61CEAF134009116E1 /* URLParseManager.h */,
 				AF146EC71CEAF134009116E1 /* URLParseManager.m */,
+				AF146EC91CEB0D72009116E1 /* template.html */,
 			);
 			path = CommonWebViewController;
 			sourceTree = "<group>";
@@ -1314,6 +1317,7 @@
 				AFB4AD471CE42CE8007D3802 /* ShareSDK.bundle in Resources */,
 				AF24B78A1CE5D5BB003E3B19 /* pick_bg@2x.png in Resources */,
 				AFBAEDD61CBDE8F4006B9056 /* MJRefresh.bundle in Resources */,
+				AF146ECA1CEB0D72009116E1 /* template.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

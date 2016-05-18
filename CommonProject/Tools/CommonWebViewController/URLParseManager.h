@@ -28,11 +28,27 @@ typedef NS_ENUM(NSInteger, InvokeServerSubType) {
     InvokeServerSubTypeGenerateQRCode,
 };
 
-typedef void(^URLParseFinishBlock)(InvokeServerType serverType,InvokeServerSubType subType,NSDictionary* param);
+// 主服务
+extern NSString* const kSharedProtocol;
+extern NSString* const kPayProtocol;
+extern NSString* const kLocalAbilityProtocol;
 
+// 子服务
+extern NSString* const kSharedServer;
+extern NSString* const kBaiDuMapServer;
+extern NSString* const kWXPayServer;
+extern NSString* const kAlipayServer;
+extern NSString* const kSelectImageServer;
+extern NSString* const kPhotographServer;
+extern NSString* const kVideotapeServer;
+extern NSString* const kScanQRCodeServer;
+extern NSString* const kGenerateQRCodeServer;
+
+typedef void(^URLParseFinishBlock)(InvokeServerType serverType,InvokeServerSubType subType,NSDictionary* param);
 
 @interface URLParseManager : NSObject
 
-- (void)urlParseWithURL:(NSURL*)url finish:(URLParseFinishBlock)finishBlock ;
++ (BOOL)isCustomURL:(NSURL*)url;
++ (void)urlParseWithURL:(NSURL*)url finish:(URLParseFinishBlock)finishBlock ;
 
 @end
