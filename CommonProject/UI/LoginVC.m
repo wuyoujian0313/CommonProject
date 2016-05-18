@@ -55,7 +55,9 @@
     CommonWebViewController *vc = [[CommonWebViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     
-    
+//    LocalAbilityManager *obj =  [[LocalAbilityManager alloc] init];
+//    self.obj = obj;
+//    [LocalAbilityManager telephoneToNumber:@"18600746313"];
     
 //    SharedManager *obj = [[SharedManager alloc] init];
 //    

@@ -37,5 +37,7 @@ typedef NS_ENUM(NSInteger, LocalAbilityType) {
 // 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
 
++ (void)telephoneToNumber:(NSString*)phoneNumber;
+
 
 @end

@@ -18,6 +18,37 @@
 
 @implementation LocalAbilityManager
 
++ (void)telephoneToNumber:(NSString*)phoneNumber {
+    
+    NSURL *phoneURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneNumber]];
+    UIWebView *phoneCallWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    phoneCallWebView.tag = 9999;
+    [[UIApplication sharedApplication].keyWindow addSubview:phoneCallWebView];
+    [phoneCallWebView loadRequest:[NSURLRequest requestWithURL:phoneURL]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(telephone:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+}
+
++ (void)telephone:(NSNotification*)notification {
+    
+    UIWebView *phoneCallWebView = (UIWebView*)[[UIApplication sharedApplication].keyWindow viewWithTag:9999];
+    if ([phoneCallWebView isKindOfClass:[UIWebView class]]) {
+        [phoneCallWebView removeFromSuperview];
+    }
+    
+    static BOOL isFirst = YES;
+    if (isFirst) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(telephone:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+        isFirst = NO;
+    } else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        isFirst = YES;
+    }
+}
+
 // 生成二维码
 + (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height {
     return [UIImage generateQRCode:code width:width height:height];

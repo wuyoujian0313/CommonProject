@@ -23,6 +23,12 @@
 
 @implementation CommonWebViewController
 
+-(void)dealloc {
+    _localAbilityMgr = nil;
+    _payMgr = nil;
+    _sharedMgr = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -52,93 +58,89 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        if ([URLParseManager isCustomURL:request.URL]) {
+    if ([URLParseManager isCustomURL:request.URL]) {
+        //
+        [URLParseManager urlParseWithURL:request.URL finish:^(InvokeServerType serverType, InvokeServerSubType subType, NSDictionary *param) {
             //
-            [URLParseManager urlParseWithURL:request.URL finish:^(InvokeServerType serverType, InvokeServerSubType subType, NSDictionary *param) {
+            if (serverType == InvokeServerTypeLocalAbility) {
                 //
-                if (serverType == InvokeServerTypeLocalAbility) {
-                    //
-                    switch (subType) {
-                        case InvokeServerSubTypeBaiduMap:
-                            break;
-                        case InvokeServerSubTypeSelectImage: {
-                            LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-                            self.localAbilityMgr = obj;
-                            [obj pickerCameraController:self type:LocalAbilityTypePickerImage finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-                                //
-                            }];
-                            
-                            break;
-                        }
-                        case InvokeServerSubTypePhotograph: {
-                            LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-                            self.localAbilityMgr = obj;
-                            [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-                                //
-                            }];
-                            break;
-                        }
-                        case InvokeServerSubTypeVideotape: {
-                            LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-                            self.localAbilityMgr = obj;
-                            [obj pickerCameraController:self type:LocalAbilityTypePickerVideotape finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-                                //
-                            }];
-                            break;
-                        }
-                        case InvokeServerSubTypeScanQRCode:{
-                            LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-                            self.localAbilityMgr = obj;
-                            [obj pickerCameraController:self type:LocalAbilityTypePickerScanQRCode finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-                                //
-                            }];
-                            break;
-                        }
-                        case InvokeServerSubTypeGenerateQRCode: {
-                            [LocalAbilityManager generateQRCode:@"wuyoujian" width:100 height:100];
-                        }
-                            break;
-                            
-                        default:
-                            break;
-                    }
-                    
-                } else if(serverType == InvokeServerTypeShared) {
-                    if (subType == InvokeServerSubTypeShared) {
-                        //
-                        SharedManager *obj = [[SharedManager alloc] init];
-                        self.sharedMgr = obj;
-                        
-                        SharedDataModel *mObj = [[SharedDataModel alloc] init];
-                        mObj.title = @"title";
-                        mObj.content = @"content";
-                        mObj.data = @"www.baidu.com";
-
-                        [obj sharedDataFromViewController:self withData:mObj finish:^(SharedStatusCode statusCode) {
+                switch (subType) {
+                    case InvokeServerSubTypeBaiduMap:
+                        break;
+                    case InvokeServerSubTypeSelectImage: {
+                        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+                        self.localAbilityMgr = obj;
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerImage finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
                             //
                         }];
+                        
+                        break;
                     }
-                    
-                } else if (serverType == InvokeServerTypePay) {
-                    
-                    switch (subType) {
-                        case InvokeServerSubTypeWXPay:
-                            break;
-                        case InvokeServerSubTypeAlipay:
-                            break;
-                            
-                        default:
-                            break;
+                    case InvokeServerSubTypePhotograph: {
+                        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+                        self.localAbilityMgr = obj;
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+                            //
+                        }];
+                        break;
                     }
-                    
+                    case InvokeServerSubTypeVideotape: {
+                        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+                        self.localAbilityMgr = obj;
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerVideotape finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+                            //
+                        }];
+                        break;
+                    }
+                    case InvokeServerSubTypeScanQRCode:{
+                        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+                        self.localAbilityMgr = obj;
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerScanQRCode finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+                            //
+                        }];
+                        break;
+                    }
+                    case InvokeServerSubTypeGenerateQRCode: {
+                        [LocalAbilityManager generateQRCode:@"wuyoujian" width:100 height:100];
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-            }];
-            return NO;
-        }
+                
+            } else if(serverType == InvokeServerTypeShared) {
+                if (subType == InvokeServerSubTypeShared) {
+                    //
+                    SharedManager *obj = [[SharedManager alloc] init];
+                    self.sharedMgr = obj;
+                    
+                    SharedDataModel *mObj = [[SharedDataModel alloc] init];
+                    mObj.title = @"title";
+                    mObj.content = @"content";
+                    mObj.data = @"www.baidu.com";
+                    
+                    [obj sharedDataFromViewController:self withData:mObj finish:^(SharedStatusCode statusCode) {
+                        //
+                    }];
+                }
+                
+            } else if (serverType == InvokeServerTypePay) {
+                
+                switch (subType) {
+                    case InvokeServerSubTypeWXPay:
+                        break;
+                    case InvokeServerSubTypeAlipay:
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }
+        }];
+        return NO;
     }
-    
-    
     
     return YES;
 }
