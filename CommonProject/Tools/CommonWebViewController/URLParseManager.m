@@ -27,9 +27,9 @@ NSString* const kGenerateQRCodeServer=@"GenerateQRCodeServer";
 @implementation URLParseManager
 
 + (BOOL)isCustomURL:(NSURL*)url {
-    if ([url.scheme isEqualToString:kSharedProtocol] ||
-        [url.scheme isEqualToString:kPayProtocol] ||
-        [url.scheme isEqualToString:kLocalAbilityProtocol]) {
+    if ([url.scheme compare:kSharedProtocol options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame ||
+        [url.scheme compare:kPayProtocol options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame ||
+        [url.scheme compare:kLocalAbilityProtocol options:NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedSame ) {
         
         return YES;
     }
@@ -79,14 +79,19 @@ NSString* const kGenerateQRCodeServer=@"GenerateQRCodeServer";
             subType = InvokeServerSubTypeGenerateQRCode;
         }
     }
-    
-    NSString *queryString = url.query;
-    NSString *paramJson = [queryString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSData *jsonData = [paramJson dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSError* error = nil;
-    NSDictionary *param = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+
+
+    NSString* queryString = [url.query stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];
+    NSArray *queryArray = [queryString componentsSeparatedByString:@"&"];
+    if (queryArray) {
+        for (NSString *temp in queryArray) {
+            NSArray *keyValue = [temp componentsSeparatedByString:@"="];
+            if (keyValue && [keyValue count] == 2) {
+                [param setObject:[keyValue lastObject] forKey:[keyValue firstObject]];
+            }
+        }
+    }
     
     if (finishBlock) {
         finishBlock(serverType,subType,param);
