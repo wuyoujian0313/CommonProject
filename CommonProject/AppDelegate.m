@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "NSData+Crypto.h"
 
-#import "ZipEx.h"
 
 @interface AppDelegate ()
 
@@ -32,29 +32,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self setupMainVC];
-    
-    
-    NSString *sPath = [[NSBundle mainBundle] bundlePath];
-    NSString* file1 = [sPath stringByAppendingString:@"/read_me.txt"];
-    NSString* file2 = [sPath stringByAppendingString:@"/JSPatch.js"];
-    NSString* file3 = [sPath stringByAppendingString:@"/template.html"];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString* unzipto = [documentsDirectory stringByAppendingString:@"/zip"];
-    //[fileManager createDirectoryAtPath:unzipto withIntermediateDirectories:YES attributes:nil error:nil];
-    NSString* ZipTo = [unzipto stringByAppendingString:@"/test.zip"];
-    unzipto = [unzipto stringByAppendingString:@"/test"];
-    
-    NSArray *arr = [NSArray arrayWithObjects:file1,file2,file3,nil];
-   // [ZipEx zipWithPassword:@"wuyoujian" sourceFiles:arr outZipFile:ZipTo];
-    
-    [ZipEx unZipWithPassword:@"wuyoujian" sourceFile:ZipTo outDirectory:unzipto];
-    
-    
-    
     return YES;
 }
 

@@ -27,6 +27,12 @@
 - (BOOL)isHaveChinese;
 - (NSString*)timeStringToChineseString;
 
--(NSString*)urlEncodingWithStringEncoding:(NSStringEncoding)encoding;
+- (NSString*)urlEncodingWithStringEncoding:(NSStringEncoding)encoding;
+
+- (NSString*)base64EncodeString;
+- (NSString*)base64DecodeString;
+
+- (NSData*)base64EncodeData;
+- (NSData*)base64DecodeData;
 
 @end

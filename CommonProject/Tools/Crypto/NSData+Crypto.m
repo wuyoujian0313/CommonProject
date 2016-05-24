@@ -351,5 +351,27 @@ NSString * const kNSDataCryptoErrorDomain = @"NSDataCryptoErrorDomain";
     return [hash lowercaseString];
 }
 
+- (NSData*)base64EncodeData {
+    
+    NSData *stringData =[self base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return stringData;
+}
+
+- (NSData*)base64DecodeData {
+    NSData *stringBase64Data = [[NSData alloc] initWithBase64EncodedData:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return stringBase64Data;
+}
+
+- (NSString*)base64EncodeString {
+    NSString *string = [self base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return string;
+}
+
+- (NSString*)base64DecodeString {
+    
+    NSData *stringData = [self base64DecodeData];
+    return [[NSString alloc] initWithData:stringData encoding:NSUTF8StringEncoding];
+}
+
 @end
 

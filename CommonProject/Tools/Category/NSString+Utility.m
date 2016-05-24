@@ -167,4 +167,31 @@ static NSString * const kCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()',*
     return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)self, (__bridge CFStringRef)kAFCharactersToLeaveUnescapedInQueryStringPairKey, (__bridge CFStringRef)kCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
+- (NSString*)base64EncodeString {
+    
+    NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *stringBase64 = [stringData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    return stringBase64;
+}
+
+- (NSString*)base64DecodeString {
+    NSData *stringBase64Data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    NSString *stringBase64 = [[NSString alloc] initWithData:stringBase64Data encoding:NSUTF8StringEncoding];
+    return stringBase64;
+}
+
+- (NSData*)base64EncodeData  {
+    NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return [stringData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+}
+
+- (NSData*)base64DecodeData {
+    NSData *stringBase64Data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    return stringBase64Data;
+}
+
 @end
