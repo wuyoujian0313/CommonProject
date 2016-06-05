@@ -7,18 +7,22 @@
 //
 
 #import "CommonWebViewController.h"
-
+#import "NJKWebViewProgress.h"
+#import "NJKWebViewProgressView.h"
 #import "LocalAbilityManager.h"
 #import "PayManager.h"
 #import "SharedManager.h"
 #import "URLParseManager.h"
 
 
-@interface CommonWebViewController ()<UIWebViewDelegate>
+@interface CommonWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
 @property (nonatomic, strong) UIWebView             *contentWebView;
 @property (nonatomic, strong) LocalAbilityManager   *localAbilityMgr;
 @property (nonatomic, strong) PayManager            *payMgr;
 @property (nonatomic, strong) SharedManager         *sharedMgr;
+
+@property (nonatomic, strong) NJKWebViewProgressView    *progressView;
+@property (nonatomic, strong) NJKWebViewProgress        *progressProxy;
 @end
 
 @implementation CommonWebViewController
@@ -29,28 +33,53 @@
     _sharedMgr = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar addSubview:_progressView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
     [self setNavTitle:@"WebView"];
     
+    CGFloat progressBarHeight = 2.f;
+    CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
+    [_progressView setProgress:0.0];
+    
     self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo getScreenSize].width, [DeviceInfo getScreenSize].height - [DeviceInfo navigationBarHeight])];
     
-    [_contentWebView setDelegate:self];
+    _progressProxy = [[NJKWebViewProgress alloc] init];
+    _progressProxy.webViewProxyDelegate = self;
+    _progressProxy.progressDelegate = self;
+    
+    [_contentWebView setDelegate:_progressProxy];
     
     NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
     NSString *htmlString = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     
-//    NSURL *url = [NSURL URLWithString:_urlString];
-//    [_contentWebView loadRequest:[NSURLRequest requestWithURL:url]];
-   [_contentWebView loadHTMLString:htmlString baseURL:nil];
+    NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
+    [_contentWebView loadRequest:[NSURLRequest requestWithURL:url]];
+  // [_contentWebView loadHTMLString:htmlString baseURL:nil];
     [self.view addSubview:_contentWebView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - NJKWebViewProgressDelegate
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {
+    if (progress < 0.1) {
+        [_progressView setProgress:0.1 animated:YES];
+    } else {
+        [_progressView setProgress:progress animated:YES];
+    }
+
 }
 
 

@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (CGFloat) screenScale;
 + (NSString*) getSystemVersion;
 + (CGSize) getScreenSize;
++ (CGFloat)screenWidth;
++ (CGFloat)screenHeight;
 + (CGSize) getApplicationSize;
 + (NSInteger) getSystemTime;
 + (NSString*) getSystemTimeStamp;
@@ -61,6 +63,9 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (NSString*) platformString;
 
 + (NSInteger) navigationBarHeight;
+
++ (NSString *)getIPAddress:(BOOL)preferIPv4;
++ (NSDictionary *)getIPAddresses;
 
 
 @end

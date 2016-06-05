@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "NSData+Crypto.h"
+#import "CacheURLProtocol.h"
+
 
 
 @interface AppDelegate ()
@@ -31,6 +32,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [NSURLProtocol registerClass:[CacheURLProtocol class]];
+    
     [self setupMainVC];
     return YES;
 }
