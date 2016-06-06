@@ -1,13 +1,13 @@
 //
 //  CacheURLProtocol.m
-//  
+//  CommonProject
 //
 //  Created by wuyoujian on 16/6/2.
-//
+//  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
 #import "CacheURLProtocol.h"
-#import "NSString+Utility.h"
+#import <CommonCrypto/CommonDigest.h>
 
 
 @interface WebCachedData : NSObject <NSCoding>
@@ -76,6 +76,10 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
     return request;
 }
 
++ (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b {
+    return [super requestIsCacheEquivalent:a toRequest:b];
+}
+
 + (BOOL)canInitWithTask:(NSURLSessionTask *)task {
     // 如果是startLoading里发起的request忽略掉，避免死循环
     return [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:task.currentRequest] == nil;
@@ -85,18 +89,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
     
     self = [super initWithTask:task cachedResponse:cachedResponse client:client];
     if (self != nil) {
-        NSURLSessionConfiguration *config = [[NSURLSessionConfiguration defaultSessionConfiguration] copy];
-        [self setConfiguration:config];
-        [_configuration setProtocolClasses:@[ [self class] ]];
-        
-        NSOperationQueue *q = [[NSOperationQueue alloc] init];
-        [q setMaxConcurrentOperationCount:1];
-        [q setName:kSessionQueueName];
-        [self setSessionQueue:q];
-        
-        NSURLSession *s = [NSURLSession sessionWithConfiguration:_configuration delegate:self delegateQueue:_sessionQueue];
-        s.sessionDescription = kSessionDescription;
-        [self setSession:s];
+        [self configProtocolParam];
     }
     return self;
 }
@@ -110,19 +103,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
     
     self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
     if (self != nil) {
-        NSURLSessionConfiguration *config = [[NSURLSessionConfiguration defaultSessionConfiguration] copy];
-        [self setConfiguration:config];
-        [_configuration setProtocolClasses:@[ [self class] ]];
-        
-        NSOperationQueue *q = [[NSOperationQueue alloc] init];
-        [q setMaxConcurrentOperationCount:1];
-        [q setName:kSessionQueueName];
-        [self setSessionQueue:q];
-        
-        NSURLSession *s = [NSURLSession sessionWithConfiguration:_configuration delegate:self delegateQueue:_sessionQueue];
-        s.sessionDescription = kSessionDescription;
-        [self setSession:s];
-        
+        [self configProtocolParam];
     }
     return self;
 }
@@ -190,10 +171,10 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 
         [[self client] URLProtocol:self wasRedirectedToRequest:redirectableRequest redirectResponse:response];
         
-        completionHandler(redirectableRequest);
-        
         [self.task cancel];
         [[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
+        
+        completionHandler(redirectableRequest);
     } else {
         completionHandler(newRequest);
     }
@@ -231,9 +212,39 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 }
 
 #pragma mark - private APIs
+
+- (void)configProtocolParam {
+    NSURLSessionConfiguration *config = [[NSURLSessionConfiguration defaultSessionConfiguration] copy];
+    [config setProtocolClasses:@[ [self class] ]];
+    [self setConfiguration:config];
+    
+    NSOperationQueue *q = [[NSOperationQueue alloc] init];
+    [q setMaxConcurrentOperationCount:1];
+    [q setName:kSessionQueueName];
+    [self setSessionQueue:q];
+    
+    NSURLSession *s = [NSURLSession sessionWithConfiguration:_configuration delegate:self delegateQueue:_sessionQueue];
+    s.sessionDescription = kSessionDescription;
+    [self setSession:s];
+}
+
+- (NSString*)md5Encode:(NSString*)srcString {
+    const char *cStr = [srcString UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, (unsigned int)strlen(cStr), result);
+    
+    NSString *formatString = @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+    
+    return [NSString stringWithFormat:formatString,
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]];
+}
+
 - (NSString *)cachePathForRequest:(NSURLRequest *)aRequest {
     NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *fileName = [[[aRequest URL] absoluteString] md5EncodeUpper:NO];
+    NSString *fileName = [self md5Encode:[[aRequest URL] absoluteString]];
     return [cachesPath stringByAppendingPathComponent:fileName];
 }
 
