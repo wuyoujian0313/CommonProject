@@ -65,6 +65,15 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 
 @implementation CacheURLProtocol
 
++ (BOOL)registerCacheURLProtocol {
+    return [[self class] registerClass:[self class]];
+}
+
+
++ (void)unregisterCacheURLProtocol {
+    [[self class] unregisterClass:[self class]];
+}
+
 - (void)dealloc {
     [self.task cancel];
     
@@ -117,6 +126,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
     
     WebCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
     
+    // 这地方不能判断cache.data字段，有可能是一个重定向的request
     if (cache) {
         // 本地有缓存
         NSData *data = [cache data];

@@ -9,4 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface CacheURLProtocol : NSURLProtocol
+
++ (BOOL)registerCacheURLProtocol;
++ (void)unregisterCacheURLProtocol;
+
 @end
