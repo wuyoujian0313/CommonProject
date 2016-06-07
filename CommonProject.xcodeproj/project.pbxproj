@@ -26,6 +26,9 @@
 		AF24B7861CE5C362003E3B19 /* QRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF24B7851CE5C362003E3B19 /* QRViewController.m */; };
 		AF24B7891CE5D5BB003E3B19 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF24B7871CE5D5BB003E3B19 /* line@2x.png */; };
 		AF24B78A1CE5D5BB003E3B19 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF24B7881CE5D5BB003E3B19 /* pick_bg@2x.png */; };
+		AF4CD0FD1D065D9600CC4BB5 /* HomeTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4CD0FC1D065D9600CC4BB5 /* HomeTabBarController.m */; };
+		AF4CD1011D0663D200CC4BB5 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4CD1001D0663D200CC4BB5 /* CommonViewController.m */; };
+		AF4CD1041D0663F700CC4BB5 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4CD1031D0663F700CC4BB5 /* DeviceViewController.m */; };
 		AF567BFE1CF2A80E0080E901 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AF567BF41CF2A80E0080E901 /* ioapi.c */; };
 		AF567BFF1CF2A80E0080E901 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = AF567BF61CF2A80E0080E901 /* mztools.c */; };
 		AF567C001CF2A80E0080E901 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AF567BF81CF2A80E0080E901 /* unzip.c */; };
@@ -228,6 +231,12 @@
 		AF24B7851CE5C362003E3B19 /* QRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRViewController.m; sourceTree = "<group>"; };
 		AF24B7871CE5D5BB003E3B19 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		AF24B7881CE5D5BB003E3B19 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
+		AF4CD0FB1D065D9600CC4BB5 /* HomeTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeTabBarController.h; path = UI/HomeTabBarController.h; sourceTree = "<group>"; };
+		AF4CD0FC1D065D9600CC4BB5 /* HomeTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeTabBarController.m; path = UI/HomeTabBarController.m; sourceTree = "<group>"; };
+		AF4CD0FF1D0663D200CC4BB5 /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonViewController.h; path = UI/CommonViewController.h; sourceTree = "<group>"; };
+		AF4CD1001D0663D200CC4BB5 /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonViewController.m; path = UI/CommonViewController.m; sourceTree = "<group>"; };
+		AF4CD1021D0663F700CC4BB5 /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceViewController.h; path = UI/DeviceViewController.h; sourceTree = "<group>"; };
+		AF4CD1031D0663F700CC4BB5 /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceViewController.m; path = UI/DeviceViewController.m; sourceTree = "<group>"; };
 		AF567BF31CF2A80E0080E901 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		AF567BF41CF2A80E0080E901 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		AF567BF51CF2A80E0080E901 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -636,6 +645,19 @@
 				AF24B7771CE5959C003E3B19 /* DeviceInfo.m */,
 			);
 			path = DeviceInfo;
+			sourceTree = "<group>";
+		};
+		AF4CD0FE1D06638800CC4BB5 /* demo */ = {
+			isa = PBXGroup;
+			children = (
+				AF4CD0FB1D065D9600CC4BB5 /* HomeTabBarController.h */,
+				AF4CD0FC1D065D9600CC4BB5 /* HomeTabBarController.m */,
+				AF4CD0FF1D0663D200CC4BB5 /* CommonViewController.h */,
+				AF4CD1001D0663D200CC4BB5 /* CommonViewController.m */,
+				AF4CD1021D0663F700CC4BB5 /* DeviceViewController.h */,
+				AF4CD1031D0663F700CC4BB5 /* DeviceViewController.m */,
+			);
+			name = demo;
 			sourceTree = "<group>";
 		};
 		AF567BF11CF2A80E0080E901 /* minzip */ = {
@@ -1047,6 +1069,7 @@
 		AFBAEE0A1CBE0E1B006B9056 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AF4CD0FE1D06638800CC4BB5 /* demo */,
 				AFBAEE0B1CBE0E8B006B9056 /* LoginVC.h */,
 				AFBAEE0C1CBE0E8B006B9056 /* LoginVC.m */,
 				AFBAEE0E1CBE0EE3006B9056 /* HomeVC.h */,
@@ -1474,6 +1497,7 @@
 				AFE14A731CCDB24F000ADD20 /* View+MASAdditions.m in Sources */,
 				AFE14A6B1CCDB24F000ADD20 /* MASCompositeConstraint.m in Sources */,
 				AFE14AA21CCDB810000ADD20 /* LineView.m in Sources */,
+				AF4CD0FD1D065D9600CC4BB5 /* HomeTabBarController.m in Sources */,
 				AFE14AA71CCDB810000ADD20 /* NSObject+Utility.m in Sources */,
 				AFBAEDE11CBDE8F4006B9056 /* OHTouchesGestureRecognizer.m in Sources */,
 				AF24B77E1CE5B0E4003E3B19 /* MailSMSController.m in Sources */,
@@ -1507,6 +1531,7 @@
 				AFBAEDCD1CBDE8F4006B9056 /* TTTColorFormatter.m in Sources */,
 				AFE14A5D1CCDB24F000ADD20 /* JPCGGeometry.m in Sources */,
 				AFBAEDE01CBDE8F4006B9056 /* OHParagraphStyle.m in Sources */,
+				AF4CD1041D0663F700CC4BB5 /* DeviceViewController.m in Sources */,
 				AFE14A611CCDB24F000ADD20 /* JPCoreGraphics.m in Sources */,
 				AF24B7811CE5B1D8003E3B19 /* ImagePickerController.m in Sources */,
 				AF146EC81CEAF134009116E1 /* URLParseManager.m in Sources */,
@@ -1516,6 +1541,7 @@
 				AFBAEDE31CBDE8F4006B9056 /* OHASBasicMarkupParser.m in Sources */,
 				AFBAEDE21CBDE8F4006B9056 /* OHASBasicHTMLParser.m in Sources */,
 				AF24B77B1CE5AAB0003E3B19 /* UIView+SizeUtility.m in Sources */,
+				AF4CD1011D0663D200CC4BB5 /* CommonViewController.m in Sources */,
 				AFE14AA61CCDB810000ADD20 /* NetworkTask.m in Sources */,
 				AFBAEDDF1CBDE8F4006B9056 /* OHAttributedLabel.m in Sources */,
 				AFE14A721CCDB24F000ADD20 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,

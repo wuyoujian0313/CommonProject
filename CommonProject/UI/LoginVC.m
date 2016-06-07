@@ -52,8 +52,11 @@
 
 - (void)buttonAction:(UIButton *)sender {
     
-    CommonWebViewController *vc = [[CommonWebViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    AppDelegate *app = [AppDelegate shareMyApplication];
+    [app.mainVC switchToHomeVC];
+    
+//    CommonWebViewController *vc = [[CommonWebViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
     
 //    LocalAbilityManager *obj =  [[LocalAbilityManager alloc] init];
 //    self.obj = obj;

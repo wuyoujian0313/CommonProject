@@ -8,14 +8,15 @@
 
 #import "MainControllerManager.h"
 #import "LoginVC.h"
-#import "HomeVC.h"
+//#import "HomeVC.h"
+#import "HomeTabBarController.h"
 
 @interface MainControllerManager ()
 @property (nonatomic, strong) UIViewController              *rootVC;
 @property (nonatomic, strong) WYJNavigationController       *loginNav;
-@property (nonatomic, strong) WYJNavigationController       *homeNav;
+@property (nonatomic, strong) HomeTabBarController          *homeTabController;
 
-@property (nonatomic, strong) WYJNavigationController       *currentNav;
+@property (nonatomic, strong) UIViewController              *currentController;
 @end
 
 @implementation MainControllerManager
@@ -29,11 +30,11 @@
 }
 
 - (nullable UIViewController *)childViewControllerForStatusBarHidden {
-    return [_currentNav topViewController];
+    return _currentController;
 }
 
 - (nullable UIViewController *)childViewControllerForStatusBarStyle {
-    return [_currentNav topViewController];;
+    return _currentController;
 }
 
 - (void)switchToHomeVC {
@@ -41,7 +42,7 @@
 }
 
 - (void)switchToLoginVC {
-    [self switchToLoginVCFrom:_homeNav];
+    [self switchToLoginVCFrom:_homeTabController];
 }
 
 // 创建一个空白的rootVC用于页面切换
@@ -57,12 +58,12 @@
 - (void)switchToHomeVCFrom:(UIViewController*)fromVC {
     [self setupHomeController];
     
-    [self transitionFromViewController:fromVC toViewController:_homeNav duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+    [self transitionFromViewController:fromVC toViewController:_homeTabController duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         //
-        [_currentNav removeFromParentViewController];
-        self.currentNav = _homeNav;
+        [_currentController removeFromParentViewController];
+        self.currentController = _homeTabController;
         
-        [_currentNav didMoveToParentViewController:self];
+        [_currentController didMoveToParentViewController:self];
     } completion:^(BOOL finished) {
         //
     }];
@@ -73,10 +74,10 @@
     
     [self transitionFromViewController:fromVC toViewController:_loginNav duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         //
-        [_currentNav removeFromParentViewController];
-        self.currentNav = _loginNav;
+        [_currentController removeFromParentViewController];
+        self.currentController = _loginNav;
         
-        [_currentNav didMoveToParentViewController:self];
+        [_currentController didMoveToParentViewController:self];
     } completion:^(BOOL finished) {
         //
     }];
@@ -92,11 +93,10 @@
 
 - (void)setupHomeController {
     
-    HomeVC *controller = [[HomeVC alloc] init];
-    WYJNavigationController *homeNav = [[WYJNavigationController alloc] initWithRootViewController:controller];
-    self.homeNav = homeNav;
-    [self addChildViewController:_homeNav];
-    [self.view addSubview:_homeNav.view];
+    HomeTabBarController *controller = [[HomeTabBarController alloc] init];
+    self.homeTabController = controller;
+    [self addChildViewController:_homeTabController];
+    [self.view addSubview:_homeTabController.view];
 }
 
 

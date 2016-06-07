@@ -9,16 +9,19 @@
 #import "CacheURLProtocol.h"
 #import <CommonCrypto/CommonDigest.h>
 
+static NSUInteger const kCacheExpireTime = 600;//缓存的时间  默认设置为600秒
 
 @interface WebCachedData : NSObject <NSCoding>
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSURLResponse *response;
 @property (nonatomic, strong) NSURLRequest *redirectRequest;
+@property (nonatomic, strong) NSDate *date;
 @end
 
 static NSString *const kDataKey = @"data";
 static NSString *const kResponseKey = @"response";
 static NSString *const kRedirectRequestKey = @"redirectRequest";
+static NSString *const kDateKey = @"date";
 
 @implementation WebCachedData
 
@@ -26,6 +29,7 @@ static NSString *const kRedirectRequestKey = @"redirectRequest";
     [aCoder encodeObject:[self data] forKey:kDataKey];
     [aCoder encodeObject:[self response] forKey:kResponseKey];
     [aCoder encodeObject:[self redirectRequest] forKey:kRedirectRequestKey];
+    [aCoder encodeObject:[self date] forKey:kDateKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -34,6 +38,7 @@ static NSString *const kRedirectRequestKey = @"redirectRequest";
         [self setData:[aDecoder decodeObjectForKey:kDataKey]];
         [self setResponse:[aDecoder decodeObjectForKey:kResponseKey]];
         [self setRedirectRequest:[aDecoder decodeObjectForKey:kRedirectRequestKey]];
+        [self setDate:[aDecoder decodeObjectForKey:kDateKey]];
     }
     
     return self;
@@ -118,27 +123,40 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 
         NSURLResponse *response = [cache response];
         NSURLRequest *redirectRequest = [cache redirectRequest];
-        if (redirectRequest) {
-            [[self client] URLProtocol:self wasRedirectedToRequest:redirectRequest redirectResponse:response];
+        NSDate *date = [cache date];
+        if ([self expireCacheData:date]) {
+            // 数据过期
+            NSLog(@"request Data-expire!");
+            NSMutableURLRequest *recursiveRequest = [[self request] mutableCopy];
+            [[self class] setProperty:@YES forKey:kOurRecursiveRequestFlagProperty inRequest:recursiveRequest];
+            self.task = [self.session dataTaskWithRequest:recursiveRequest];
+            [self.task resume];
+            
         } else {
-            
-            if (data) {
-                [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-                [[self client] URLProtocol:self didLoadData:data];
-                [[self client] URLProtocolDidFinishLoading:self];
+            if (redirectRequest) {
+                [[self client] URLProtocol:self wasRedirectedToRequest:redirectRequest redirectResponse:response];
             } else {
-                // 本地没有缓存上data
-                NSMutableURLRequest *recursiveRequest = [[self request] mutableCopy];
-                [[self class] setProperty:@YES forKey:kOurRecursiveRequestFlagProperty inRequest:recursiveRequest];
-                self.task = [self.session dataTaskWithRequest:recursiveRequest];
-                [self.task resume];
+                
+                if (data) {
+                    NSLog(@"cached Data!");
+                    [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+                    [[self client] URLProtocol:self didLoadData:data];
+                    [[self client] URLProtocolDidFinishLoading:self];
+                } else {
+                    // 本地没有缓存上data
+                    NSLog(@"request Data-uncached data!");
+                    NSMutableURLRequest *recursiveRequest = [[self request] mutableCopy];
+                    [[self class] setProperty:@YES forKey:kOurRecursiveRequestFlagProperty inRequest:recursiveRequest];
+                    self.task = [self.session dataTaskWithRequest:recursiveRequest];
+                    [self.task resume];
+                }
             }
-            
-            
         }
+        
     } else {
         
         // 本地无缓存
+        NSLog(@"request Data-no data!");
         NSMutableURLRequest *recursiveRequest = [[self request] mutableCopy];
         [[self class] setProperty:@YES forKey:kOurRecursiveRequestFlagProperty inRequest:recursiveRequest];
         self.task = [self.session dataTaskWithRequest:recursiveRequest];
@@ -166,6 +184,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
         WebCachedData *cache = [[WebCachedData alloc] init];
         [cache setResponse:response];
         [cache setData:[self data]];
+        [cache setDate:[NSDate date]];
         [cache setRedirectRequest:redirectableRequest];
         [NSKeyedArchiver archiveRootObject:cache toFile:cachePath];
 
@@ -205,6 +224,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
         WebCachedData *cache = [[WebCachedData alloc] init];
         [cache setResponse:[self response]];
         [cache setData:[self data]];
+        [cache setDate:[NSDate date]];
         [NSKeyedArchiver archiveRootObject:cache toFile:cachePath];
         
         [[self client] URLProtocolDidFinishLoading:self];
@@ -249,13 +269,29 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 }
 
 - (void)appendData:(NSData *)newData {
-    if ([self data]) {
+    if ([self data] == nil) {
         self.data = [[NSMutableData alloc] initWithCapacity:0];
     }
     
     if (newData) {
         [[self data] appendData:newData];
     }
+}
+
+- (BOOL)expireCacheData:(NSDate *)date {
+    
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:date];
+    BOOL bRet = timeInterval < kCacheExpireTime;
+    if (!bRet) {
+        // 过期删除缓存
+        NSString *filename = [self cachePathForRequest:[self request]];
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
+        if ([defaultManager isDeletableFileAtPath:filename]) {
+            [defaultManager removeItemAtPath:filename error:nil];
+        }
+    }
+    
+    return !bRet;
 }
 
 @end
