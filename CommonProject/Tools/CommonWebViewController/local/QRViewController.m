@@ -22,6 +22,9 @@
 @implementation QRViewController
 
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 -(void)dealloc {
     [_timer stopDispatchTimer];
@@ -31,6 +34,7 @@
     
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
+    
     [self layoutCaptureView];
 }
 
@@ -76,6 +80,13 @@
     }
     
     [output rectOfInterest];
+    
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [cancelBtn setFrame:CGRectMake(10, 20, 40, 30)];
+    [cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelBtn];
 }
 
 - (void)startScanQRCode {
@@ -100,8 +111,6 @@
     self.lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 220, 2)];
     _lineImageView.image = [UIImage imageNamed:@"line.png"];
     [imageView addSubview:_lineImageView];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelBtnClick:)];
     
     
     __weak QRViewController *wself = self;

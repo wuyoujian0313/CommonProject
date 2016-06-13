@@ -9,7 +9,7 @@
 #import "CacheURLProtocol.h"
 #import <CommonCrypto/CommonDigest.h>
 
-static NSUInteger const kCacheExpireTime = 600;//缓存的时间  默认设置为600秒
+static NSUInteger const kCacheExpireTime = 10;//缓存的时间  默认设置为600秒
 
 @interface WebCachedData : NSObject <NSCoding>
 @property (nonatomic, strong) NSData *data;
@@ -289,6 +289,10 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 }
 
 - (BOOL)expireCacheData:(NSDate *)date {
+    
+    if (!date) {
+        return YES;
+    }
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:date];
     BOOL bRet = timeInterval < kCacheExpireTime;

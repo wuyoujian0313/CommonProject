@@ -39,14 +39,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationItem.leftBarButtonItem = nil;
+    [self setNavTitle:self.tabBarItem.title];
     // 注册监听
     BOOL bSuc = [CacheURLProtocol registerCacheURLProtocol];
     if (bSuc) {
         NSLog(@"CacheURLProtocol register success!");
     }
-
-    [self setNavTitle:@"WebView"];
     
     CGFloat progressBarHeight = 2.f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
@@ -62,7 +61,7 @@
     self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo getScreenSize].width, [DeviceInfo getScreenSize].height - [DeviceInfo navigationBarHeight])];
     [_contentWebView setDelegate:_progressProxy];
     
-#if 1
+#if 0
     NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
     [_contentWebView loadRequest:[NSURLRequest requestWithURL:url]];
 #else

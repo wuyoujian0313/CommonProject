@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationItem.leftBarButtonItem = nil;
     [self setNavTitle:@"登录"];
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];

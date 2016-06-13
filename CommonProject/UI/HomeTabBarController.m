@@ -33,15 +33,24 @@
     [self.tabBar setTintColor:[UIColor colorWithHex:0x12b8f6]];
 
     CommonWebViewController *webVC = [[CommonWebViewController alloc] init];
-    UITabBarItem *itemObj1 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0];
+    UITabBarItem *itemObj1 = [[UITabBarItem alloc] initWithTitle:@"H5能力"
+                                                           image:[UIImage imageNamed:@"tabbar_circle"]
+                                                   selectedImage:nil];
+    itemObj1.tag = 0;
     [webVC setTabBarItem:itemObj1];
     
     CommonViewController *commonVC = [[CommonViewController alloc] init];
-    UITabBarItem *itemObj2 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
+    UITabBarItem *itemObj2 = [[UITabBarItem alloc] initWithTitle:@"本地能力"
+                                                           image:[UIImage imageNamed:@"tabbar_home"]
+                                                   selectedImage:nil];
+    itemObj2.tag = 1;
     [commonVC setTabBarItem:itemObj2];
     
     DeviceViewController *deviceVC = [[DeviceViewController alloc] init];
-    UITabBarItem *itemObj3 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemRecents tag:2];
+    UITabBarItem *itemObj3 = [[UITabBarItem alloc] initWithTitle:@"设备能力"
+                                                           image:[UIImage imageNamed:@"tabbar_question"]
+                                                   selectedImage:nil];
+    itemObj3.tag = 2;
     [deviceVC setTabBarItem:itemObj3];
     
     WYJNavigationController *nav1 = [[WYJNavigationController alloc] initWithRootViewController:webVC];
