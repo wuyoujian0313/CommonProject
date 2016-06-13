@@ -48,7 +48,7 @@
                       @{@"name":@"指纹",@"type":@""},
                       @{@"name":@"拍照",@"type":@""},
                       @{@"name":@"录像",@"type":@""},
-                      @{@"name":@"二维码&条形码",@"type":@""},
+                      @{@"name":@"二维码&条形码",@"type":@"QRCode"},
                       ];
 }
 
@@ -64,6 +64,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *config = [_abilitys objectAtIndex:indexPath.row];
+    NSString *type = config[@"type"];
+    if ([type isEqualToString:@"QRCode"]) {
+        ScanQRCodeViewController *vc = [[ScanQRCodeViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 
