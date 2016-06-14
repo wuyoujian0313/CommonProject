@@ -34,7 +34,7 @@
     [loginBtn setClipsToBounds:YES];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [loginBtn setFrame:CGRectMake(11, 120, self.view.frame.size.width - 22, 45)];
+    [loginBtn setFrame:CGRectMake(11, 200, self.view.frame.size.width - 22, 45)];
     [loginBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
 }

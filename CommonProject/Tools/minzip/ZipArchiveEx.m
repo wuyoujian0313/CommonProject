@@ -32,6 +32,7 @@
         BOOL bSuc = [zip UnzipFileTo:directory overWrite:YES];
         if (!bSuc) {
             NSLog(@"解压文件失败！");
+            [zip UnzipCloseFile];
             return bSuc;
         }
         [zip UnzipCloseFile];
@@ -61,6 +62,8 @@
                 [zip addFileToZip:sourceFile newname:[sourceFile lastPathComponent]];
             } else {
                 NSLog(@"sourceFile:%@ 不存在",sourceFile);
+                bSuc = [zip CloseZipFile2];
+                return NO;
             }
         }
         

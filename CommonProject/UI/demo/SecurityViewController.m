@@ -110,8 +110,40 @@
             [self presentViewController:alertController animated:YES completion:nil];
 
         } else if ([name hasPrefix:@"Zip"]) {
+            NSString    *bundlePath = [[NSBundle mainBundle] bundlePath];
+            NSString    *file1 = [bundlePath stringByAppendingString:@"/template.html"];
+            NSString    *file2 = [bundlePath stringByAppendingString:@"/JSPatch.js"];
+            NSArray     *files = @[file1,file2];
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString* unzipto = [documentsDirectory stringByAppendingString:@"/zip"];
+            [fileManager createDirectoryAtPath:unzipto withIntermediateDirectories:YES attributes:nil error:nil];
+            NSString* zipTo = [unzipto stringByAppendingString:@"/test.zip"];
+            
+            BOOL bSuc = [ZipArchiveEx zipWithPassword:@"wuyoujian" sourceFiles:files outZipFile:zipTo];
+            if (bSuc) {
+                [FadePromptView showPromptStatus:@"压缩成功！" duration:2.0 finishBlock:^{
+                    //
+                }];
+            }
             
         } else if ([name hasPrefix:@"unZip"]) {
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString* unzipto = [documentsDirectory stringByAppendingString:@"/zip"];
+            [fileManager createDirectoryAtPath:unzipto withIntermediateDirectories:YES attributes:nil error:nil];
+            NSString* zipTo = [unzipto stringByAppendingString:@"/test.zip"];
+            
+            BOOL bSuc = [ZipArchiveEx unZipWithPassword:@"wuyoujian" sourceFile:zipTo outDirectory:[unzipto stringByAppendingPathComponent:@"test"]];
+            if (bSuc) {
+                [FadePromptView showPromptStatus:@"解压成功！" duration:2.0 finishBlock:^{
+                    //
+                }];
+            }
             
         } else if ([name hasPrefix:@"Sqlite"]) {
             
