@@ -9,10 +9,13 @@
 #import "DeviceViewController.h"
 #import "BluetoothEngine.h"
 #import "ScanQRCodeViewController.h"
+#import "LocalAbilityManager.h"
 
 @interface DeviceViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
+
+@property (nonatomic, strong) LocalAbilityManager   *localAbilityMgr;
 @end
 
 @implementation DeviceViewController
@@ -43,12 +46,13 @@
 }
 
 - (void)configAbilitys {
-    self.abilitys = @[@{@"name":@"蓝牙通信",@"type":@""},
-                      @{@"name":@"iBeacon",@"type":@""},
-                      @{@"name":@"指纹",@"type":@""},
-                      @{@"name":@"拍照",@"type":@""},
-                      @{@"name":@"录像",@"type":@""},
+    self.abilitys = @[
+                      @{@"name":@"指纹",@"type":@"TouchID"},
+                      @{@"name":@"拍照",@"type":@"Photograph"},
+                      @{@"name":@"录像",@"type":@"Videotape"},
                       @{@"name":@"二维码&条形码",@"type":@"QRCode"},
+                      @{@"name":@"蓝牙通信",@"type":@""},
+                      @{@"name":@"iBeacon",@"type":@""},
                       ];
 }
 
@@ -69,7 +73,32 @@
     NSString *type = config[@"type"];
     if ([type isEqualToString:@"QRCode"]) {
         ScanQRCodeViewController *vc = [[ScanQRCodeViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    } else if ([type isEqualToString:@"Photograph"]) {
+        
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        self.localAbilityMgr = obj;
+        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+            //
+        }];
+    
+    } else if ([type isEqualToString:@"Videotape"]) {
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        self.localAbilityMgr = obj;
+        [obj pickerCameraController:self type:LocalAbilityTypePickerVideotape finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+            //
+        }];
+    } else if ([type isEqualToString:@"TouchID"]) {
+        
+        [LocalAbilityManager touchIDPolicy:^(NSError *error) {
+            //
+            if (!error) {
+                [FadePromptView showPromptStatus:@"指纹验证通过" duration:2.0 finishBlock:^{
+                    //
+                }];
+            }
+        }];
     }
 }
 

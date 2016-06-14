@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, LocalAbilityType) {
     LocalAbilityTypePickerVideotape,
 };
 
+typedef void(^touchIDFinish)(NSError *error);
+
 @interface LocalAbilityManager : NSObject
 
 // 建议不用单例，建议把LocalAbilityManager作为类一个strong成员变量
@@ -34,10 +36,14 @@ typedef NS_ENUM(NSInteger, LocalAbilityType) {
 
 // 生成二维码
 + (UIImage *)generateQRCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
+
 // 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
 
+// 拨打电话可以返回当前页面
 + (void)telephoneToNumber:(NSString*)phoneNumber;
 
+// 指纹验证
++ (void)touchIDPolicy:(touchIDFinish)finish;
 
 @end

@@ -96,7 +96,12 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 
 + (BOOL)canInitWithTask:(NSURLSessionTask *)task {
     // 如果是startLoading里发起的request忽略掉，避免死循环
-    return [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:task.currentRequest] == nil;
+    BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:task.currentRequest] == nil;
+    if (recurisve && [[task.currentRequest.URL scheme] hasPrefix:@"http"]) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (instancetype)initWithTask:(NSURLSessionTask *)task cachedResponse:(nullable NSCachedURLResponse *)cachedResponse client:(nullable id <NSURLProtocolClient>)client {
@@ -110,7 +115,12 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
     // 如果是startLoading里发起的request忽略掉，避免死循环
-    return [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:request] == nil;
+    BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:request] == nil;
+    if (recurisve && [[request.URL scheme] hasPrefix:@"http"]) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id <NSURLProtocolClient>)client {

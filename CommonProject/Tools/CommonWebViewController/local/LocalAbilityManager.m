@@ -8,6 +8,7 @@
 
 #import "LocalAbilityManager.h"
 #import "UIImage+Utility.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface LocalAbilityManager ()
 
@@ -168,6 +169,73 @@
         }];
     } else {
         
+    }
+}
+
++ (void)touchIDPolicy:(touchIDFinish)finish {
+    
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    BOOL success = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+    
+    if (success) {
+        
+        // 有指纹设备且设置了指纹
+        context.localizedFallbackTitle = @"";
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@"通过验证指纹解锁" reply:^(BOOL success, NSError* error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (error) {
+                    
+                    switch (error.code) {
+                        case LAErrorAuthenticationFailed:
+                        case LAErrorUserCancel:
+                        case LAErrorSystemCancel:
+                        case LAErrorUserFallback:
+                        case LAErrorPasscodeNotSet:
+                        case LAErrorTouchIDNotAvailable:
+                        case LAErrorTouchIDNotEnrolled:
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    // 验证成功
+                }
+                
+                if (finish) {
+                    finish(error);
+                }
+            });
+        }];
+    } else {
+        //
+        if (error.code == kLAErrorPasscodeNotSet || error.code == kLAErrorTouchIDNotEnrolled) {
+            // 有指纹设备，但未设置
+            
+            if ([DeviceInfo isOS9]) {
+                
+                UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    //
+                }];
+                //
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"指纹提示" message:@"请先在系统\"设置 > Touch ID与密码\"开启" preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:aAction2];
+                
+                AppDelegate *app =  [AppDelegate shareMyApplication];
+                
+                [app.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"指纹提示" message:@"请先在系统\"设置 > Touch ID与密码\"开启" delegate:self cancelButtonTitle:@"知道了"otherButtonTitles:nil];
+                [alert show];
+            }
+            
+            if (finish) {
+                finish(error);
+            }
+        }
     }
 }
 
