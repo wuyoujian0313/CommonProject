@@ -93,16 +93,21 @@
     return strVer;
 }
 
-+ (CGSize)getScreenSize {
++ (CGSize)getLogicScreenSize {
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     return screenSize;
 }
 
++ (CGSize)getDeviceScreenSize {
+    CGSize screenSize = [[UIScreen mainScreen] currentMode].size;
+    return screenSize;
+}
+
 + (CGFloat)screenWidth {
-    return [self getScreenSize].width;
+    return [self getLogicScreenSize].width;
 }
 + (CGFloat)screenHeight {
-    return [self getScreenSize].height;
+    return [self getLogicScreenSize].height;
 }
 
 
@@ -321,6 +326,9 @@
         {
             detected = MODEL_IPHONE_6SPLUS;
         }
+        else if (!strcmp(u.machine, "iPhone8,4")) {
+            detected = MODEL_IPHONE_SE;
+        }
     }
     
     return detected;
@@ -404,6 +412,9 @@
             
         case MODEL_IPHONE_6SPLUS:
             returnValue = @"iPhone 6S Plus";
+            break;
+        case MODEL_IPHONE_SE:
+            returnValue = @"iPhone SE";
             break;
             
         case MODEL_IPAD:

@@ -77,11 +77,11 @@
             NSData *decData = nil;
             if ([name hasPrefix:@"DES"]) {
 
-                desData = [d DESEncryptedDataWithKey:@"ai" error:nil];
-                decData = [desData decryptedDESDataWithKey:@"ai" error:nil];
+                desData = [d DESEncryptedDataWithKey:@"ai-cs" error:nil];
+                decData = [desData decryptedDESDataWithKey:@"ai-cs" error:nil];
             } else {
-                desData = [d AES128EncryptedDataWithKey:@"ai" error:nil];
-                decData = [desData decryptedAES128DataWithKey:@"ai" error:nil];
+                desData = [d AES128EncryptedDataWithKey:@"ai-cs" error:nil];
+                decData = [desData decryptedAES128DataWithKey:@"ai-cs" error:nil];
             }
            
             NSString *base64 = [desData base64EncodeString];
@@ -122,7 +122,7 @@
             [fileManager createDirectoryAtPath:unzipto withIntermediateDirectories:YES attributes:nil error:nil];
             NSString* zipTo = [unzipto stringByAppendingString:@"/test.zip"];
             
-            BOOL bSuc = [ZipArchiveEx zipWithPassword:@"wuyoujian" sourceFiles:files outZipFile:zipTo];
+            BOOL bSuc = [ZipArchiveEx zipWithPassword:@"ai-cs" sourceFiles:files outZipFile:zipTo];
             if (bSuc) {
                 [FadePromptView showPromptStatus:@"压缩成功！" duration:2.0 finishBlock:^{
                     //
@@ -138,7 +138,7 @@
             [fileManager createDirectoryAtPath:unzipto withIntermediateDirectories:YES attributes:nil error:nil];
             NSString* zipTo = [unzipto stringByAppendingString:@"/test.zip"];
             
-            BOOL bSuc = [ZipArchiveEx unZipWithPassword:@"wuyoujian" sourceFile:zipTo outDirectory:[unzipto stringByAppendingPathComponent:@"test"]];
+            BOOL bSuc = [ZipArchiveEx unZipWithPassword:@"ai-cs" sourceFile:zipTo outDirectory:[unzipto stringByAppendingPathComponent:@"test"]];
             if (bSuc) {
                 [FadePromptView showPromptStatus:@"解压成功！" duration:2.0 finishBlock:^{
                     //

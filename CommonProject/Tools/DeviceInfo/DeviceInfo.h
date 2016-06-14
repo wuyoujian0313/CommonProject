@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
     MODEL_IPHONE_6PLUS,
     MODEL_IPHONE_6S,
     MODEL_IPHONE_6SPLUS,
+    MODEL_IPHONE_SE,
     MODEL_IPAD
 };
 
@@ -49,7 +50,8 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (BOOL) isRetinaScreen;
 + (CGFloat) screenScale;
 + (NSString*) getSystemVersion;
-+ (CGSize) getScreenSize;
++ (CGSize) getLogicScreenSize;
++ (CGSize)getDeviceScreenSize;
 + (CGFloat)screenWidth;
 + (CGFloat)screenHeight;
 + (CGSize) getApplicationSize;

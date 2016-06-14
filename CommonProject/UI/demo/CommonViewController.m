@@ -45,7 +45,7 @@
 - (void)configAbilitys {
     self.abilitys = @[@{@"name":@"安全相关",@"type":@"JumpToPage",@"Class":@"SecurityViewController"},
                       @{@"name":@"数据处理",@"type":@""},
-                      @{@"name":@"设备信息",@"type":@""},
+                      @{@"name":@"设备信息",@"type":@"AlertView"},
                       @{@"name":@"WebView缓存",@"type":@"JumpToPage",@"Class":@"WebCacheViewController"},
                       ];
 }
@@ -72,6 +72,28 @@
         
         obj.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:obj animated:YES];
+        
+    } else if ([type isEqualToString:@"AlertView"]) {
+        
+        NSMutableString *msg = [[NSMutableString alloc] initWithCapacity:0];
+        
+        [msg appendFormat:@"设备版本名称：%@\n",[DeviceInfo platform]];
+        [msg appendFormat:@"设备名称：%@\n",[DeviceInfo returnDeviceName:![DeviceInfo isEmulator]]];
+        [msg appendFormat:@"是否越狱：%@\n",[DeviceInfo isJailBreak]?@"YES":@"NO"];
+        [msg appendFormat:@"设备IP：%@\n",[DeviceInfo getIPAddress:YES]];
+        [msg appendFormat:@"系统版本号：%@\n",[DeviceInfo getSystemVersion]];
+        [msg appendFormat:@"系统时间戳：%ld\n",[DeviceInfo getSystemTime]];
+        [msg appendFormat:@"屏幕尺寸：%ldx%ld\n",(NSInteger)[DeviceInfo getDeviceScreenSize].width,(NSInteger)[DeviceInfo getDeviceScreenSize].height];
+        [msg appendFormat:@"APP版本号：%@\n",[DeviceInfo getSoftVersion]];
+        
+        UIAlertAction *aAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //
+        }];
+        //
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"设备信息" message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:aAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
