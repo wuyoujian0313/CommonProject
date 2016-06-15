@@ -16,9 +16,9 @@ typedef NS_ENUM(NSInteger, ImagePickerStatus) {
 
 typedef NS_ENUM(NSInteger, ImagePickerType) {
     ImagePickerTypeImage,
-    ImagePickerTypePhoto,
-    ImagePickerTypeVideo,
-    ImagePickerTypeQRCode,
+    ImagePickerTypePhotograph,
+    ImagePickerTypeVideotape,
+    ImagePickerTypeScanQRCode,
 };
 
 // 注意！！！！！

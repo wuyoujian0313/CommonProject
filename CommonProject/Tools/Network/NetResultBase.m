@@ -26,7 +26,7 @@
     
     NSError * error = nil;
     // 目前仅支持整个报文解析成字典类型
-    NSDictionary* jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];;
+    NSDictionary* jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
 
     if (jsonDictionary != nil && error == nil) {
         NSLog(@"Successfully JSON parse...");

@@ -140,7 +140,7 @@
             
             ImagePickerController *sSelf = wSelf;
             if (sSelf.finishBlock) {
-                sSelf.finishBlock(ImagePickerTypeQRCode,ImagePickerStatusSuccess,result);
+                sSelf.finishBlock(ImagePickerTypeScanQRCode,ImagePickerStatusSuccess,result);
             }
         }];
     }];
@@ -155,8 +155,8 @@
         ImagePickerController *wSelf = self;
         dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-            CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
-            UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
+//            CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
+//            UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 //
@@ -164,7 +164,7 @@
                     //
                     ImagePickerController *sSelf = wSelf;
                     if (sSelf.finishBlock) {
-                        sSelf.finishBlock(ImagePickerTypeImage,ImagePickerStatusSuccess,imageScale);
+                        sSelf.finishBlock(ImagePickerTypeImage,ImagePickerStatusSuccess,image);
                     }
                 }];
             });
@@ -177,8 +177,8 @@
             ImagePickerController *wSelf = self;
             dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
                 UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-                CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
-                UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
+//                CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
+//                UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //
@@ -186,7 +186,7 @@
                         //
                         ImagePickerController *sSelf = wSelf;
                         if (sSelf.finishBlock) {
-                            sSelf.finishBlock(ImagePickerTypePhoto,ImagePickerStatusSuccess,imageScale);
+                            sSelf.finishBlock(ImagePickerTypePhotograph,ImagePickerStatusSuccess,image);
                         }
                     }];
                 });
@@ -204,7 +204,7 @@
                 //
                 ImagePickerController *sSelf = wSelf;
                 if (sSelf.finishBlock) {
-                    sSelf.finishBlock(ImagePickerTypeVideo,ImagePickerStatusSuccess,url);
+                    sSelf.finishBlock(ImagePickerTypeVideotape,ImagePickerStatusSuccess,url);
                 }
             }];
         }
