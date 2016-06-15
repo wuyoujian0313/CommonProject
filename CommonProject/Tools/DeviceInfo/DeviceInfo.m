@@ -88,8 +88,7 @@
 }
 
 + (NSString*)getSystemVersion {
-    float ver = [[[UIDevice currentDevice] systemVersion] floatValue];
-    NSString* strVer = [NSString stringWithFormat:@"%f",ver];
+    NSString* strVer = [[UIDevice currentDevice] systemVersion];
     return strVer;
 }
 
@@ -109,13 +108,6 @@
 + (CGFloat)screenHeight {
     return [self getLogicScreenSize].height;
 }
-
-
-+(CGSize)getApplicationSize {
-    CGSize appSize = [UIScreen mainScreen].applicationFrame.size;
-    return appSize;
-}
-
 
 + (char *)platformCStr {
     static char *machine = NULL;
@@ -329,25 +321,25 @@
         else if (!strcmp(u.machine, "iPhone8,4")) {
             detected = MODEL_IPHONE_SE;
         }
+        else if (!strcmp(u.machine, "x86_64")) {
+            detected = MODEL_IPHONE_SIMULATOR;
+        }
+        else {
+            detected = MODEL_IPHONE_SIMULATOR;
+        }
     }
     
     return detected;
 }
 
-+ (NSString *)returnDeviceName:(BOOL)ignoreSimulator
++ (NSString *)returnDeviceName
 {
     NSString *returnValue = @"Unknown";
     
     switch ([DeviceInfo detectDevice])
     {
         case MODEL_IPHONE_SIMULATOR:
-            if (ignoreSimulator)
-            {
-                returnValue = @"iPhone 4G";
-            } else
-            {
-                returnValue = @"iPhone Simulator";
-            }
+            returnValue = @"iPhone Simulator";
             break;
             
         case MODEL_IPOD_TOUCH:

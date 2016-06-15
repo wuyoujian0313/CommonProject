@@ -9,6 +9,8 @@
 #import "CommonViewController.h"
 #import "WebCacheViewController.h"
 #import "SecurityViewController.h"
+#import "Reachability.h"
+#import "DataManageViewController.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -44,7 +46,7 @@
 
 - (void)configAbilitys {
     self.abilitys = @[@{@"name":@"安全相关",@"type":@"JumpToPage",@"Class":@"SecurityViewController"},
-                      @{@"name":@"数据处理",@"type":@""},
+                      @{@"name":@"数据处理",@"type":@"JumpToPage",@"Class":@"DataManageViewController"},
                       @{@"name":@"设备信息",@"type":@"AlertView"},
                       @{@"name":@"WebView缓存",@"type":@"JumpToPage",@"Class":@"WebCacheViewController"},
                       ];
@@ -78,11 +80,12 @@
         NSMutableString *msg = [[NSMutableString alloc] initWithCapacity:0];
         
         [msg appendFormat:@"设备版本名称：%@\n",[DeviceInfo platform]];
-        [msg appendFormat:@"设备名称：%@\n",[DeviceInfo returnDeviceName:![DeviceInfo isEmulator]]];
+        [msg appendFormat:@"设备名称：%@\n",[DeviceInfo returnDeviceName]];
         [msg appendFormat:@"是否越狱：%@\n",[DeviceInfo isJailBreak]?@"YES":@"NO"];
         [msg appendFormat:@"设备IP：%@\n",[DeviceInfo getIPAddress:YES]];
+        [msg appendFormat:@"设备是否连网：%@\n",[[Reachability reachabilityForInternetConnection] isReachable]? @"YES":@"NO"];
         [msg appendFormat:@"系统版本号：%@\n",[DeviceInfo getSystemVersion]];
-        [msg appendFormat:@"系统时间戳：%ld\n",[DeviceInfo getSystemTime]];
+        [msg appendFormat:@"系统日期：%ld\n",[DeviceInfo getSystemTime]];
         [msg appendFormat:@"屏幕尺寸：%ldx%ld\n",(NSInteger)[DeviceInfo getDeviceScreenSize].width,(NSInteger)[DeviceInfo getDeviceScreenSize].height];
         [msg appendFormat:@"APP版本号：%@\n",[DeviceInfo getSoftVersion]];
         

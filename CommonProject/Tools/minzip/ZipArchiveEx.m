@@ -23,7 +23,7 @@
     
     if (![fileManager fileExistsAtPath:sourceFile]) {
         
-        NSLog(@"sourceFile不存在！");
+        NSLog(@"sourceFile：%@ 不存在！",sourceFile);
         return NO;
     }
     

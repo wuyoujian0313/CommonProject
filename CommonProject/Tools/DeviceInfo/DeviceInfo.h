@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 
 + (NSString *) platform;
 + (DeviceInfo_Model) detectModel;
-+ (NSString *) returnDeviceName:(BOOL)ignoreSimulator;
++ (NSString *) returnDeviceName;
 
 //是否越狱
 + (BOOL) isJailBreak;
@@ -51,10 +51,9 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (CGFloat) screenScale;
 + (NSString*) getSystemVersion;
 + (CGSize) getLogicScreenSize;
-+ (CGSize)getDeviceScreenSize;
-+ (CGFloat)screenWidth;
-+ (CGFloat)screenHeight;
-+ (CGSize) getApplicationSize;
++ (CGSize) getDeviceScreenSize;
++ (CGFloat) screenWidth;
++ (CGFloat) screenHeight;
 + (NSInteger) getSystemTime;
 + (NSString*) getSystemTimeStamp;
 + (NSString*) getSoftVersion;
@@ -66,8 +65,8 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 
 + (NSInteger) navigationBarHeight;
 
-+ (NSString *)getIPAddress:(BOOL)preferIPv4;
-+ (NSDictionary *)getIPAddresses;
++ (NSString*) getIPAddress:(BOOL)preferIPv4;
++ (NSDictionary*) getIPAddresses;
 
 
 @end

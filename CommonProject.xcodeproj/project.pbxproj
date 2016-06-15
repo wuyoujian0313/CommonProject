@@ -182,6 +182,7 @@
 		AFE14AA51CCDB810000ADD20 /* NetResultBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A951CCDB810000ADD20 /* NetResultBase.m */; };
 		AFE14AA61CCDB810000ADD20 /* NetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A971CCDB810000ADD20 /* NetworkTask.m */; };
 		AFE14AA71CCDB810000ADD20 /* NSObject+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A9A1CCDB810000ADD20 /* NSObject+Utility.m */; };
+		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -530,6 +531,8 @@
 		AFE14A971CCDB810000ADD20 /* NetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTask.m; sourceTree = "<group>"; };
 		AFE14A991CCDB810000ADD20 /* NSObject+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Utility.h"; sourceTree = "<group>"; };
 		AFE14A9A1CCDB810000ADD20 /* NSObject+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Utility.m"; sourceTree = "<group>"; };
+		AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManageViewController.h; sourceTree = "<group>"; };
+		AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -729,6 +732,8 @@
 				AFA148551D0EB4F100EB20BD /* SecurityViewController.m */,
 				AFA148561D0EB4F100EB20BD /* WebCacheViewController.h */,
 				AFA148571D0EB4F100EB20BD /* WebCacheViewController.m */,
+				AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */,
+				AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */,
 			);
 			name = demo;
 			path = UI/demo;
@@ -1538,6 +1543,7 @@
 				AFBAEDED1CBDE8F4006B9056 /* SDWebImageManager.m in Sources */,
 				AF6E92E91CF443900097BD64 /* BluetoothEngine.m in Sources */,
 				AF6E92E31CF400340097BD64 /* GDataXMLNode.m in Sources */,
+				AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */,
 				AFA1485A1D0EB4F100EB20BD /* DeviceViewController.m in Sources */,
 				AFE14A661CCDB24F000ADD20 /* JPUIGraphics.m in Sources */,
 				AFBAEDF41CBDE8F4006B9056 /* UIImageView+WebCache.m in Sources */,

@@ -49,7 +49,7 @@
     self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo navigationBarHeight])];
     [_contentWebView setDelegate:_progressProxy];
     
-    NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
+    NSURL *url = [NSURL URLWithString:@"http://www.163.com/"];
     [_contentWebView loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:_contentWebView];
 }
