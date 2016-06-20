@@ -14,12 +14,16 @@
 #import "MailSMSController.h"
 
 #import "CommonWebViewController.h"
+#import "DispatchTimer.h"
 
-@interface LoginVC ()
+@interface LoginVC ()<DispatchTimerDelegate>
 @property (nonatomic, strong)LocalAbilityManager *obj;
 @end
 
 @implementation LoginVC
+
+-(void)dealloc {
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +41,19 @@
     [loginBtn setFrame:CGRectMake(11, 200, self.view.frame.size.width - 22, 45)];
     [loginBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
+    
+//    [[DispatchTimer sharedDispatchTimer] createDispatchTimerInterval:5.0 delegate:self repeats:NO];
+    
+//    __weak LoginVC *wSelf = self;
+//    [[DispatchTimer sharedDispatchTimer] createDispatchTimerInterval:5.0 block:^{
+//        //
+//        LoginVC *sSelf = wSelf;
+//        [sSelf buttonAction:nil];
+//    } repeats:NO];
+}
+
+- (void)dispatchTimerTask {
+    [self buttonAction:nil];
 }
 
 - (void)buttonAction:(UIButton *)sender {

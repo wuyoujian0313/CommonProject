@@ -27,7 +27,7 @@
 }
 
 -(void)dealloc {
-    [_timer stopDispatchTimer];
+    [_timer invalidate];
 }
 
 - (void)viewDidLoad {
@@ -114,12 +114,11 @@
     
     
     __weak QRViewController *wself = self;
-    self.timer = [DispatchTimer createDispatchTimerInterval:3.0 block:^{
+    [[DispatchTimer sharedDispatchTimer] createDispatchTimerInterval:3.0 block:^{
         QRViewController *sself = wself;
         
         [sself scanAnimation];
-    }];
-    [self.timer startDispatchTimer];
+    } repeats:YES];
 }
 
 

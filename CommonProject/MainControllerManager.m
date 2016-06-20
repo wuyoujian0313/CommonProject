@@ -13,9 +13,6 @@
 
 @interface MainControllerManager ()
 @property (nonatomic, strong) UIViewController              *rootVC;
-@property (nonatomic, strong) WYJNavigationController       *loginNav;
-@property (nonatomic, strong) HomeTabBarController          *homeTabController;
-
 @property (nonatomic, strong) UIViewController              *currentController;
 @end
 
@@ -38,11 +35,11 @@
 }
 
 - (void)switchToHomeVC {
-    [self switchToHomeVCFrom:_loginNav];
+    [self switchToHomeVCFrom:_currentController];
 }
 
 - (void)switchToLoginVC {
-    [self switchToLoginVCFrom:_homeTabController];
+    [self switchToLoginVCFrom:_currentController];
 }
 
 // 创建一个空白的rootVC用于页面切换
@@ -56,12 +53,12 @@
 
 
 - (void)switchToHomeVCFrom:(UIViewController*)fromVC {
-    [self setupHomeController];
     
-    [self transitionFromViewController:fromVC toViewController:_homeTabController duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+    UIViewController *homeVC = [self setupHomeController];
+    [self transitionFromViewController:fromVC toViewController:homeVC duration:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         //
-        [_currentController removeFromParentViewController];
-        self.currentController = _homeTabController;
+        [fromVC removeFromParentViewController];
+        self.currentController = homeVC;
         
         [_currentController didMoveToParentViewController:self];
     } completion:^(BOOL finished) {
@@ -70,12 +67,12 @@
 }
 
 - (void)switchToLoginVCFrom:(UIViewController*)fromVC {
-    [self setupLoginVC];
+    UIViewController *loginVC =  [self setupLoginVC];
     
-    [self transitionFromViewController:fromVC toViewController:_loginNav duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+    [self transitionFromViewController:fromVC toViewController:loginVC duration:1.0 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         //
-        [_currentController removeFromParentViewController];
-        self.currentController = _loginNav;
+        [fromVC removeFromParentViewController];
+        self.currentController = loginVC;
         
         [_currentController didMoveToParentViewController:self];
     } completion:^(BOOL finished) {
@@ -83,20 +80,22 @@
     }];
 }
 
-- (void)setupLoginVC {
+- (UIViewController *)setupLoginVC {
     LoginVC *controller = [[LoginVC alloc] init];
     WYJNavigationController *loginNav = [[WYJNavigationController alloc] initWithRootViewController:controller];
-    self.loginNav = loginNav;
-    [self addChildViewController:_loginNav];
-    [self.view addSubview:_loginNav.view];
+    [self addChildViewController:loginNav];
+    [self.view addSubview:loginNav.view];
+    
+    return loginNav;
 }
 
-- (void)setupHomeController {
+- (UIViewController *)setupHomeController {
     
     HomeTabBarController *controller = [[HomeTabBarController alloc] init];
-    self.homeTabController = controller;
-    [self addChildViewController:_homeTabController];
-    [self.view addSubview:_homeTabController.view];
+    [self addChildViewController:controller];
+    [self.view addSubview:controller.view];
+    
+    return controller;
 }
 
 

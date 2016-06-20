@@ -14,7 +14,6 @@
 @interface CycleBannerView ()<UIScrollViewDelegate,DispatchTimerDelegate>
 @property(nonatomic, strong) UIScrollView                   *scrollView;
 @property(nonatomic, strong) UIPageControl                  *pageControl;
-@property(nonatomic, strong) DispatchTimer                  *timer;
 @property(nonatomic, assign) NSInteger                      currentPageIndex;
 
 @property(nonatomic, strong) NSMutableArray                 *pageViews;
@@ -28,14 +27,12 @@
 }
 
 - (void)stopScroll {
-    [self.timer stopDispatchTimer];
-    self.timer = nil;
+    [[DispatchTimer sharedDispatchTimer] invalidate];
 }
 
 - (void)autoScroll {
     
-    self.timer = [DispatchTimer createDispatchTimerInterval:_interval delegate:self];
-    [self.timer startDispatchTimer];
+    [[DispatchTimer sharedDispatchTimer] createDispatchTimerInterval:_interval delegate:self repeats:YES];
 }
 
 - (void)autoJumpPage {
@@ -193,7 +190,7 @@
 }
 
 #pragma mark - WYJDispatchTimerDelegate
-- (void)timerTask {
+- (void)dispatchTimerTask {
     [self autoJumpPage];
 }
 

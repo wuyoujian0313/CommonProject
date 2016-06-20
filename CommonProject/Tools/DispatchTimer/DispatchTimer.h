@@ -10,41 +10,35 @@
 
 
 @protocol DispatchTimerDelegate <NSObject>
-- (void)timerTask;
+- (void)dispatchTimerTask;
 @end
 
-typedef void (^timerBlock)(void);
+typedef void (^DispatchTimerBlock)(void);
 
 /*
- 
+ 采用GCD实现timer，这个实现不会出现timer不释放的问题；
  */
 @interface DispatchTimer : NSObject
 
-// 采用代理的方式,建议采用这种方式
-+ (DispatchTimer *)createDispatchTimerInterval:(NSUInteger)interval delegate:(id <DispatchTimerDelegate>)delegate;
++ (DispatchTimer *)sharedDispatchTimer;
 
-/* 采用block 的方式，一定要注意block retain self的问题
+// 采用代理的方式,建议采用这种方式
+- (void)createDispatchTimerInterval:(NSUInteger)interval delegate:(id <DispatchTimerDelegate>)delegate repeats:(BOOL)yesOrNo;
+
+/* !!!!!! 采用block 的方式，一定要注意block retain self的问题
  
  类似这样使用：
  __weak CycleScrollView *wself = self;
- self.timer = [DispatchTimer createDispatchTimerInterval:_interval block:^{
+ [[DispatchTimer sharedDispatchTimer] createDispatchTimerInterval:_interval block:^{
  CycleScrollView *sself = wself;
  
  [sself autoJumpPage];
- }];
- [self.timer startDispatchTimer];
- 
+ } repeats:YES];
  */
 
-+ (DispatchTimer *)createDispatchTimerInterval:(NSUInteger)interval block:(timerBlock)timerBlock;
+- (void)createDispatchTimerInterval:(NSUInteger)interval block:(DispatchTimerBlock)timerBlock repeats:(BOOL)yesOrNo;
 
-// 启动定时器
-- (void)startDispatchTimer;
-
-// 挂起定时器，暂停
-- (void)suspendDispatchTimer;
-
-// 释放定时器
-- (void)stopDispatchTimer;
+// 停止循环执行的timer
+- (void)invalidate;
 
 @end
