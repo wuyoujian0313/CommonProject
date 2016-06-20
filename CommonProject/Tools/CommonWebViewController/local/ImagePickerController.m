@@ -60,7 +60,7 @@
 }
 
 
-- (void)pickerCameraController:(UIViewController*)picker isPhoto:(BOOL)isPhoto {
+- (void)pickerCameraController:(UIViewController*)picker isPhotograph:(BOOL)isPhotograph {
     
     // 拍照
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
@@ -78,7 +78,7 @@
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         
-        if (isPhoto) {
+        if (isPhotograph) {
             
             imagePicker.allowsEditing = YES;
             imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
@@ -109,7 +109,7 @@
 - (void)pickerPhotographController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
     self.finishBlock = finishBlock;
     //
-    [self pickerCameraController:picker isPhoto:YES];
+    [self pickerCameraController:picker isPhotograph:YES];
 }
 
 /**
@@ -119,7 +119,7 @@
 - (void)pickerVideotapeController:(UIViewController*)picker finish:(ImagePickerFinishBlock)finishBlock {
     self.finishBlock = finishBlock;
     //
-    [self pickerCameraController:picker isPhoto:NO];
+    [self pickerCameraController:picker isPhotograph:NO];
 }
 
 /**

@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, ImagePickerType) {
 };
 
 // 注意！！！！！
-// type==ImagePickerTypeVideo,data是video的URL
+// type==ImagePickerTypeVideotape,data是video的URL
 typedef void(^ImagePickerFinishBlock)(ImagePickerType type, ImagePickerStatus status, id data);
 
 @interface ImagePickerController : NSObject

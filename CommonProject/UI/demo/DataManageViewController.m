@@ -13,8 +13,8 @@
 #import "GDataXMLNode.h"
 
 
-NSString *const jsonString = @"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\",}";
-NSString *const xmlString = @"<key><key1>value1</key1><key2>value2</key2><key3>value3</key3></key>";
+static NSString *const jsonString   = @"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}";
+static NSString *const xmlString    = @"<key><key1>value1</key1><key2>value2</key2><key3>value3</key3></key>";
 
 @interface DataManageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
