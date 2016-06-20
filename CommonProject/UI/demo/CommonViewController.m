@@ -11,6 +11,7 @@
 #import "SecurityViewController.h"
 #import "Reachability.h"
 #import "DataManageViewController.h"
+#import "CycleBannerView.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -35,7 +36,25 @@
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.view addSubview:tableView];
     
+    [self setTableViewHeaderView:60];
     [self setTableViewFooterView:0];
+}
+
+-(void)setTableViewHeaderView:(NSInteger)height {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _abilityTableView.frame.size.width, height)];
+    view.backgroundColor = [UIColor clearColor];
+    
+    CycleBannerView *banner = [[CycleBannerView alloc] initWithFrame:view.bounds];
+    [view addSubview:banner];
+    
+    
+    NSArray *images = @[@"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1466386954&di=c656a91c8a6d8f9cfd67b8fb91513cd7&src=http://www.szlvt.com/Private/NewsImgs/6352167580043594421852088260.jpg",@"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",@"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",@"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];
+    [banner reloadData:images];
+    [banner setPageControlPos:PageControlPositionRight];
+    [banner autoScroll];
+    
+    
+    [_abilityTableView setTableHeaderView:view];
 }
 
 -(void)setTableViewFooterView:(NSInteger)height {

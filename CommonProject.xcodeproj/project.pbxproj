@@ -42,6 +42,7 @@
 		AFA1485E1D0EB4F100EB20BD /* WebCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA148571D0EB4F100EB20BD /* WebCacheViewController.m */; };
 		AFA148601D0EB58400EB20BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA1485F1D0EB58400EB20BD /* Assets.xcassets */; };
 		AFA148621D0EB58F00EB20BD /* DemoAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA148611D0EB58F00EB20BD /* DemoAssets.xcassets */; };
+		AFB242DD1D1785760079F455 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AFB242DF1D1785760079F455 /* InfoPlist.strings */; };
 		AFB4AD0E1CE40DB6007D3802 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB4AD081CE40DB6007D3802 /* BaseVC.m */; };
 		AFB4AD0F1CE40DB6007D3802 /* WYJNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB4AD0A1CE40DB6007D3802 /* WYJNavigationController.m */; };
 		AFB4AD131CE40DE1007D3802 /* CommonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB4AD121CE40DE1007D3802 /* CommonWebViewController.m */; };
@@ -267,6 +268,8 @@
 		AFA148571D0EB4F100EB20BD /* WebCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebCacheViewController.m; sourceTree = "<group>"; };
 		AFA1485F1D0EB58400EB20BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFA148611D0EB58F00EB20BD /* DemoAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DemoAssets.xcassets; sourceTree = "<group>"; };
+		AFB242DE1D1785760079F455 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		AFB242E01D1785810079F455 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AFB4AD071CE40DB6007D3802 /* BaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
 		AFB4AD081CE40DB6007D3802 /* BaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 		AFB4AD091CE40DB6007D3802 /* WYJNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYJNavigationController.h; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 				AFE14A761CCDB372000ADD20 /* frameworks */,
 				7009B45F1CBCCE6C003BCE30 /* main.m */,
 				AFBAEE061CBDEF5E006B9056 /* Common-Prefix.pch */,
+				AFB242DF1D1785760079F455 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1478,6 +1482,7 @@
 				AFBAEDF61CBDE8F4006B9056 /* SVProgressHUD.bundle in Resources */,
 				AFB4AD4B1CE42CE8007D3802 /* ShareSDKUI.bundle in Resources */,
 				AFBAEDCA1CBDE8F4006B9056 /* FormatterKit.strings in Resources */,
+				AFB242DD1D1785760079F455 /* InfoPlist.strings in Resources */,
 				AFB4AD431CE42CE8007D3802 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				AFBAEDDB1CBDE8F4006B9056 /* LICENSE in Resources */,
 				AFA148601D0EB58400EB20BD /* Assets.xcassets in Resources */,
@@ -1681,6 +1686,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		AFB242DF1D1785760079F455 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AFB242DE1D1785760079F455 /* zh-Hans */,
+				AFB242E01D1785810079F455 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		AFBAED351CBDE8F4006B9056 /* FormatterKit.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
