@@ -60,7 +60,7 @@
 }
 
 + (NSArray *)recognitionQRCodeFromImage:(UIImage*)image {
-    
+
     return [image recognitionQRCodeFromImage];
 }
 
