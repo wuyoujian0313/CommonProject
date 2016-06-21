@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+Utility.h"
+#import "UIImage+ResizeMagick.h"
 
 @implementation UIImage (Utility)
 
@@ -146,6 +147,36 @@
     CGImageRelease(cgImage);
 
     return resized;
+}
+
+- (NSArray *)recognitionQRCodeFromImage {
+    
+    // 把图片缩放到硬件的分辨率
+    CGSize scaleSize = [DeviceInfo getDeviceScreenSize];
+    UIImage *imageScale = [self resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
+    CIImage *ciImage = [[CIImage alloc] initWithImage:imageScale];
+    
+    //CIImage *ciImage = [[CIImage alloc] initWithImage:self];
+    //创建探测器
+    if ([DeviceInfo isOS8]) {
+        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode
+                                                  context:[CIContext contextWithOptions:nil]
+                                                  options:@{CIDetectorAccuracy:CIDetectorAccuracyLow,CIDetectorMinFeatureSize:@1.0}];
+        NSArray<CIFeature*> *features = [detector featuresInImage:ciImage];
+        
+        //取出探测到的数据
+        NSMutableArray *results = [[NSMutableArray alloc] init];
+        for (CIQRCodeFeature *result in features) {
+            if ([result.type isEqualToString:CIFeatureTypeQRCode]) {
+                [results addObject:result.messageString];
+            }
+        }
+        
+        return results;
+    }
+    
+    
+    return nil;
 }
 
 

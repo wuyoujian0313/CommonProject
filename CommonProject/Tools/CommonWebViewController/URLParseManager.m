@@ -9,20 +9,20 @@
 #import "URLParseManager.h"
 
 // 主服务
-NSString* const kSharedProtocol=@"sharedto";
-NSString* const kPayProtocol=@"payto";
-NSString* const kLocalAbilityProtocol=@"localabilityto";
+NSString* const kSharedProtocol         = @"sharedto";
+NSString* const kPayProtocol            = @"payto";
+NSString* const kLocalAbilityProtocol   = @"localabilityto";
 
-// 子服务
-NSString* const kSharedServer=@"SharedServer";
-NSString* const kBaiDuMapServer=@"BaiDuMapServer";
-NSString* const kWXPayServer=@"WXPayServer";
-NSString* const kAlipayServer=@"AlipayServer";
-NSString* const kSelectImageServer=@"SelectImageServer";
-NSString* const kPhotographServer=@"PhotographServer";
-NSString* const kVideotapeServer=@"VideotapeServer";
-NSString* const kScanQRCodeServer=@"ScanQRCodeServer";
-NSString* const kGenerateQRCodeServer=@"GenerateQRCodeServer";
+// 子服务xs
+NSString* const kSharedServer           = @"SharedServer";
+NSString* const kBaiDuMapServer         = @"BaiDuMapServer";
+NSString* const kWXPayServer            = @"WXPayServer";
+NSString* const kAlipayServer           = @"AlipayServer";
+NSString* const kSelectImageServer      = @"SelectImageServer";
+NSString* const kPhotographServer       = @"PhotographServer";
+NSString* const kVideotapeServer        = @"VideotapeServer";
+NSString* const kScanQRCodeServer       = @"ScanQRCodeServer";
+NSString* const kGenerateQRCodeServer   = @"GenerateQRCodeServer";
 
 @implementation URLParseManager
 

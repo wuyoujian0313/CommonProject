@@ -103,7 +103,7 @@
                     case InvokeServerSubTypeSelectImage: {
                         LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
                         self.localAbilityMgr = obj;
-                        [obj pickerCameraController:self type:LocalAbilityTypePickerImage finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerImage_AllowsEditing finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
                             //
                         }];
                         
@@ -112,7 +112,7 @@
                     case InvokeServerSubTypePhotograph: {
                         LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
                         self.localAbilityMgr = obj;
-                        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+                        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph_AllowsEditing finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
                             //
                         }];
                         break;

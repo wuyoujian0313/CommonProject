@@ -79,7 +79,7 @@
         
         LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
         self.localAbilityMgr = obj;
-        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+        [obj pickerCameraController:self type:LocalAbilityTypePickerPhotograph_AllowsEditing finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
             //
         }];
     

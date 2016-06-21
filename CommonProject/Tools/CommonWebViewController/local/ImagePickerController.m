@@ -27,12 +27,21 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         obj = [[self alloc] init];
+        
     });
     return obj;
 }
 
 - (void)dealloc {
     self.finishBlock = nil;
+}
+
+-(instancetype)init {
+    if (self = [super init]) {
+        self.allowsEditing = YES;
+    }
+    
+    return self;
 }
 
 
@@ -46,7 +55,7 @@
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.allowsEditing = YES;
+    imagePicker.allowsEditing = _allowsEditing;
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
     imagePicker.delegate = self;
     imagePicker.navigationBar.barTintColor = [UIColor whiteColor];
@@ -80,7 +89,7 @@
         
         if (isPhotograph) {
             
-            imagePicker.allowsEditing = YES;
+            imagePicker.allowsEditing = _allowsEditing;
             imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
             imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         } else {
@@ -154,10 +163,11 @@
         //选择照片
         ImagePickerController *wSelf = self;
         dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
-            UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//            CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
-//            UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
-            
+            NSString *key = UIImagePickerControllerOriginalImage;
+            if (_allowsEditing) {
+                key = UIImagePickerControllerEditedImage;
+            }
+            UIImage *image = [info objectForKey:key];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //
                 [picker dismissViewControllerAnimated:YES completion:^{
@@ -176,9 +186,11 @@
             //
             ImagePickerController *wSelf = self;
             dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
-                UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//                CGSize scaleSize = [[UIScreen mainScreen] bounds].size;
-//                UIImage *imageScale = [image resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
+                NSString *key = UIImagePickerControllerOriginalImage;
+                if (_allowsEditing) {
+                    key = UIImagePickerControllerEditedImage;
+                }
+                UIImage *image = [info objectForKey:key];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //

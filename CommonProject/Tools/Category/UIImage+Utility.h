@@ -22,4 +22,6 @@
 // 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
 
+- (NSArray *)recognitionQRCodeFromImage;
+
 @end

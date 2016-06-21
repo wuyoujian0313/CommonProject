@@ -31,6 +31,9 @@ typedef void(^ImagePickerFinishBlock)(ImagePickerType type, ImagePickerStatus st
 // 可以跟随使用的页面对象释放而释放
 + (ImagePickerController *)sharedImagePickerController;
 
+// 拍照和选择图片是否支持编辑
+@property (nonatomic, assign) BOOL allowsEditing;
+
 /**
  *  照片选择
  *  @param viewController 当前的VC，主要从哪个VC弹出邮件VC

@@ -15,8 +15,10 @@ typedef NS_ENUM(NSInteger, LocalAbilityType) {
     LocalAbilityTypeMail,
     LocalAbilityTypeSMS,
     LocalAbilityTypeDail,
-    LocalAbilityTypePickerImage,
-    LocalAbilityTypePickerPhotograph,
+    LocalAbilityTypePickerImage_AllowsEditing,
+    LocalAbilityTypePickerPhotograph_AllowsEditing,
+    LocalAbilityTypePickerImage_ForbidEditing,
+    LocalAbilityTypePickerPhotograph_ForbidEditing,
     LocalAbilityTypePickerScanQRCode,
     LocalAbilityTypePickerGenerateQRCode,
     LocalAbilityTypePickerVideotape,
@@ -39,6 +41,9 @@ typedef void(^touchIDFinish)(NSError *error);
 
 // 生成条形码
 + (UIImage *)generateBarCode:(NSString *)code width:(CGFloat)width height:(CGFloat)height;
+
+
++ (NSArray *)recognitionQRCodeFromImage:(UIImage*)image;
 
 // 拨打电话可以返回当前页面
 + (void)telephoneToNumber:(NSString*)phoneNumber;

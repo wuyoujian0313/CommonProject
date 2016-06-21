@@ -75,7 +75,7 @@ static NSString *const xmlString    = @"<key><key1>value1</key1><key2>value2</ke
         
         LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
         self.localAbilityMgr = obj;
-        [obj pickerCameraController:self type:LocalAbilityTypePickerImage finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+        [obj pickerCameraController:self type:LocalAbilityTypePickerImage_ForbidEditing finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
             //
             if (type == ImagePickerTypeImage) {
                 CGSize scaleSize = [DeviceInfo getDeviceScreenSize];

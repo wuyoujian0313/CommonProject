@@ -59,6 +59,11 @@
     return [UIImage generateBarCode:code width:width height:height];
 }
 
++ (NSArray *)recognitionQRCodeFromImage:(UIImage*)image {
+    
+    return [image recognitionQRCodeFromImage];
+}
+
 + (LocalAbilityManager *)sharedLocalAbilityManager {
     static LocalAbilityManager *obj = nil;
     static dispatch_once_t onceToken;
@@ -114,6 +119,7 @@
     if (type == LocalAbilityTypePickerScanQRCode) {
         //
         ImagePickerController *obj = [[ImagePickerController alloc] init];
+        obj.allowsEditing = NO;
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
         [obj pickerQRCodeController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
@@ -126,8 +132,10 @@
             LocalAbilityManager *sSelf = wSelf;
             sSelf.cameraPickerCtrl = nil;
         }];
-    } else if (type == LocalAbilityTypePickerImage) {
+    } else if (type == LocalAbilityTypePickerImage_AllowsEditing ||
+               type == LocalAbilityTypePickerImage_ForbidEditing) {
         ImagePickerController *obj = [[ImagePickerController alloc] init];
+        obj.allowsEditing = (type == LocalAbilityTypePickerImage_AllowsEditing);
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
         [obj pickerImageController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
@@ -141,8 +149,10 @@
             LocalAbilityManager *sSelf = wSelf;
             sSelf.cameraPickerCtrl = nil;
         }];
-    } else if (type == LocalAbilityTypePickerPhotograph) {
+    } else if (type == LocalAbilityTypePickerPhotograph_AllowsEditing ||
+               type == LocalAbilityTypePickerPhotograph_ForbidEditing) {
         ImagePickerController *obj = [[ImagePickerController alloc] init];
+        obj.allowsEditing = (type == LocalAbilityTypePickerPhotograph_AllowsEditing);
         self.cameraPickerCtrl = obj;
         __weak LocalAbilityManager *wSelf = self;
         [obj pickerPhotographController:picker finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
