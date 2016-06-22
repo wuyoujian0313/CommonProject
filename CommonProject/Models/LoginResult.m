@@ -1,9 +1,9 @@
 //
 //  LoginResult.m
-//  CommonProject
+//  Answer
 //
-//  Created by wuyoujian on 16/4/13.
-//  Copyright © 2016年 wuyoujian. All rights reserved.
+//  Created by wuyj on 15/12/14.
+//  Copyright © 2015年 wuyj. All rights reserved.
 //
 
 #import "LoginResult.h"

@@ -13,12 +13,16 @@
 #import "DataManageViewController.h"
 #import "CycleBannerView.h"
 
-@interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
 @end
 
 @implementation CommonViewController
+
+- (void)dealloc {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,6 +75,7 @@
                       @{@"name":@"数据处理",@"type":@"JumpToPage",@"Class":@"DataManageViewController"},
                       @{@"name":@"设备信息",@"type":@"AlertView"},
                       @{@"name":@"WebView缓存",@"type":@"JumpToPage",@"Class":@"WebCacheViewController"},
+                      @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }
 
@@ -119,6 +124,11 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"设备信息" message:msg preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:aAction];
         [self presentViewController:alertController animated:YES completion:nil];
+    } else if ([type isEqualToString:@"relogin"]) {
+        
+        
+        UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"确认退出登录？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil];
+        [sheet showInView:self.view];
     }
 }
 
@@ -159,5 +169,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        
+        AppDelegate *app = [AppDelegate shareMyApplication];
+        [app.mainVC switchToLoginVC];
+    }
+}
+
 
 @end

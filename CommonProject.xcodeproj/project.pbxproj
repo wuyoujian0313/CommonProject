@@ -183,6 +183,8 @@
 		AFE14AA51CCDB810000ADD20 /* NetResultBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A951CCDB810000ADD20 /* NetResultBase.m */; };
 		AFE14AA61CCDB810000ADD20 /* NetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A971CCDB810000ADD20 /* NetworkTask.m */; };
 		AFE14AA71CCDB810000ADD20 /* NSObject+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE14A9A1CCDB810000ADD20 /* NSObject+Utility.m */; };
+		AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366661D1A222A00B2423E /* UserAccountResult.m */; };
+		AFE366691D1A222A00B2423E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366671D1A222A00B2423E /* UserInfo.m */; };
 		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -534,6 +536,10 @@
 		AFE14A971CCDB810000ADD20 /* NetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTask.m; sourceTree = "<group>"; };
 		AFE14A991CCDB810000ADD20 /* NSObject+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Utility.h"; sourceTree = "<group>"; };
 		AFE14A9A1CCDB810000ADD20 /* NSObject+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Utility.m"; sourceTree = "<group>"; };
+		AFE366641D1A222A00B2423E /* UserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserAccountResult.h; path = Models/UserAccountResult.h; sourceTree = "<group>"; };
+		AFE366651D1A222A00B2423E /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Models/UserInfo.h; sourceTree = "<group>"; };
+		AFE366661D1A222A00B2423E /* UserAccountResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserAccountResult.m; path = Models/UserAccountResult.m; sourceTree = "<group>"; };
+		AFE366671D1A222A00B2423E /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Models/UserInfo.m; sourceTree = "<group>"; };
 		AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManageViewController.h; sourceTree = "<group>"; };
 		AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1111,6 +1117,10 @@
 			children = (
 				AFBAEE121CBE0FBA006B9056 /* LoginResult.h */,
 				AFBAEE131CBE0FBA006B9056 /* LoginResult.m */,
+				AFE366651D1A222A00B2423E /* UserInfo.h */,
+				AFE366671D1A222A00B2423E /* UserInfo.m */,
+				AFE366641D1A222A00B2423E /* UserAccountResult.h */,
+				AFE366661D1A222A00B2423E /* UserAccountResult.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1637,6 +1647,7 @@
 				AFE14AA01CCDB810000ADD20 /* CycleBannerView.m in Sources */,
 				AFBAEDF01CBDE8F4006B9056 /* UIImage+GIF.m in Sources */,
 				AFE14A5C1CCDB24F000ADD20 /* JPCGContext.m in Sources */,
+				AFE366691D1A222A00B2423E /* UserInfo.m in Sources */,
 				AF567BFE1CF2A80E0080E901 /* ioapi.c in Sources */,
 				7009B4631CBCCE6C003BCE30 /* AppDelegate.m in Sources */,
 				AFE14A5B1CCDB24F000ADD20 /* JPCGColor.m in Sources */,
@@ -1645,6 +1656,7 @@
 				AFB4AD251CE4147C007D3802 /* PayDataModel.m in Sources */,
 				AFBAEDD81CBDE8F4006B9056 /* MJRefreshConst.m in Sources */,
 				AF567C001CF2A80E0080E901 /* unzip.c in Sources */,
+				AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */,
 				AFBAEDE91CBDE8F4006B9056 /* SDWebImageCompat.m in Sources */,
 				AFE14A691CCDB24F000ADD20 /* JPEngine.m in Sources */,
 				AFBAEDE81CBDE8F4006B9056 /* SDImageCache.m in Sources */,
