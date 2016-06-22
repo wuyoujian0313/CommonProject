@@ -36,6 +36,11 @@
 //    [CacheURLProtocol unregisterCacheURLProtocol];
 }
 
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [_progressView removeFromSuperview];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

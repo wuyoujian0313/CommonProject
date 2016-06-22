@@ -100,6 +100,7 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
 
 
 + (void)unregisterCacheURLProtocol {
+    [self setIgnoreURLs:nil];
     [[self class] unregisterClass:[self class]];
 }
 
@@ -112,6 +113,7 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
     [self setResponse:nil];
     [self setSessionQueue:nil];
     [self setConfiguration:nil];
+    [[self class] setIgnoreURLs:nil];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
