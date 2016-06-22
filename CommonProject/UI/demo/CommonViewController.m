@@ -52,7 +52,8 @@
     [view addSubview:banner];
     
     
-    NSArray *images = @[@"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1466386954&di=c656a91c8a6d8f9cfd67b8fb91513cd7&src=http://www.szlvt.com/Private/NewsImgs/6352167580043594421852088260.jpg",
+    NSArray *images = @[@"http://pic22.nipic.com/20120717/9774499_115645635000_2.jpg",
+                        @"http://pic4.nipic.com/20090919/3372381_123043464790_2.jpg",
                         @"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",
                         @"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",
                         @"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];

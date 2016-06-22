@@ -83,7 +83,6 @@
         if (cacheimage == nil) {
             
             __weak UIImageView *wImageView = imageView;
-            cacheimage = [UIImage imageFromColor:[UIColor whiteColor]];
             [imageView  sd_setImageWithURL:[NSURL URLWithString:imageURLString] placeholderImage:cacheimage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 UIImageView *sImageView = wImageView;
@@ -167,6 +166,31 @@
 - (void)scrollToIndex:(NSInteger)index animated:(BOOL)animated {
     _pageControl.currentPage = index;
     [_scrollView setContentOffset:CGPointMake(self.bounds.size.width*(index + 1), 0) animated:animated];
+    
+    // 可能存在图片未下载完成的情况
+    UIImageView * imageView = [_pageViews objectAtIndex:index];
+    if (!imageView.image) {
+        //取图片缓存
+        NSString *imageURLString = [_imageArray objectAtIndex:index];
+        SDImageCache * imageCache = [SDImageCache sharedImageCache];
+        UIImage * cacheimage = [imageCache imageFromDiskCacheForKey:imageURLString];
+        
+        
+        if (cacheimage == nil) {
+            __weak UIImageView *wImageView = imageView;
+            cacheimage = [UIImage imageFromColor:[UIColor whiteColor]];
+            [imageView  sd_setImageWithURL:[NSURL URLWithString:imageURLString] placeholderImage:cacheimage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                UIImageView *sImageView = wImageView;
+                if (image) {
+                    sImageView.image = image;
+                    [[SDImageCache sharedImageCache] storeImage:image forKey:imageURLString];
+                }
+            }];
+        } else {
+            imageView.image = cacheimage;
+        }
+    }
 }
 
 
