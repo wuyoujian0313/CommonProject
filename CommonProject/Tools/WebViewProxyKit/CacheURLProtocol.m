@@ -63,9 +63,38 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 - (void)appendData:(NSData *)newData;
 @end
 
+
+
+
 @implementation CacheURLProtocol
 
-+ (BOOL)registerCacheURLProtocol {
+static NSObject *CacheURLProtocolIgnoreURLsMonitor;
+static NSArray  *CacheURLProtocolIgnoreURLs;
+
++(void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CacheURLProtocolIgnoreURLsMonitor = [NSObject new];
+    });
+}
+
++ (NSArray *)ignoreURLs {
+    NSArray *iURLs;
+    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
+        iURLs = CacheURLProtocolIgnoreURLs;
+    }
+    return iURLs;
+}
+
++ (void)setIgnoreURLs:(NSArray *)iURLs {
+    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
+        CacheURLProtocolIgnoreURLs = iURLs;
+    }
+}
+
++ (BOOL)registerProtocolWithIgnoreURLs:(NSArray*)ignores {
+    [self unregisterCacheURLProtocol];
+    [self setIgnoreURLs:ignores];
     return [[self class] registerClass:[self class]];
 }
 
@@ -95,6 +124,15 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 }
 
 + (BOOL)canInitWithTask:(NSURLSessionTask *)task {
+    
+    // 过滤掉不需要走URLProtocol
+    NSArray *ignores = [self ignoreURLs];
+    for (NSString *url in ignores) {
+        if ([[task.currentRequest.URL absoluteString] hasPrefix:url]) {
+            return NO;
+        }
+    }
+    
     // 如果是startLoading里发起的request忽略掉，避免死循环
     BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:task.currentRequest] == nil;
     if (recurisve && [[task.currentRequest.URL scheme] hasPrefix:@"http"]) {
@@ -114,6 +152,15 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
+    
+    // 过滤掉不需要走URLProtocol
+    NSArray *ignores = [self ignoreURLs];
+    for (NSString *url in ignores) {
+        if ([[request.URL absoluteString] hasPrefix:url]) {
+            return NO;
+        }
+    }
+    
     // 如果是startLoading里发起的request忽略掉，避免死循环
     BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:request] == nil;
     if (recurisve && [[request.URL scheme] hasPrefix:@"http"]) {

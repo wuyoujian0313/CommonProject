@@ -10,7 +10,8 @@
 
 @interface CacheURLProtocol : NSURLProtocol
 
-+ (BOOL)registerCacheURLProtocol;
++ (BOOL)registerProtocolWithIgnoreURLs:(NSArray*)ignores;
 + (void)unregisterCacheURLProtocol;
+
 
 @end
