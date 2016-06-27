@@ -737,7 +737,7 @@
 				AF4004CB1D211051008BF9A4 /* DeviceInfo */,
 				AF4004CE1D211051008BF9A4 /* DispatchTimer */,
 				AF4004D11D211051008BF9A4 /* FileCache */,
-				AF4004D41D211051008BF9A4 /* fmdb */,
+				AF4004D41D211051008BF9A4 /* FMDB */,
 				AF4004E51D211051008BF9A4 /* FormatterKit */,
 				AF4004FB1D211051008BF9A4 /* HPGrowingTextView */,
 				AF4005001D211051008BF9A4 /* JSPatch */,
@@ -937,7 +937,7 @@
 			path = FileCache;
 			sourceTree = "<group>";
 		};
-		AF4004D41D211051008BF9A4 /* fmdb */ = {
+		AF4004D41D211051008BF9A4 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
 				AF4006491D21138F008BF9A4 /* SQLCipher */,
@@ -953,6 +953,7 @@
 				AF4004DE1D211051008BF9A4 /* FMResultSet.h */,
 				AF4004DF1D211051008BF9A4 /* FMResultSet.m */,
 			);
+			name = FMDB;
 			path = fmdb;
 			sourceTree = "<group>";
 		};
