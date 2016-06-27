@@ -9,6 +9,7 @@
 #import "SecurityViewController.h"
 #import "NSData+Crypto.h"
 #import "ZipArchiveEx.h"
+#import "DBManager.h"
 
 @interface SecurityViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -147,6 +148,38 @@
             
         } else if ([name hasPrefix:@"Sqlite"]) {
             
+            DBManager * dbMgr = [[DBManager alloc] init];
+            NSString *dbFile = [[DeviceInfo getDocumentsPath] stringByAppendingPathComponent:@"test.sqlite"];
+            NSString *key = @"ai-cs";
+            
+            
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"CREATE TABLE TestTable (name text,address text,phonenumber text)"];
+            
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];
+            
+            UIAlertAction *aAction = [UIAlertAction actionWithTitle:@"读数据库" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                //
+                
+                UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    //
+                }];
+                //
+                DBManager * dbMgr1 = [[DBManager alloc] init];
+                NSArray *result = [dbMgr1 executeSQL:dbFile KEY:key SQL:@"select * from TestTable"];
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"读取数据库" message:[result description] preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:aAction2];
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+            }];
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"加密数据库" message:@"加密成功" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:aAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+
         }
     }
 }

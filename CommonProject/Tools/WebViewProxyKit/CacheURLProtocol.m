@@ -47,8 +47,8 @@ static NSString *const kDateKey = @"date";
 @end
 
 static NSString *const kOurRecursiveRequestFlagProperty = @"COM.WEIMEITC.CACHE";
-static NSString *const kSessionQueueName = @"weimeitc_sessionQueueName";
-static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
+static NSString *const kSessionQueueName = @"WEIMEITC_SESSIONQUEUENAME";
+static NSString *const kSessionDescription = @"WEIMEITC_SESSIONDESCRIPTION";
 
 
 @interface CacheURLProtocol ()<NSURLSessionDataDelegate>
@@ -71,26 +71,7 @@ static NSString *const kSessionDescription = @"weimeitc_sessionDescription";
 static NSObject *CacheURLProtocolIgnoreURLsMonitor;
 static NSArray  *CacheURLProtocolIgnoreURLs;
 
-+(void)initialize {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        CacheURLProtocolIgnoreURLsMonitor = [NSObject new];
-    });
-}
 
-+ (NSArray *)ignoreURLs {
-    NSArray *iURLs;
-    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
-        iURLs = CacheURLProtocolIgnoreURLs;
-    }
-    return iURLs;
-}
-
-+ (void)setIgnoreURLs:(NSArray *)iURLs {
-    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
-        CacheURLProtocolIgnoreURLs = iURLs;
-    }
-}
 
 + (BOOL)registerProtocolWithIgnoreURLs:(NSArray*)ignores {
     [self unregisterCacheURLProtocol];
@@ -116,6 +97,14 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
     [[self class] setIgnoreURLs:nil];
 }
 
++(void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CacheURLProtocolIgnoreURLsMonitor = [NSObject new];
+    });
+}
+
+#pragma mark - URLProtocol APIs
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
     // 可以修改request对象
     return request;
@@ -126,22 +115,7 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
 }
 
 + (BOOL)canInitWithTask:(NSURLSessionTask *)task {
-    
-    // 过滤掉不需要走URLProtocol
-    NSArray *ignores = [self ignoreURLs];
-    for (NSString *url in ignores) {
-        if ([[task.currentRequest.URL absoluteString] hasPrefix:url]) {
-            return NO;
-        }
-    }
-    
-    // 如果是startLoading里发起的request忽略掉，避免死循环
-    BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:task.currentRequest] == nil;
-    if (recurisve && [[task.currentRequest.URL scheme] hasPrefix:@"http"]) {
-        return YES;
-    }
-    
-    return NO;
+    return [self canInitWithURLRequest:task.currentRequest];
 }
 
 - (instancetype)initWithTask:(NSURLSessionTask *)task cachedResponse:(nullable NSCachedURLResponse *)cachedResponse client:(nullable id <NSURLProtocolClient>)client {
@@ -154,22 +128,7 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    
-    // 过滤掉不需要走URLProtocol
-    NSArray *ignores = [self ignoreURLs];
-    for (NSString *url in ignores) {
-        if ([[request.URL absoluteString] hasPrefix:url]) {
-            return NO;
-        }
-    }
-    
-    // 如果是startLoading里发起的request忽略掉，避免死循环
-    BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:request] == nil;
-    if (recurisve && [[request.URL scheme] hasPrefix:@"http"]) {
-        return YES;
-    }
-    
-    return NO;
+    return [self canInitWithURLRequest:request];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id <NSURLProtocolClient>)client {
@@ -301,6 +260,41 @@ static NSArray  *CacheURLProtocolIgnoreURLs;
 }
 
 #pragma mark - private APIs
+
++ (NSArray *)ignoreURLs {
+    NSArray *iURLs;
+    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
+        iURLs = CacheURLProtocolIgnoreURLs;
+    }
+    return iURLs;
+}
+
++ (void)setIgnoreURLs:(NSArray *)iURLs {
+    @synchronized(CacheURLProtocolIgnoreURLsMonitor) {
+        CacheURLProtocolIgnoreURLs = iURLs;
+    }
+}
+
++ (BOOL)canInitWithURLRequest:(NSURLRequest*)request {
+    
+    // 过滤掉不需要走URLProtocol
+    NSArray *ignores = [self ignoreURLs];
+    for (NSString *url in ignores) {
+        if ([[request.URL absoluteString] hasPrefix:url]) {
+            return NO;
+        }
+    }
+    
+    // 如果是startLoading里发起的request忽略掉，避免死循环
+    BOOL recurisve = [self propertyForKey:kOurRecursiveRequestFlagProperty inRequest:request] == nil;
+    
+    // 没有标识位kOurRecursiveRequestFlagProperty的 并且是以http开的scheme都走代理；
+    if (recurisve && [[request.URL scheme] hasPrefix:@"http"]) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 - (void)configProtocolParam {
     NSURLSessionConfiguration *config = [[NSURLSessionConfiguration defaultSessionConfiguration] copy];
