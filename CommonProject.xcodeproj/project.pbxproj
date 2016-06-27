@@ -57,11 +57,6 @@
 		AF4005E21D211052008BF9A4 /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004CD1D211051008BF9A4 /* DeviceInfo.m */; };
 		AF4005E31D211052008BF9A4 /* DispatchTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004D01D211051008BF9A4 /* DispatchTimer.m */; };
 		AF4005E41D211052008BF9A4 /* FileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004D31D211051008BF9A4 /* FileCache.m */; };
-		AF4005E51D211052008BF9A4 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004D61D211051008BF9A4 /* FMDatabase.m */; };
-		AF4005E61D211052008BF9A4 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004D81D211051008BF9A4 /* FMDatabaseAdditions.m */; };
-		AF4005E71D211052008BF9A4 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004DA1D211051008BF9A4 /* FMDatabasePool.m */; };
-		AF4005E81D211052008BF9A4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004DC1D211051008BF9A4 /* FMDatabaseQueue.m */; };
-		AF4005E91D211052008BF9A4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004DF1D211051008BF9A4 /* FMResultSet.m */; };
 		AF4005EC1D211052008BF9A4 /* FormatterKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF4004E61D211051008BF9A4 /* FormatterKit.strings */; };
 		AF4005ED1D211052008BF9A4 /* TTTAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004E91D211051008BF9A4 /* TTTAddressFormatter.m */; };
 		AF4005EE1D211052008BF9A4 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4004EB1D211051008BF9A4 /* TTTArrayFormatter.m */; };
@@ -155,9 +150,7 @@
 		AF4006461D211052008BF9A4 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005B41D211051008BF9A4 /* SZTextView.m */; };
 		AF4006471D211052008BF9A4 /* CacheURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005B71D211051008BF9A4 /* CacheURLProtocol.m */; };
 		AF4006481D211052008BF9A4 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005BA1D211051008BF9A4 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		AF40064E1D21138F008BF9A4 /* SQLCipher.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AF40064A1D21138F008BF9A4 /* SQLCipher.xcconfig */; };
 		AF4006511D2113FA008BF9A4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4006501D2113FA008BF9A4 /* libsqlite3.tbd */; };
-		AF4006541D211459008BF9A4 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = AF4006521D211458008BF9A4 /* sqlite3.c */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
 		AFA148591D0EB4F100EB20BD /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA1484D1D0EB4F100EB20BD /* CommonViewController.m */; };
@@ -300,17 +293,6 @@
 		AF4004D01D211051008BF9A4 /* DispatchTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchTimer.m; sourceTree = "<group>"; };
 		AF4004D21D211051008BF9A4 /* FileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCache.h; sourceTree = "<group>"; };
 		AF4004D31D211051008BF9A4 /* FileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCache.m; sourceTree = "<group>"; };
-		AF4004D51D211051008BF9A4 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		AF4004D61D211051008BF9A4 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		AF4004D71D211051008BF9A4 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		AF4004D81D211051008BF9A4 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		AF4004D91D211051008BF9A4 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		AF4004DA1D211051008BF9A4 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		AF4004DB1D211051008BF9A4 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		AF4004DC1D211051008BF9A4 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		AF4004DD1D211051008BF9A4 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		AF4004DE1D211051008BF9A4 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		AF4004DF1D211051008BF9A4 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		AF4004E71D211051008BF9A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FormatterKit.strings; sourceTree = "<group>"; };
 		AF4004E81D211051008BF9A4 /* TTTAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAddressFormatter.h; sourceTree = "<group>"; };
 		AF4004E91D211051008BF9A4 /* TTTAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAddressFormatter.m; sourceTree = "<group>"; };
@@ -499,10 +481,7 @@
 		AF4005B71D211051008BF9A4 /* CacheURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheURLProtocol.m; sourceTree = "<group>"; };
 		AF4005B91D211051008BF9A4 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		AF4005BA1D211051008BF9A4 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
-		AF40064A1D21138F008BF9A4 /* SQLCipher.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SQLCipher.xcconfig; sourceTree = "<group>"; };
 		AF4006501D2113FA008BF9A4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		AF4006521D211458008BF9A4 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
-		AF4006531D211459008BF9A4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		AF7EA17A1D20C4B800E3F1CD /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		AF7EA17B1D20C4B800E3F1CD /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
@@ -737,7 +716,6 @@
 				AF4004CB1D211051008BF9A4 /* DeviceInfo */,
 				AF4004CE1D211051008BF9A4 /* DispatchTimer */,
 				AF4004D11D211051008BF9A4 /* FileCache */,
-				AF4004D41D211051008BF9A4 /* FMDB */,
 				AF4004E51D211051008BF9A4 /* FormatterKit */,
 				AF4004FB1D211051008BF9A4 /* HPGrowingTextView */,
 				AF4005001D211051008BF9A4 /* JSPatch */,
@@ -935,26 +913,6 @@
 				AF4004D31D211051008BF9A4 /* FileCache.m */,
 			);
 			path = FileCache;
-			sourceTree = "<group>";
-		};
-		AF4004D41D211051008BF9A4 /* FMDB */ = {
-			isa = PBXGroup;
-			children = (
-				AF4006491D21138F008BF9A4 /* SQLCipher */,
-				AF4004D51D211051008BF9A4 /* FMDatabase.h */,
-				AF4004D61D211051008BF9A4 /* FMDatabase.m */,
-				AF4004D71D211051008BF9A4 /* FMDatabaseAdditions.h */,
-				AF4004D81D211051008BF9A4 /* FMDatabaseAdditions.m */,
-				AF4004D91D211051008BF9A4 /* FMDatabasePool.h */,
-				AF4004DA1D211051008BF9A4 /* FMDatabasePool.m */,
-				AF4004DB1D211051008BF9A4 /* FMDatabaseQueue.h */,
-				AF4004DC1D211051008BF9A4 /* FMDatabaseQueue.m */,
-				AF4004DD1D211051008BF9A4 /* FMDB.h */,
-				AF4004DE1D211051008BF9A4 /* FMResultSet.h */,
-				AF4004DF1D211051008BF9A4 /* FMResultSet.m */,
-			);
-			name = FMDB;
-			path = fmdb;
 			sourceTree = "<group>";
 		};
 		AF4004E51D211051008BF9A4 /* FormatterKit */ = {
@@ -1328,16 +1286,6 @@
 			path = Xpath;
 			sourceTree = "<group>";
 		};
-		AF4006491D21138F008BF9A4 /* SQLCipher */ = {
-			isa = PBXGroup;
-			children = (
-				AF40064A1D21138F008BF9A4 /* SQLCipher.xcconfig */,
-				AF4006521D211458008BF9A4 /* sqlite3.c */,
-				AF4006531D211459008BF9A4 /* sqlite3.h */,
-			);
-			path = SQLCipher;
-			sourceTree = "<group>";
-		};
 		AF7EA1791D20C4B800E3F1CD /* DB */ = {
 			isa = PBXGroup;
 			children = (
@@ -1538,7 +1486,6 @@
 				AF4005DC1D211052008BF9A4 /* template.html in Resources */,
 				AF4006441D211052008BF9A4 /* SVProgressHUD.bundle in Resources */,
 				AFA148621D0EB58F00EB20BD /* DemoAssets.xcassets in Resources */,
-				AF40064E1D21138F008BF9A4 /* SQLCipher.xcconfig in Resources */,
 				AF4006081D211052008BF9A4 /* JSPatch.js in Resources */,
 				AF4005C01D211052008BF9A4 /* ShareSDK.bundle in Resources */,
 				AF4005BE1D211052008BF9A4 /* read_me.txt in Resources */,
@@ -1601,7 +1548,6 @@
 				AF4006451D211052008BF9A4 /* SVProgressHUD.m in Sources */,
 				AF40061E1D211052008BF9A4 /* ZipArchiveEx.m in Sources */,
 				AF4005EE1D211052008BF9A4 /* TTTArrayFormatter.m in Sources */,
-				AF4005E71D211052008BF9A4 /* FMDatabasePool.m in Sources */,
 				AF40062D1D211052008BF9A4 /* OHAttributedLabel.m in Sources */,
 				AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */,
 				AF4006141D211052008BF9A4 /* MASViewAttribute.m in Sources */,
@@ -1633,22 +1579,18 @@
 				AF40063B1D211052008BF9A4 /* SDWebImageManager.m in Sources */,
 				AF4006191D211052008BF9A4 /* ioapi.c in Sources */,
 				AF4005F01D211052008BF9A4 /* TTTLocationFormatter.m in Sources */,
-				AF4005E61D211052008BF9A4 /* FMDatabaseAdditions.m in Sources */,
 				AF4005FB1D211052008BF9A4 /* JPCGGeometry.m in Sources */,
 				AFBAEE091CBE0D57006B9056 /* MainControllerManager.m in Sources */,
 				AF4006421D211052008BF9A4 /* UIImageView+WebCache.m in Sources */,
 				AFA1485E1D0EB4F100EB20BD /* WebCacheViewController.m in Sources */,
 				AF4005F61D211052008BF9A4 /* HPGrowingTextView.m in Sources */,
-				AF4006541D211459008BF9A4 /* sqlite3.c in Sources */,
 				AF4006361D211052008BF9A4 /* SDImageCache.m in Sources */,
 				AF4005DF1D211052008BF9A4 /* CycleBannerView.m in Sources */,
 				AF4006301D211052008BF9A4 /* OHASBasicHTMLParser.m in Sources */,
 				AF4005F31D211052008BF9A4 /* TTTTimeIntervalFormatter.m in Sources */,
 				AF4006151D211052008BF9A4 /* MASViewConstraint.m in Sources */,
 				AF4005D61D211052008BF9A4 /* UIView+SizeUtility.m in Sources */,
-				AF4005E51D211052008BF9A4 /* FMDatabase.m in Sources */,
 				AF4006101D211052008BF9A4 /* MASCompositeConstraint.m in Sources */,
-				AF4005E91D211052008BF9A4 /* FMResultSet.m in Sources */,
 				AF4005C71D211052008BF9A4 /* AFHTTPRequestOperationManager.m in Sources */,
 				AF4005F41D211052008BF9A4 /* TTTUnitOfInformationFormatter.m in Sources */,
 				AFBAEE0D1CBE0E8B006B9056 /* LoginVC.m in Sources */,
@@ -1662,7 +1604,6 @@
 				AF4006381D211052008BF9A4 /* SDWebImageDecoder.m in Sources */,
 				AFA1485B1D0EB4F100EB20BD /* HomeTabBarController.m in Sources */,
 				AF4005F91D211052008BF9A4 /* JPCGColor.m in Sources */,
-				AF4005E81D211052008BF9A4 /* FMDatabaseQueue.m in Sources */,
 				AF40060D1D211052008BF9A4 /* MailSMSController.m in Sources */,
 				AF4006031D211052008BF9A4 /* JPUIGeometry.m in Sources */,
 				AF4006391D211052008BF9A4 /* SDWebImageDownloader.m in Sources */,
@@ -1844,7 +1785,6 @@
 		};
 		7009B4891CBCCE6C003BCE30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF40064A1D21138F008BF9A4 /* SQLCipher.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1877,7 +1817,6 @@
 		};
 		7009B48A1CBCCE6C003BCE30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF40064A1D21138F008BF9A4 /* SQLCipher.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
