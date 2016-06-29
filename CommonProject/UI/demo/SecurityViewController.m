@@ -152,8 +152,9 @@
             NSString *dbFile = [[DeviceInfo getDocumentsPath] stringByAppendingPathComponent:@"test.sqlite"];
             NSString *key = @"ai-cs";
             
-            
             [dbMgr executeSQL:dbFile KEY:key SQL:@"CREATE TABLE TestTable (name text,address text,phonenumber text)"];
+            
+            [dbMgr executeSQL:dbFile KEY:key SQL:@"DELETE FROM TestTable"];
             
             [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];
             [dbMgr executeSQL:dbFile KEY:key SQL:@"INSERT INTO TestTable (name,address,phonenumber) VALUES ('伍友健', '湖南-长沙', '18600746313')"];

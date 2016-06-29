@@ -13,7 +13,7 @@ NSString* const kSharedProtocol         = @"sharedto";
 NSString* const kPayProtocol            = @"payto";
 NSString* const kLocalAbilityProtocol   = @"localabilityto";
 
-// 子服务xs
+// 子服务
 NSString* const kSharedServer           = @"SharedServer";
 NSString* const kBaiDuMapServer         = @"BaiDuMapServer";
 NSString* const kWXPayServer            = @"WXPayServer";
@@ -79,7 +79,6 @@ NSString* const kGenerateQRCodeServer   = @"GenerateQRCodeServer";
             subType = InvokeServerSubTypeGenerateQRCode;
         }
     }
-
 
     NSString* queryString = [url.query stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *param = [[NSMutableDictionary alloc] initWithCapacity:0];

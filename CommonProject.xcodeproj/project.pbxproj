@@ -831,13 +831,13 @@
 		AF4004AE1D211051008BF9A4 /* CommonWebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AF4004BB1D211051008BF9A4 /* template.html */,
+				AF4004BC1D211051008BF9A4 /* URLParseManager.h */,
+				AF4004BD1D211051008BF9A4 /* URLParseManager.m */,
 				AF4004AF1D211051008BF9A4 /* CommonWebViewController.h */,
 				AF4004B01D211051008BF9A4 /* CommonWebViewController.m */,
 				AF4004B11D211051008BF9A4 /* pay */,
 				AF4004B61D211051008BF9A4 /* shared */,
-				AF4004BB1D211051008BF9A4 /* template.html */,
-				AF4004BC1D211051008BF9A4 /* URLParseManager.h */,
-				AF4004BD1D211051008BF9A4 /* URLParseManager.m */,
 			);
 			path = CommonWebViewController;
 			sourceTree = "<group>";

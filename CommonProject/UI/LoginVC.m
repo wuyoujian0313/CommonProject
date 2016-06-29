@@ -161,6 +161,8 @@
     [SVProgressHUD dismiss];
     [FadePromptView showPromptStatus:errorDesc duration:1.0 finishBlock:^{
         //
+        AppDelegate *app = [AppDelegate shareMyApplication];
+        [app.mainVC switchToHomeVC];
     }];
 }
 

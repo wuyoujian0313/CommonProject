@@ -15,6 +15,8 @@
 #import "URLParseManager.h"
 #import "CacheURLProtocol.h"
 
+#import <JavaScriptCore/JavaScriptCore.h>
+
 
 @interface CommonWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
 @property (nonatomic, strong) UIWebView             *contentWebView;
@@ -24,6 +26,8 @@
 
 @property (nonatomic, strong) NJKWebViewProgressView    *progressView;
 @property (nonatomic, strong) NJKWebViewProgress        *progressProxy;
+
+@property (nonatomic, strong) JSContext             *jsContext;
 @end
 
 @implementation CommonWebViewController
@@ -33,7 +37,7 @@
     _payMgr = nil;
     _sharedMgr = nil;
     
-//    [CacheURLProtocol unregisterCacheURLProtocol];
+    [CacheURLProtocol unregisterCacheURLProtocol];
 }
 
 
@@ -46,17 +50,17 @@
     // Do any additional setup after loading the view.
     self.navigationItem.leftBarButtonItem = nil;
     [self setNavTitle:self.tabBarItem.title];
-//    // 注册监听
-//    NSArray *ignores = @[@"http://101.69.181.210",
-//                         @"http://pic22.nipic.com/20120717/9774499_115645635000_2.jpg",
-//                         @"http://pic4.nipic.com/20090919/3372381_123043464790_2.jpg",
-//                         @"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",
-//                         @"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",
-//                         @"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];
-//    BOOL bSuc = [CacheURLProtocol registerProtocolWithIgnoreURLs:ignores];
-//    if (bSuc) {
-//        NSLog(@"CacheURLProtocol register success!");
-//    }
+    // 注册监听
+    NSArray *ignores = @[@"http://101.69.181.210",
+                         @"http://pic22.nipic.com/20120717/9774499_115645635000_2.jpg",
+                         @"http://pic4.nipic.com/20090919/3372381_123043464790_2.jpg",
+                         @"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",
+                         @"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",
+                         @"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];
+    BOOL bSuc = [CacheURLProtocol registerProtocolWithIgnoreURLs:ignores];
+    if (bSuc) {
+        NSLog(@"CacheURLProtocol register success!");
+    }
     
     CGFloat progressBarHeight = 2.f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
@@ -81,6 +85,31 @@
     [_contentWebView loadHTMLString:htmlString baseURL:nil];
 #endif
     [self.view addSubview:_contentWebView];
+    
+    
+    self.jsContext = [_contentWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    _jsContext[@"share"] = ^(NSString *title, NSString *content) {
+        
+        NSArray *args = [JSContext currentArguments];
+        for (JSValue *jsVal in args) {
+            NSLog(@"%@", jsVal.toString);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:content delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
+        });
+    };
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"To-JS" style:UIBarButtonItemStylePlain target:self action:@selector(toJS:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)toJS:(UIBarButtonItem*)sender {
+    if (_jsContext) {
+        [_jsContext evaluateScript:@"alert('JS弹出的H5的Alert')"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +125,8 @@
         [_progressView setProgress:progress animated:YES];
     }
 }
+
+
 
 
 #pragma mark - UIWebViewDelegate
