@@ -112,7 +112,7 @@
         NSDictionary* param =[[NSDictionary alloc] initWithObjectsAndKeys:
                               nameString,@"phoneNumber",
                               pwdString,@"password",nil];
-        
+        [SVProgressHUD setBackgroundColor:[UIColor colorWithHex:0xcccccc]];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
         [[NetworkTask sharedNetworkTask] startPOSTTaskApi:API_Login
                                                  forParam:param

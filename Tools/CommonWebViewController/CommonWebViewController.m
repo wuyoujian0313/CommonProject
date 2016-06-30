@@ -37,12 +37,13 @@
     _payMgr = nil;
     _sharedMgr = nil;
     
-    [CacheURLProtocol unregisterCacheURLProtocol];
+   // [CacheURLProtocol unregisterCacheURLProtocol];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated {
     [_progressView removeFromSuperview];
+    
 }
 
 - (void)viewDidLoad {
@@ -50,17 +51,17 @@
     // Do any additional setup after loading the view.
     self.navigationItem.leftBarButtonItem = nil;
     [self setNavTitle:self.tabBarItem.title];
-    // 注册监听
-    NSArray *ignores = @[@"http://101.69.181.210",
-                         @"http://pic22.nipic.com/20120717/9774499_115645635000_2.jpg",
-                         @"http://pic4.nipic.com/20090919/3372381_123043464790_2.jpg",
-                         @"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",
-                         @"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",
-                         @"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];
-    BOOL bSuc = [CacheURLProtocol registerProtocolWithIgnoreURLs:ignores];
-    if (bSuc) {
-        NSLog(@"CacheURLProtocol register success!");
-    }
+//    // 注册监听
+//    NSArray *ignores = @[@"http://101.69.181.210",
+//                         @"http://pic22.nipic.com/20120717/9774499_115645635000_2.jpg",
+//                         @"http://pic4.nipic.com/20090919/3372381_123043464790_2.jpg",
+//                         @"http://www.9doo.net/__demo/jd0024/upload/b1.jpg",
+//                         @"http://pic.58pic.com/58pic/13/18/50/23K58PIC38v_1024.jpg",
+//                         @"http://pic2.ooopic.com/10/57/50/93b1OOOPIC4d.jpg"];
+//    BOOL bSuc = [CacheURLProtocol registerProtocolWithIgnoreURLs:ignores];
+//    if (bSuc) {
+//        NSLog(@"CacheURLProtocol register success!");
+//    }
     
     CGFloat progressBarHeight = 2.f;
     CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
@@ -73,32 +74,41 @@
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     
-    self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo navigationBarHeight])];
+    self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo navigationBarHeight] - 49)];
     [_contentWebView setDelegate:_progressProxy];
+    [self.view addSubview:_contentWebView];
     
 #if 0
     NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
-    [_contentWebView loadRequest:[NSURLRequest requestWithURL:url]];
 #else
-    NSString *htmlPath = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
-    NSString *htmlString = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-    [_contentWebView loadHTMLString:htmlString baseURL:nil];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
 #endif
-    [self.view addSubview:_contentWebView];
     
-    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [_contentWebView loadRequest:request];
+
     self.jsContext = [_contentWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    _jsContext[@"share"] = ^(NSString *title, NSString *content) {
+    
+    __weak CommonWebViewController *wSelf = self;
+    _jsContext[@"JSToNative"] = ^(NSString *title, NSString *content) {
         
-        NSArray *args = [JSContext currentArguments];
-        for (JSValue *jsVal in args) {
-            NSLog(@"%@", jsVal.toString);
-        }
+//        NSArray *args = [JSContext currentArguments];
+//        for (JSValue *jsVal in args) {
+//            NSLog(@"%@", jsVal.toString);
+//        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:content delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            [alertView show];
+            UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                //
+            }];
+            //
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:aAction2];
+            
+            CommonWebViewController *sSelf = wSelf;
+            [sSelf presentViewController:alertController animated:YES completion:nil];
+            
         });
     };
     
@@ -107,9 +117,17 @@
 }
 
 - (void)toJS:(UIBarButtonItem*)sender {
+
+#if 1
     if (_jsContext) {
-        [_jsContext evaluateScript:@"alert('JS弹出的H5的Alert')"];
+        
+        [_jsContext evaluateScript:@"addElementNode('通过Native调用JS增加的节点');"];
+        // js需要给alert增加一个延迟执行
+        [_jsContext evaluateScript:@"showAlert('通过Native调用JS增加的节点');"];
     }
+#else
+    [_contentWebView stringByEvaluatingJavaScriptFromString:@"alert('JS弹出的H5的Alert')"];
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
