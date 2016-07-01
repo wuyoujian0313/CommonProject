@@ -14,8 +14,7 @@
 #import "SharedManager.h"
 #import "URLParseManager.h"
 #import "CacheURLProtocol.h"
-
-#import <JavaScriptCore/JavaScriptCore.h>
+#import "WebViewJSPatch.h"
 
 
 @interface CommonWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
@@ -27,7 +26,6 @@
 @property (nonatomic, strong) NJKWebViewProgressView    *progressView;
 @property (nonatomic, strong) NJKWebViewProgress        *progressProxy;
 
-@property (nonatomic, strong) JSContext             *jsContext;
 @end
 
 @implementation CommonWebViewController
@@ -86,48 +84,53 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [_contentWebView loadRequest:request];
-
-    self.jsContext = [_contentWebView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
     __weak CommonWebViewController *wSelf = self;
-    _jsContext[@"JSToNative"] = ^(NSString *title, NSString *content) {
+    [WebViewJSPatch registNativeAPIInWebView:_contentWebView apiName:@"JSToNative" apiBlock:^(NSArray<JSValue *> *arguments) {
+        //
         
-//        NSArray *args = [JSContext currentArguments];
-//        for (JSValue *jsVal in args) {
-//            NSLog(@"%@", jsVal.toString);
-//        }
+        NSString *arg1 = nil;
+        NSString *arg2 = nil;
+        NSInteger index = 0;
+        for (JSValue *jsVal in arguments) {
+            NSLog(@"%@", jsVal.toString);
+            if (index == 0) {
+                arg1 = [NSString stringWithFormat:@"%@",jsVal.toString];
+            } else if (index == 1) {
+                arg2 = [NSString stringWithFormat:@"%@",jsVal.toString];
+            }
+            
+            index ++;
+        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             //
-            UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                //
-            }];
+        }];
+        //
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:arg1 message:arg2 preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:aAction2];
+        
+        CommonWebViewController *sSelf = wSelf;
+        [sSelf presentViewController:alertController animated:YES completion:nil];
+
+    }];
+    
+    [WebViewJSPatch registNativeAPIInWebView:_contentWebView apiName:@"JSToNative2" apiBlock:^(NSArray<JSValue *> *arguments) {
+        
+        [FadePromptView showPromptStatus:@"JSToNative2被调用" duration:2.0 finishBlock:^{
             //
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:aAction2];
-            
-            CommonWebViewController *sSelf = wSelf;
-            [sSelf presentViewController:alertController animated:YES completion:nil];
-            
-        });
-    };
+        }];
+    }];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"To-JS" style:UIBarButtonItemStylePlain target:self action:@selector(toJS:)];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)toJS:(UIBarButtonItem*)sender {
+    
+    [WebViewJSPatch evaluateScriptWebView:_contentWebView script:@"showAlert('通过Native调用JS增加的节点');"];
 
-#if 1
-    if (_jsContext) {
-        
-        [_jsContext evaluateScript:@"addElementNode('通过Native调用JS增加的节点');"];
-        // js需要给alert增加一个延迟执行
-        [_jsContext evaluateScript:@"showAlert('通过Native调用JS增加的节点');"];
-    }
-#else
-    [_contentWebView stringByEvaluatingJavaScriptFromString:@"alert('JS弹出的H5的Alert')"];
-#endif
+    [WebViewJSPatch evaluateScriptWebView:_contentWebView script:@"addElementNode('通过Native调用JS增加的节点');"];
 }
 
 - (void)didReceiveMemoryWarning {

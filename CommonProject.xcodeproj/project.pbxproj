@@ -151,6 +151,7 @@
 		AF4006471D211052008BF9A4 /* CacheURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005B71D211051008BF9A4 /* CacheURLProtocol.m */; };
 		AF4006481D211052008BF9A4 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005BA1D211051008BF9A4 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AF4006511D2113FA008BF9A4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4006501D2113FA008BF9A4 /* libsqlite3.tbd */; };
+		AF50E0451D25112900EA0BB0 /* WebViewJSPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50E0441D25112900EA0BB0 /* WebViewJSPatch.m */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
 		AFA148591D0EB4F100EB20BD /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA1484D1D0EB4F100EB20BD /* CommonViewController.m */; };
@@ -489,6 +490,8 @@
 		AF4005B91D211051008BF9A4 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		AF4005BA1D211051008BF9A4 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		AF4006501D2113FA008BF9A4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		AF50E0431D25112900EA0BB0 /* WebViewJSPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJSPatch.h; sourceTree = "<group>"; };
+		AF50E0441D25112900EA0BB0 /* WebViewJSPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJSPatch.m; sourceTree = "<group>"; };
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		AF7EA17A1D20C4B800E3F1CD /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		AF7EA17B1D20C4B800E3F1CD /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
@@ -836,6 +839,8 @@
 				AF4004BD1D211051008BF9A4 /* URLParseManager.m */,
 				AF4004AF1D211051008BF9A4 /* CommonWebViewController.h */,
 				AF4004B01D211051008BF9A4 /* CommonWebViewController.m */,
+				AF50E0431D25112900EA0BB0 /* WebViewJSPatch.h */,
+				AF50E0441D25112900EA0BB0 /* WebViewJSPatch.m */,
 				AF4004B11D211051008BF9A4 /* pay */,
 				AF4004B61D211051008BF9A4 /* shared */,
 			);
@@ -1640,6 +1645,7 @@
 				AF4005F61D211052008BF9A4 /* HPGrowingTextView.m in Sources */,
 				AFB6F7361D2121D80008D872 /* sqlite3.c in Sources */,
 				AF4006361D211052008BF9A4 /* SDImageCache.m in Sources */,
+				AF50E0451D25112900EA0BB0 /* WebViewJSPatch.m in Sources */,
 				AF4005DF1D211052008BF9A4 /* CycleBannerView.m in Sources */,
 				AF4006301D211052008BF9A4 /* OHASBasicHTMLParser.m in Sources */,
 				AF4005F31D211052008BF9A4 /* TTTTimeIntervalFormatter.m in Sources */,

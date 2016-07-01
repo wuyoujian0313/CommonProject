@@ -7,6 +7,10 @@
             JSToNative('标题','内容文字');
         }
     
+    function buttonAction2() {
+        JSToNative2('标题','内容文字');
+    }
+    
         function addElementNode(text) {
             var para=document.createElement("p");
             var node=document.createTextNode(text);
@@ -31,7 +35,7 @@
         <p><a href="localabilityTo://PhotographServer?k=v">测试拍照</a></p>
         <p><a href="localabilityTo://VideotapeServer?k=v">测试录像</a></p>
         <p><a href="#" onclick="buttonAction()">JS调用Native</a></p>
-        <button type="button" onclick="buttonAction()">JS调用Native</button>
+        <button type="button" onclick="buttonAction2()">JS调用Native</button>
         <p><a href="tel://18600746313">测试拨打电话(webview自带)</a></p>
         <p><a href="sms://18600746313">测试发短信(webview自带)</a></p>
         <p><a href="mailto://wuyj@asiainfo.com" id="demo">测试发邮件(webview自带)</a></p>
