@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
 @property(nonatomic,copy) NSString      *fileName;
 @property(nonatomic,copy) NSString      *mimeType;
 @property(nonatomic,strong) NSData      *fileData;
-@property(nonatomic,copy) NSString      *key;
+@property(nonatomic,copy) NSString      *fileKey;
 @end
 
 

@@ -10,7 +10,7 @@
 #import "NetResultBase.h"
 #import "AFNetworking.h"
 
-@implementation UploadFileInfo
+@implementation UploadFileInfoEx
 @end
 
 @interface NetworkTaskEx ()
@@ -57,18 +57,18 @@
 #pragma mark - 私有API
 
 -(void)analyzeData:(NSData *)responseObject
-          delegate:(id <NetworkTaskDelegate>)delegate
+          delegate:(id <NetworkTaskExDelegate>)delegate
          resultObj:(NetResultBase*)resultObj
         customInfo:(id)customInfo {
     
     [resultObj autoParseJsonData:responseObject];
     
-    if(resultObj.code != nil && NetStatusCodeSuc([resultObj.code integerValue])) {
+    if(resultObj.code != nil && NetStatusCodeExSuc([resultObj.code integerValue])) {
         
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultSuccessBack:forInfo:)]) {
             [delegate netResultSuccessBack:resultObj forInfo:customInfo];
         }
-    } else if(resultObj.code != nil && NetStatusCodeFail([resultObj.code integerValue])) {
+    } else if(resultObj.code != nil && NetStatusCodeExFail([resultObj.code integerValue])) {
         
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
             NSString *errorDesc = [[self class] errerDescription:[resultObj.code integerValue]];
@@ -81,15 +81,15 @@
         
     } else {
         
-        NSString *errorDesc = [[self class] errerDescription:NetStatusCodeUnknown];
+        NSString *errorDesc = [[self class] errerDescription:NetStatusCodeExUnknown];
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
-            [delegate netResultFailBack:errorDesc errorCode:NetStatusCodeUnknown forInfo:customInfo];
+            [delegate netResultFailBack:errorDesc errorCode:NetStatusCodeExUnknown forInfo:customInfo];
         }
     }
 }
 
 -(void)handleError:(NSError *)error
-          delegate:(id <NetworkTaskDelegate>)delegate
+          delegate:(id <NetworkTaskExDelegate>)delegate
   receiveResultObj:(NetResultBase*)resultObj
         customInfo:(id)customInfo {
     
@@ -101,7 +101,7 @@
 - (void)requestWithMethod:(NSString *)method
                       api:(NSString *)api
                     param:(NSDictionary *)param
-                 delegate:(id <NetworkTaskDelegate>)delegate
+                 delegate:(id <NetworkTaskExDelegate>)delegate
                 resultObj:(NetResultBase*)resultObj
                customInfo:(id)customInfo {
     
@@ -163,8 +163,8 @@
 #pragma mark - 公开API
 - (void)startUploadTaskApi:(NSString*)api
                   forParam:(NSDictionary *)param
-                     files:(NSArray<UploadFileInfo*>*)files
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                     files:(NSArray<UploadFileInfoEx*>*)files
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
@@ -176,8 +176,8 @@
     
     [_afManager POST:urlString parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         //
-        for (UploadFileInfo *info in files) {
-            [formData appendPartWithFileData:info.fileData name:info.key fileName:info.fileName mimeType:info.mimeType];
+        for (UploadFileInfoEx *info in files) {
+            [formData appendPartWithFileData:info.fileData name:info.fileKey fileName:info.fileName mimeType:info.mimeType];
         }
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         //
@@ -189,7 +189,7 @@
 }
 
 - (void)startGETTaskURL:(NSString*)urlString
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:( NetResultBase*)resultObj
              customInfo:(id)customInfo {
     
@@ -212,13 +212,13 @@
                    fileKey:(NSString*)fileKey
                   fileName:(NSString*)fileName
                   mimeType:(NSString*)mimeType
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
-    UploadFileInfo *uInfo = [[UploadFileInfo alloc] init];
+    UploadFileInfoEx *uInfo = [[UploadFileInfoEx alloc] init];
     uInfo.fileData = fileData;
-    uInfo.key = fileKey;
+    uInfo.fileKey = fileKey;
     uInfo.fileName = fileName;
     uInfo.mimeType = mimeType;
     
@@ -233,14 +233,14 @@
                    fileKey:(NSString*)fileKey
                   fileName:(NSString*)fileName
                   mimeType:(NSString*)mimeType
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
     
-    UploadFileInfo *uInfo = [[UploadFileInfo alloc] init];
+    UploadFileInfoEx *uInfo = [[UploadFileInfoEx alloc] init];
     uInfo.fileData = [NSData dataWithContentsOfFile:filePath];
-    uInfo.key = fileKey;
+    uInfo.fileKey = fileKey;
     uInfo.fileName = fileName;
     uInfo.mimeType = mimeType;
     
@@ -250,7 +250,7 @@
 
 - (void)startGETTaskApi:(NSString*)api
                forParam:(NSDictionary *)param
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:(NetResultBase*)resultObj
              customInfo:(id)customInfo {
     
@@ -264,7 +264,7 @@
 
 - (void)startPOSTTaskApi:(NSString*)api
                 forParam:(NSDictionary *)param
-                delegate:(id <NetworkTaskDelegate>)delegate
+                delegate:(id <NetworkTaskExDelegate>)delegate
                resultObj:(NetResultBase*)resultObj
               customInfo:(id)customInfo {
     
@@ -279,7 +279,7 @@
 
 - (void)startPUTTaskApi:(NSString*)api
                forParam:(NSDictionary *)param
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:(NetResultBase*)resultObj
              customInfo:(id)customInfo {
     
@@ -293,7 +293,7 @@
 
 - (void)startDELETETaskApi:(NSString*)api
                   forParam:(NSDictionary *)param
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
@@ -310,13 +310,13 @@
     NSMutableString *desc = [[NSMutableString alloc] initWithCapacity:0];
     
     switch (statusCode) {
-        case NetStatusCodeMAPSuccess:
-        case NetStatusCodeSuccess: {
+        case NetStatusCodeExMAPSuccess:
+        case NetStatusCodeExSuccess: {
             [desc appendString:@"成功"];
             break;
         }
             
-        case NetStatusCodeUnknown: {
+        case NetStatusCodeExUnknown: {
             [desc appendString:@"未知错误，请重试"];
             break;
         }

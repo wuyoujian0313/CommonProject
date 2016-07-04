@@ -9,26 +9,26 @@
 #import <Foundation/Foundation.h>
 
 
-typedef NS_ENUM(NSInteger, NetStatusCode) {
-    NetStatusCodeSuccess = 1000,
-    NetStatusCodeMAPSuccess = 0,
-    NetStatusCodeUnknown,
+typedef NS_ENUM(NSInteger, NetStatusCodeEx) {
+    NetStatusCodeExSuccess = 1000,
+    NetStatusCodeExMAPSuccess = 0,
+    NetStatusCodeExUnknown,
 };
 
 
-#define NetStatusCodeSuc(status)    (status == NetStatusCodeSuccess || status == NetStatusCodeMAPSuccess)
-#define NetStatusCodeFail(status)    (status != NetStatusCodeSuccess && status != NetStatusCodeMAPSuccess)
+#define NetStatusCodeExSuc(status)    (status == NetStatusCodeExSuccess || status == NetStatusCodeExMAPSuccess)
+#define NetStatusCodeExFail(status)    (status != NetStatusCodeExSuccess && status != NetStatusCodeExMAPSuccess)
 
-@interface UploadFileInfo : NSObject
+@interface UploadFileInfoEx : NSObject
 @property(nonatomic,copy) NSString      *fileName;
 @property(nonatomic,copy) NSString      *mimeType;
 @property(nonatomic,strong) NSData      *fileData;
-@property(nonatomic,copy) NSString      *key;
+@property(nonatomic,copy) NSString      *fileKey;
 @end
 
 
 @class NetResultBase;
-@protocol NetworkTaskDelegate <NSObject>
+@protocol NetworkTaskExDelegate <NSObject>
 
 @optional
 -(void)netResultSuccessBack:(NetResultBase *)result forInfo:(id)customInfo;
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
                    fileKey:(NSString*)fileKey
                   fileName:(NSString*)fileName
                   mimeType:(NSString*)mimeType
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo;
 
@@ -61,47 +61,47 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
                    fileKey:(NSString*)fileKey
                   fileName:(NSString*)fileName
                   mimeType:(NSString*)mimeType
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo;
 
 - (void)startUploadTaskApi:(NSString*)api
                   forParam:(NSDictionary *)param
-                     files:(NSArray<UploadFileInfo*>*)files
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                     files:(NSArray<UploadFileInfoEx*>*)files
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo;
 
 // GET
 - (void)startGETTaskURL:(NSString*)urlString
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:(NetResultBase*)resultObj
              customInfo:(id)customInfo;
 
 - (void)startGETTaskApi:(NSString*)api
                forParam:(NSDictionary *)param
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:(NetResultBase*)resultObj
              customInfo:(id)customInfo;
 
 // POST
 - (void)startPOSTTaskApi:(NSString*)api
                 forParam:(NSDictionary *)param
-                delegate:(id <NetworkTaskDelegate>)delegate
+                delegate:(id <NetworkTaskExDelegate>)delegate
                resultObj:(NetResultBase*)resultObj
               customInfo:(id)customInfo;
 
 // PUT
 - (void)startPUTTaskApi:(NSString*)api
                forParam:(NSDictionary *)param
-               delegate:(id <NetworkTaskDelegate>)delegate
+               delegate:(id <NetworkTaskExDelegate>)delegate
               resultObj:(NetResultBase*)resultObj
              customInfo:(id)customInfo;
 
 // DELETE
 - (void)startDELETETaskApi:(NSString*)api
                   forParam:(NSDictionary *)param
-                  delegate:(id <NetworkTaskDelegate>)delegate
+                  delegate:(id <NetworkTaskExDelegate>)delegate
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo;
 
