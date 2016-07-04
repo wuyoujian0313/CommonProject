@@ -190,6 +190,7 @@
 		AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366661D1A222A00B2423E /* UserAccountResult.m */; };
 		AFE366691D1A222A00B2423E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366671D1A222A00B2423E /* UserInfo.m */; };
 		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
+		AFE809D81D2A21270006BC83 /* NetworkTaskEx.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +554,8 @@
 		AFE366671D1A222A00B2423E /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Models/UserInfo.m; sourceTree = "<group>"; };
 		AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManageViewController.h; sourceTree = "<group>"; };
 		AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManageViewController.m; sourceTree = "<group>"; };
+		AFE809D61D2A21270006BC83 /* NetworkTaskEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTaskEx.h; sourceTree = "<group>"; };
+		AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTaskEx.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -731,7 +734,6 @@
 			children = (
 				AFB6F7201D2121D80008D872 /* FMDB */,
 				AF4004861D211051008BF9A4 /* AFNetworking */,
-				AF40049A1D211051008BF9A4 /* Base64 */,
 				AF40049B1D211051008BF9A4 /* BaseViewController */,
 				AF4004A01D211051008BF9A4 /* BluetoothEngine */,
 				AF4004A31D211051008BF9A4 /* Category */,
@@ -785,13 +787,6 @@
 				AF4004991D211051008BF9A4 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		AF40049A1D211051008BF9A4 /* Base64 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base64;
 			sourceTree = "<group>";
 		};
 		AF40049B1D211051008BF9A4 /* BaseViewController */ = {
@@ -1152,6 +1147,8 @@
 				AF4005671D211051008BF9A4 /* NetResultBase.m */,
 				AF4005681D211051008BF9A4 /* NetworkTask.h */,
 				AF4005691D211051008BF9A4 /* NetworkTask.m */,
+				AFE809D61D2A21270006BC83 /* NetworkTaskEx.h */,
+				AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */,
 				AF40056A1D211051008BF9A4 /* NSObject+Utility */,
 			);
 			path = Network;
@@ -1606,6 +1603,7 @@
 				AF40061E1D211052008BF9A4 /* ZipArchiveEx.m in Sources */,
 				AF4005EE1D211052008BF9A4 /* TTTArrayFormatter.m in Sources */,
 				AF40062D1D211052008BF9A4 /* OHAttributedLabel.m in Sources */,
+				AFE809D81D2A21270006BC83 /* NetworkTaskEx.m in Sources */,
 				AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */,
 				AF4006141D211052008BF9A4 /* MASViewAttribute.m in Sources */,
 				AF4005DE1D211052008BF9A4 /* NSData+Crypto.m in Sources */,

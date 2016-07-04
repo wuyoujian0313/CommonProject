@@ -1,9 +1,9 @@
 //
-//  NetworkTask.h
+//  NetworkTaskEx.h
+//  CommonProject
 //
-//
-//  Created by wuyj on 14-9-2.
-//  Copyright (c) 2014年 wuyj. All rights reserved.
+//  Created by wuyoujian on 16/7/4.
+//  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -36,13 +36,11 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
 
 @end
 
-
-
-@interface NetworkTask : NSObject
+@interface NetworkTaskEx : NSObject
 
 @property(nonatomic, assign) NSTimeInterval taskTimeout;
 
-+ (NetworkTask *)sharedNetworkTask;
++ (NetworkTaskEx *)sharedNetworkTask;
 
 +(NSString *)errerDescription:(NSInteger)statusCode;
 
