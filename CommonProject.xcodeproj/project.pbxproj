@@ -111,7 +111,6 @@
 		AF4006221D211052008BF9A4 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005621D211051008BF9A4 /* MJRefreshFooterView.m */; };
 		AF4006231D211052008BF9A4 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005641D211051008BF9A4 /* MJRefreshHeaderView.m */; };
 		AF4006241D211052008BF9A4 /* NetResultBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005671D211051008BF9A4 /* NetResultBase.m */; };
-		AF4006251D211052008BF9A4 /* NetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005691D211051008BF9A4 /* NetworkTask.m */; };
 		AF4006261D211052008BF9A4 /* NSObject+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF40056C1D211051008BF9A4 /* NSObject+Utility.m */; };
 		AF4006271D211052008BF9A4 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AF40056F1D211051008BF9A4 /* NJKWebViewProgress.m */; };
 		AF4006281D211052008BF9A4 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4005711D211051008BF9A4 /* NJKWebViewProgressView.m */; };
@@ -187,10 +186,7 @@
 		AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366661D1A222A00B2423E /* UserAccountResult.m */; };
 		AFE366691D1A222A00B2423E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366671D1A222A00B2423E /* UserInfo.m */; };
 		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
-		AFE809D81D2A21270006BC83 /* NetworkTaskEx.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */; };
-		AFE809E51D2A3B260006BC83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809E01D2A3B260006BC83 /* AFHTTPRequestOperation.m */; };
-		AFE809E61D2A3B260006BC83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809E21D2A3B260006BC83 /* AFHTTPRequestOperationManager.m */; };
-		AFE809E71D2A3B260006BC83 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809E41D2A3B260006BC83 /* AFURLConnectionOperation.m */; };
+		AFE809D81D2A21270006BC83 /* NetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE809D71D2A21270006BC83 /* NetworkTask.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,8 +409,6 @@
 		AF4005641D211051008BF9A4 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
 		AF4005661D211051008BF9A4 /* NetResultBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetResultBase.h; sourceTree = "<group>"; };
 		AF4005671D211051008BF9A4 /* NetResultBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetResultBase.m; sourceTree = "<group>"; };
-		AF4005681D211051008BF9A4 /* NetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTask.h; sourceTree = "<group>"; };
-		AF4005691D211051008BF9A4 /* NetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTask.m; sourceTree = "<group>"; };
 		AF40056B1D211051008BF9A4 /* NSObject+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Utility.h"; sourceTree = "<group>"; };
 		AF40056C1D211051008BF9A4 /* NSObject+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Utility.m"; sourceTree = "<group>"; };
 		AF40056E1D211051008BF9A4 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
@@ -548,14 +542,8 @@
 		AFE366671D1A222A00B2423E /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Models/UserInfo.m; sourceTree = "<group>"; };
 		AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManageViewController.h; sourceTree = "<group>"; };
 		AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManageViewController.m; sourceTree = "<group>"; };
-		AFE809D61D2A21270006BC83 /* NetworkTaskEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTaskEx.h; sourceTree = "<group>"; };
-		AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTaskEx.m; sourceTree = "<group>"; };
-		AFE809DF1D2A3B260006BC83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
-		AFE809E01D2A3B260006BC83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		AFE809E11D2A3B260006BC83 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
-		AFE809E21D2A3B260006BC83 /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
-		AFE809E31D2A3B260006BC83 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
-		AFE809E41D2A3B260006BC83 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		AFE809D61D2A21270006BC83 /* NetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTask.h; sourceTree = "<group>"; };
+		AFE809D71D2A21270006BC83 /* NetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTask.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -766,12 +754,6 @@
 		AF4004861D211051008BF9A4 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				AFE809DF1D2A3B260006BC83 /* AFHTTPRequestOperation.h */,
-				AFE809E01D2A3B260006BC83 /* AFHTTPRequestOperation.m */,
-				AFE809E11D2A3B260006BC83 /* AFHTTPRequestOperationManager.h */,
-				AFE809E21D2A3B260006BC83 /* AFHTTPRequestOperationManager.m */,
-				AFE809E31D2A3B260006BC83 /* AFURLConnectionOperation.h */,
-				AFE809E41D2A3B260006BC83 /* AFURLConnectionOperation.m */,
 				AF40048B1D211051008BF9A4 /* AFHTTPSessionManager.h */,
 				AF40048C1D211051008BF9A4 /* AFHTTPSessionManager.m */,
 				AF40048D1D211051008BF9A4 /* AFNetworking.h */,
@@ -1145,10 +1127,8 @@
 			children = (
 				AF4005661D211051008BF9A4 /* NetResultBase.h */,
 				AF4005671D211051008BF9A4 /* NetResultBase.m */,
-				AF4005681D211051008BF9A4 /* NetworkTask.h */,
-				AF4005691D211051008BF9A4 /* NetworkTask.m */,
-				AFE809D61D2A21270006BC83 /* NetworkTaskEx.h */,
-				AFE809D71D2A21270006BC83 /* NetworkTaskEx.m */,
+				AFE809D61D2A21270006BC83 /* NetworkTask.h */,
+				AFE809D71D2A21270006BC83 /* NetworkTask.m */,
 				AF40056A1D211051008BF9A4 /* NSObject+Utility */,
 			);
 			path = Network;
@@ -1602,7 +1582,7 @@
 				AF40061E1D211052008BF9A4 /* ZipArchiveEx.m in Sources */,
 				AF4005EE1D211052008BF9A4 /* TTTArrayFormatter.m in Sources */,
 				AF40062D1D211052008BF9A4 /* OHAttributedLabel.m in Sources */,
-				AFE809D81D2A21270006BC83 /* NetworkTaskEx.m in Sources */,
+				AFE809D81D2A21270006BC83 /* NetworkTask.m in Sources */,
 				AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */,
 				AF4006141D211052008BF9A4 /* MASViewAttribute.m in Sources */,
 				AF4005DE1D211052008BF9A4 /* NSData+Crypto.m in Sources */,
@@ -1610,12 +1590,10 @@
 				AF4005DD1D211052008BF9A4 /* URLParseManager.m in Sources */,
 				AF4005D11D211052008BF9A4 /* BluetoothEngine.m in Sources */,
 				AF4006431D211052008BF9A4 /* UIView+WebCacheOperation.m in Sources */,
-				AF4006251D211052008BF9A4 /* NetworkTask.m in Sources */,
 				AF4005F81D211052008BF9A4 /* JPCGBitmapContext.m in Sources */,
 				AF4006161D211052008BF9A4 /* NSArray+MASAdditions.m in Sources */,
 				AFA1485A1D0EB4F100EB20BD /* DeviceViewController.m in Sources */,
 				AFBAEE141CBE0FBA006B9056 /* LoginResult.m in Sources */,
-				AFE809E51D2A3B260006BC83 /* AFHTTPRequestOperation.m in Sources */,
 				AF4005D51D211052008BF9A4 /* UIImage+Utility.m in Sources */,
 				AF4006071D211052008BF9A4 /* JPEngine.m in Sources */,
 				AF4005D41D211052008BF9A4 /* UIImage+ResizeMagick.m in Sources */,
@@ -1651,7 +1629,6 @@
 				AF4005D61D211052008BF9A4 /* UIView+SizeUtility.m in Sources */,
 				AFB6F7311D2121D80008D872 /* FMDatabaseAdditions.m in Sources */,
 				AF4006101D211052008BF9A4 /* MASCompositeConstraint.m in Sources */,
-				AFE809E71D2A3B260006BC83 /* AFURLConnectionOperation.m in Sources */,
 				AF4005F41D211052008BF9A4 /* TTTUnitOfInformationFormatter.m in Sources */,
 				AFBAEE0D1CBE0E8B006B9056 /* LoginVC.m in Sources */,
 				AF4005FA1D211052008BF9A4 /* JPCGContext.m in Sources */,
@@ -1672,7 +1649,6 @@
 				AF4006281D211052008BF9A4 /* NJKWebViewProgressView.m in Sources */,
 				AFE366691D1A222A00B2423E /* UserInfo.m in Sources */,
 				AF40062C1D211052008BF9A4 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
-				AFE809E61D2A3B260006BC83 /* AFHTTPRequestOperationManager.m in Sources */,
 				AF4006011D211052008BF9A4 /* JPMemory.m in Sources */,
 				AF40060F1D211052008BF9A4 /* QRViewController.m in Sources */,
 				AF4005F51D211052008BF9A4 /* TTTURLRequestFormatter.m in Sources */,

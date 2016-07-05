@@ -1,9 +1,9 @@
 //
 //  NetworkTask.m
+//  CommonProject
 //
-//
-//  Created by wuyj on 14-9-2.
-//  Copyright (c) 2014年 wuyj. All rights reserved.
+//  Created by wuyoujian on 16/7/4.
+//  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
 #import "NetworkTask.h"
@@ -13,59 +13,12 @@
 @implementation UploadFileInfo
 @end
 
-
-
-@interface AFHTTPRequestOperationManager (PUTForm)
-
-- (AFHTTPRequestOperation *)PUT:(NSString *)URLString
-                     parameters:(id)parameters
-      constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
-
-@end
-
-@implementation AFHTTPRequestOperationManager (PUTForm)
-
-- (AFHTTPRequestOperation *)PUT:(NSString *)URLString
-                     parameters:(id)parameters
-      constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
-    NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block error:&serializationError];
-    if (serializationError) {
-        if (failure) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-            dispatch_async(self.completionQueue ?: dispatch_get_main_queue(), ^{
-                failure(nil, serializationError);
-            });
-#pragma clang diagnostic pop
-        }
-        
-        return nil;
-    }
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
-    
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
-
-@end
-
-
 @interface NetworkTask ()
-@property (nonatomic,strong)AFHTTPRequestOperationManager *afManager;
-
+@property (nonatomic,strong)AFHTTPSessionManager *afManager;
 @end
 
 
 @implementation NetworkTask
-
 
 + (NetworkTask *)sharedNetworkTask {
     
@@ -78,11 +31,11 @@
 }
 
 
--(instancetype)init {
+- (instancetype)init {
     
     if (self = [super init]) {
         self.taskTimeout = 20;
-        self.afManager = [AFHTTPRequestOperationManager manager];
+        self.afManager = [AFHTTPSessionManager manager];
         
         [_afManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
         [_afManager.requestSerializer setHTTPMethodsEncodingParametersInURI:[NSSet setWithObjects:@"GET",@"DELETE",nil]];
@@ -96,7 +49,6 @@
         [acceptContentTypes addObject:@"application/json"];
         [acceptContentTypes addObject:@"application/json; charset=utf-8"];
         [_afManager.responseSerializer setAcceptableContentTypes:acceptContentTypes];
-
     }
     
     return self;
@@ -119,7 +71,7 @@
     } else if(resultObj.code != nil && NetStatusCodeFail([resultObj.code integerValue])) {
         
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
-            NSString *errorDesc = [NetworkTask errerDescription:[resultObj.code integerValue]];
+            NSString *errorDesc = [[self class] errerDescription:[resultObj.code integerValue]];
             if (errorDesc != nil && [errorDesc length] > 0) {
                 [delegate netResultFailBack:errorDesc errorCode:[resultObj.code integerValue]  forInfo:customInfo];
             } else {
@@ -129,25 +81,20 @@
         
     } else {
         
-        NSString *errorDesc = [NetworkTask errerDescription:NetStatusCodeUnknown];
+        NSString *errorDesc = [[self class] errerDescription:NetStatusCodeUnknown];
         if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
             [delegate netResultFailBack:errorDesc errorCode:NetStatusCodeUnknown forInfo:customInfo];
         }
     }
 }
 
--(void)handleError:(AFHTTPRequestOperation *)operation
-             error:(NSError *)error
+-(void)handleError:(NSError *)error
           delegate:(id <NetworkTaskDelegate>)delegate
   receiveResultObj:(NetResultBase*)resultObj
         customInfo:(id)customInfo {
     
-    if (operation.responseData != nil ) {
-        [self analyzeData:operation.responseData delegate:delegate resultObj:resultObj customInfo:customInfo];
-    } else {
-        if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
-            [delegate netResultFailBack:[error localizedDescription] errorCode:error.code forInfo:customInfo];
-        }
+    if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
+        [delegate netResultFailBack:[error localizedDescription] errorCode:error.code forInfo:customInfo];
     }
 }
 
@@ -165,54 +112,71 @@
     NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
     if ([method isEqualToString:@"GET"]) {
         
-        [_afManager GET:urlString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"response:%@",operation.responseString);
+        [_afManager GET:urlString parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+            //
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
+#if DEBUG
+            NSData *d = responseObject;
+            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+            NSLog(@"response:%@",str);
+#endif
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSLog(@"response:%@",operation.responseString);
-            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            //
+            //
             if (delegate != nil && [delegate respondsToSelector:@selector(netResultFailBack:errorCode:forInfo:)]) {
                 [delegate netResultFailBack:[error localizedDescription] errorCode:error.code forInfo:customInfo];
             }
         }];
         
     } else if([method isEqualToString:@"POST"]) {
-        [_afManager POST:urlString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [_afManager POST:urlString parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
             //
-            NSLog(@"response:%@",operation.responseString);
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //
+#if DEBUG
+            NSData *d = responseObject;
+            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+            NSLog(@"response:%@",str);
+#endif
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
-            NSLog(@"response:%@",operation.responseString);
-            [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
+            [weakSelf handleError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
         }];
         
     } else if([method isEqualToString:@"PUT"]) {
         
-        [_afManager PUT:urlString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [_afManager PUT:urlString parameters:param success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             //
-            NSLog(@"response:%@",operation.responseString);
-            //
+#if DEBUG
+            NSData *d = responseObject;
+            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+            NSLog(@"response:%@",str);
+#endif
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
-            NSLog(@"response:%@",operation.responseString);
-            [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
+            [weakSelf handleError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
         }];
         
     } else if([method isEqualToString:@"DELETE"]) {
-        [_afManager DELETE:urlString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSLog(@"response:%@",operation.responseString);
+        
+        [_afManager DELETE:urlString parameters:param success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            //
+        
+#if DEBUG
+            NSData *d = responseObject;
+            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+            NSLog(@"response:%@",str);
+#endif
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            //
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"response:%@",operation.responseString);
-            [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
+            [weakSelf handleError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
         }];
     }
 }
@@ -225,32 +189,57 @@
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
-    
-    
     [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
     [_afManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
     NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
     
     __weak NetworkTask *weakSelf = self;
     
-    [_afManager POST:urlString parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
+    [_afManager POST:urlString parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        //
         for (UploadFileInfo *info in files) {
             [formData appendPartWithFileData:info.fileData name:info.fileKey fileName:info.fileName mimeType:info.mimeType];
         }
-
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"response:%@",operation.responseString);
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //
+#if DEBUG
+        NSData *d = responseObject;
+        NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+        NSLog(@"response:%@",str);
+#endif
         [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        
-        [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //
+        [weakSelf handleError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
     }];
 }
 
+- (void)startGETTaskURL:(NSString*)urlString
+               delegate:(id <NetworkTaskDelegate>)delegate
+              resultObj:( NetResultBase*)resultObj
+             customInfo:(id)customInfo {
+    
+    [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
+    [_afManager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    __weak NetworkTask *weakSelf = self;
+    
+    [_afManager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        //
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //
+#if DEBUG
+        NSData *d = responseObject;
+        NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+        NSLog(@"response:%@",str);
+#endif
+        [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //
+        [weakSelf handleError:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
+    }];
+}
 
 - (void)startUploadTaskApi:(NSString*)api
                   forParam:(NSDictionary *)param
@@ -262,28 +251,14 @@
                  resultObj:(NetResultBase*)resultObj
                 customInfo:(id)customInfo {
     
+    UploadFileInfo *uInfo = [[UploadFileInfo alloc] init];
+    uInfo.fileData = fileData;
+    uInfo.fileKey = fileKey;
+    uInfo.fileName = fileName;
+    uInfo.mimeType = mimeType;
     
-    
-    [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
-    [_afManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
-
-    __weak NetworkTask *weakSelf = self;
-
-    [_afManager POST:urlString parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-        [formData appendPartWithFileData:fileData name:fileKey fileName:fileName mimeType:mimeType];
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        
-        [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
-    }];
+    NSArray *files = [NSArray arrayWithObject:uInfo];
+    [self startUploadTaskApi:api forParam:param files:files delegate:delegate resultObj:resultObj customInfo:customInfo];
 }
 
 
@@ -298,50 +273,15 @@
                 customInfo:(id)customInfo {
     
     
-    [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
-    [_afManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+    UploadFileInfo *uInfo = [[UploadFileInfo alloc] init];
+    uInfo.fileData = [NSData dataWithContentsOfFile:filePath];
+    uInfo.fileKey = fileKey;
+    uInfo.fileName = fileName;
+    uInfo.mimeType = mimeType;
     
-    __weak NetworkTask *weakSelf = self;
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
-    [_afManager POST:urlString parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-        NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-        [formData appendPartWithFileURL:fileURL name:fileKey fileName:fileName mimeType:mimeType error:nil];
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        
-        [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
-    }];
+    NSArray *files = [NSArray arrayWithObject:uInfo];
+    [self startUploadTaskApi:api forParam:param files:files delegate:delegate resultObj:resultObj customInfo:customInfo];
 }
-
-
-
-- (void)startGETTaskURL:(NSString*)urlString
-               delegate:(id <NetworkTaskDelegate>)delegate
-              resultObj:( NetResultBase*)resultObj
-             customInfo:(id)customInfo {
-    
-    [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
-    [_afManager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    __weak NetworkTask *weakSelf = self;
-    [_afManager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"response:%@",operation.responseString);
-        [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"response:%@",operation.responseString);
-        
-        [weakSelf handleError:operation error:error delegate:delegate receiveResultObj:resultObj customInfo:customInfo];
-    }];
-}
-
 
 - (void)startGETTaskApi:(NSString*)api
                forParam:(NSDictionary *)param
@@ -401,8 +341,7 @@
 }
 
 
-
-+(NSString *)errerDescription:(NSInteger)statusCode {
++ (NSString *)errerDescription:(NSInteger)statusCode {
     NSMutableString *desc = [[NSMutableString alloc] initWithCapacity:0];
     
     switch (statusCode) {
@@ -417,7 +356,6 @@
             break;
         }
             
-            
         default:
             break;
     }
@@ -426,4 +364,3 @@
 }
 
 @end
-
