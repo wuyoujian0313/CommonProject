@@ -10,6 +10,15 @@
 #import "NetResultBase.h"
 #import "AFNetworking.h"
 
+#if DEBUG
+#define RESPONSE_LOG \
+NSData *responseData = responseObject; \
+NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];\
+NSLog(@"response:%@",responseStr);
+#else
+#define RESPONSE_LOG
+#endif
+
 @implementation UploadFileInfo
 @end
 
@@ -116,11 +125,7 @@
             //
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-#if DEBUG
-            NSData *d = responseObject;
-            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-            NSLog(@"response:%@",str);
-#endif
+            RESPONSE_LOG
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
@@ -136,11 +141,7 @@
             //
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //
-#if DEBUG
-            NSData *d = responseObject;
-            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-            NSLog(@"response:%@",str);
-#endif
+            RESPONSE_LOG
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
@@ -151,11 +152,7 @@
         
         [_afManager PUT:urlString parameters:param success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             //
-#if DEBUG
-            NSData *d = responseObject;
-            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-            NSLog(@"response:%@",str);
-#endif
+            RESPONSE_LOG
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
@@ -166,12 +163,7 @@
         
         [_afManager DELETE:urlString parameters:param success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             //
-        
-#if DEBUG
-            NSData *d = responseObject;
-            NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-            NSLog(@"response:%@",str);
-#endif
+            RESPONSE_LOG
             [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             //
@@ -204,11 +196,7 @@
         //
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //
-#if DEBUG
-        NSData *d = responseObject;
-        NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-        NSLog(@"response:%@",str);
-#endif
+        RESPONSE_LOG
         [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //
@@ -229,11 +217,7 @@
         //
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //
-#if DEBUG
-        NSData *d = responseObject;
-        NSString *str = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-        NSLog(@"response:%@",str);
-#endif
+        RESPONSE_LOG
         [weakSelf analyzeData:responseObject delegate:delegate resultObj:resultObj customInfo:customInfo];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //
