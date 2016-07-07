@@ -493,6 +493,10 @@
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString*)kCFBundleVersionKey];
 }
 
++ (NSString*)getMainBundlePath {
+    return [[NSBundle mainBundle] bundlePath];
+}
+
 + (NSString*)getHomePath {
     return NSHomeDirectory();
 }

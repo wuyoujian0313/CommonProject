@@ -150,6 +150,7 @@
 		AF50E0451D25112900EA0BB0 /* WebViewJSPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AF50E0441D25112900EA0BB0 /* WebViewJSPatch.m */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
+		AF9152901D2DF83A00C9FABF /* upload.JPG in Resources */ = {isa = PBXBuildFile; fileRef = AF91528F1D2DF83A00C9FABF /* upload.JPG */; };
 		AFA148591D0EB4F100EB20BD /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA1484D1D0EB4F100EB20BD /* CommonViewController.m */; };
 		AFA1485A1D0EB4F100EB20BD /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA1484F1D0EB4F100EB20BD /* DeviceViewController.m */; };
 		AFA1485B1D0EB4F100EB20BD /* HomeTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA148511D0EB4F100EB20BD /* HomeTabBarController.m */; };
@@ -183,6 +184,7 @@
 		AFBAEE0D1CBE0E8B006B9056 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBAEE0C1CBE0E8B006B9056 /* LoginVC.m */; };
 		AFBAEE101CBE0EE3006B9056 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBAEE0F1CBE0EE3006B9056 /* HomeVC.m */; };
 		AFBAEE141CBE0FBA006B9056 /* LoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBAEE131CBE0FBA006B9056 /* LoginResult.m */; };
+		AFBC58FC1D2CDB960048E234 /* FileStreamOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AFBC58FB1D2CDB960048E234 /* FileStreamOperation.m */; };
 		AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366661D1A222A00B2423E /* UserAccountResult.m */; };
 		AFE366691D1A222A00B2423E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366671D1A222A00B2423E /* UserInfo.m */; };
 		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
@@ -484,6 +486,7 @@
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		AF7EA17A1D20C4B800E3F1CD /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		AF7EA17B1D20C4B800E3F1CD /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		AF91528F1D2DF83A00C9FABF /* upload.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload.JPG; sourceTree = "<group>"; };
 		AFA1484C1D0EB4F100EB20BD /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		AFA1484D1D0EB4F100EB20BD /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
 		AFA1484E1D0EB4F100EB20BD /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceViewController.h; sourceTree = "<group>"; };
@@ -536,6 +539,8 @@
 		AFBAEE0F1CBE0EE3006B9056 /* HomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeVC.m; path = UI/HomeVC.m; sourceTree = "<group>"; };
 		AFBAEE121CBE0FBA006B9056 /* LoginResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginResult.h; path = Models/LoginResult.h; sourceTree = "<group>"; };
 		AFBAEE131CBE0FBA006B9056 /* LoginResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginResult.m; path = Models/LoginResult.m; sourceTree = "<group>"; };
+		AFBC58FA1D2CDB960048E234 /* FileStreamOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileStreamOperation.h; sourceTree = "<group>"; };
+		AFBC58FB1D2CDB960048E234 /* FileStreamOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileStreamOperation.m; sourceTree = "<group>"; };
 		AFE366641D1A222A00B2423E /* UserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserAccountResult.h; path = Models/UserAccountResult.h; sourceTree = "<group>"; };
 		AFE366651D1A222A00B2423E /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Models/UserInfo.h; sourceTree = "<group>"; };
 		AFE366661D1A222A00B2423E /* UserAccountResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserAccountResult.m; path = Models/UserAccountResult.m; sourceTree = "<group>"; };
@@ -1129,6 +1134,8 @@
 				AF4005671D211051008BF9A4 /* NetResultBase.m */,
 				AFE809D61D2A21270006BC83 /* NetworkTask.h */,
 				AFE809D71D2A21270006BC83 /* NetworkTask.m */,
+				AFBC58FA1D2CDB960048E234 /* FileStreamOperation.h */,
+				AFBC58FB1D2CDB960048E234 /* FileStreamOperation.m */,
 				AF40056A1D211051008BF9A4 /* NSObject+Utility */,
 			);
 			path = Network;
@@ -1302,6 +1309,7 @@
 		AFA1484A1D0EB4F100EB20BD /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				AF91528F1D2DF83A00C9FABF /* upload.JPG */,
 				AF7EA1791D20C4B800E3F1CD /* DB */,
 				AFA148611D0EB58F00EB20BD /* DemoAssets.xcassets */,
 				AFA1484C1D0EB4F100EB20BD /* CommonViewController.h */,
@@ -1515,6 +1523,7 @@
 				AF40060A1D211052008BF9A4 /* line@2x.png in Resources */,
 				AF4005C41D211052008BF9A4 /* ShareSDKUI.bundle in Resources */,
 				AFA148601D0EB58400EB20BD /* Assets.xcassets in Resources */,
+				AF9152901D2DF83A00C9FABF /* upload.JPG in Resources */,
 				AF4006291D211052008BF9A4 /* LICENSE in Resources */,
 				AF4005DC1D211052008BF9A4 /* template.html in Resources */,
 				AF4006441D211052008BF9A4 /* SVProgressHUD.bundle in Resources */,
@@ -1643,6 +1652,7 @@
 				AF4005F91D211052008BF9A4 /* JPCGColor.m in Sources */,
 				AF40060D1D211052008BF9A4 /* MailSMSController.m in Sources */,
 				AF4006031D211052008BF9A4 /* JPUIGeometry.m in Sources */,
+				AFBC58FC1D2CDB960048E234 /* FileStreamOperation.m in Sources */,
 				AF4006391D211052008BF9A4 /* SDWebImageDownloader.m in Sources */,
 				AF4006041D211052008BF9A4 /* JPUIGraphics.m in Sources */,
 				AF4006001D211052008BF9A4 /* JPInclude.m in Sources */,

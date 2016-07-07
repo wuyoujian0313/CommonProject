@@ -58,6 +58,7 @@ typedef NS_ENUM(NSInteger ,DeviceInfo_Model) {
 + (NSString*) getSystemTimeStamp;
 + (NSString*) getSoftVersion;
 + (NSString*) getHomePath;
++ (NSString*) getMainBundlePath;
 + (NSString*) getDocumentsPath;
 + (NSString*) getCachePath;
 + (NSString*) getTmpPath;

@@ -11,6 +11,7 @@
 #import "UIImage+ResizeMagick.h"
 #import "FileCache.h"
 #import "GDataXMLNode.h"
+#import "FileStreamOperation.h"
 
 
 static NSString *const jsonString   = @"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}";
@@ -53,6 +54,7 @@ static NSString *const xmlString    = @"<key><key1>value1</key1><key2>value2</ke
     self.abilitys = @[@{@"name":@"选择图片压缩缓存"},
                       @{@"name":@"json解析"},
                       @{@"name":@"Xpath解析"},
+                      @{@"name":@"文件流操作"},
                       ];
 }
 
@@ -128,6 +130,28 @@ static NSString *const xmlString    = @"<key><key1>value1</key1><key2>value2</ke
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"解析结果" message:msg preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:aAction2];
         [self presentViewController:alertController animated:YES completion:nil];
+    } else if ([name isEqualToString:@"文件流操作"]) {
+        
+        NSString *bundlePath = [DeviceInfo getMainBundlePath];
+        NSString *readPath = [bundlePath stringByAppendingPathComponent:@"upload.JPG"];
+        FileStreamOperation *readOperation = [[FileStreamOperation alloc] initFileOperationAtPath:readPath forReadOperation:YES];
+        
+        NSString *docPath = [DeviceInfo getDocumentsPath];
+        NSString *writePath = [docPath stringByAppendingPathComponent:@"upload1.JPG"];
+        FileStreamOperation *writeOperation = [[FileStreamOperation alloc] initFileOperationAtPath:writePath forReadOperation:NO];
+
+        // 一次性写入
+//        NSData *d = [readOperation readDataToEndOfFile];
+//        [writeOperation writeData:d];
+      
+        // 分块写入
+        for (FileFragment *fragment in [readOperation fileFragments]) {
+            NSData * d = [readOperation readDateOfFragment:fragment];
+            [writeOperation writeData:d];
+        }
+        
+        [readOperation closeFile];
+        [writeOperation closeFile];
     }
 }
 

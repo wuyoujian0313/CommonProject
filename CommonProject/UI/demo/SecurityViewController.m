@@ -204,7 +204,6 @@
     NSDictionary *config = [_abilitys objectAtIndex:indexPath.row];
     cell.textLabel.text = config[@"name"];
     
-    
     return cell;
 }
 
