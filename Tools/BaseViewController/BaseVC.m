@@ -10,7 +10,7 @@
 
 
 
-@interface BaseVC ()
+@interface BaseVC ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -39,6 +39,7 @@
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, self.view.frame.size.height - [DeviceInfo navigationBarHeight])];
     [rootView setBackgroundColor:[UIColor colorWithHex:0xebeef0]];
