@@ -26,6 +26,10 @@
 
 @implementation FileStreamOperation
 
+- (void)dealloc {
+    [self closeFile];
+}
+
 + (NSString *)fileKey {
     
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);

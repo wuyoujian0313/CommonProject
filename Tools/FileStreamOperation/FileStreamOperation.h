@@ -14,7 +14,7 @@
 @class FileFragment;
 
 /**
- *  文件流操作类
+ *  文件流操作类, 支持保存到NSUserdefault中（需要采用NSKeyedArchiver方式固话到NSUserdefault）
  */
 @interface FileStreamOperation : NSObject<NSCoding>
 @property (nonatomic, readonly, copy) NSString *fileName;// 包括文件后缀名的文件名
