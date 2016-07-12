@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#define FileFragmentMaxSize         1024 * 512 // 512k
+#define kFileFragmentMaxSize         1024 * 512 // 512k
 
 
 @class FileFragment;
 
 /**
- *  文件流操作类, 支持保存到NSUserdefault中（需要采用NSKeyedArchiver方式固话到NSUserdefault）
+ *  文件流操作类, 支持保存到NSUserdefault中（需要采用NSKeyedArchiver方式固化到NSUserdefault）
  */
 @interface FileStreamOperation : NSObject<NSCoding>
 @property (nonatomic, readonly, copy) NSString *fileName;// 包括文件后缀名的文件名
@@ -58,6 +58,6 @@
 @interface FileFragment : NSObject<NSCoding>
 @property (nonatomic,copy)NSString          *fragmentId;    // 片的唯一标识
 @property (nonatomic,assign)NSUInteger      fragmentSize;   // 片的大小
-@property (nonatomic,assign)NSUInteger      fragementOffset;// 片的偏移量
+@property (nonatomic,assign)NSUInteger      fragmentOffset;// 片的偏移量
 @property (nonatomic,assign)BOOL            fragmentStatus; // 上传状态 YES上传成功
 @end

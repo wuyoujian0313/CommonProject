@@ -13,6 +13,8 @@
 		7009B4841CBCCE6C003BCE30 /* CommonProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7009B4831CBCCE6C003BCE30 /* CommonProjectUITests.m */; };
 		AF04B4681CE95787009AB8F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF04B4671CE95787009AB8F6 /* AssetsLibrary.framework */; };
 		AF04B46D1CE95FD3009AB8F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */; };
+		AF2214941D3375D000044B3C /* GridMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2214931D3375D000044B3C /* GridMenuView.m */; };
+		AF2214971D3379F200044B3C /* GridMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2214961D3379F200044B3C /* GridMenuCell.m */; };
 		AF24B7741CE587BE003E3B19 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF24B7731CE587BE003E3B19 /* MessageUI.framework */; };
 		AF24B7831CE5C139003E3B19 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF24B7821CE5C139003E3B19 /* AVFoundation.framework */; };
 		AF4005BB1D211051008BF9A4 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4004761D211051008BF9A4 /* TencentOpenAPI.framework */; };
@@ -222,6 +224,10 @@
 		7009B4851CBCCE6C003BCE30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF04B4671CE95787009AB8F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		AF04B46C1CE95FD3009AB8F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		AF2214921D3375D000044B3C /* GridMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridMenuView.h; sourceTree = "<group>"; };
+		AF2214931D3375D000044B3C /* GridMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridMenuView.m; sourceTree = "<group>"; };
+		AF2214951D3379F200044B3C /* GridMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridMenuCell.h; sourceTree = "<group>"; };
+		AF2214961D3379F200044B3C /* GridMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridMenuCell.m; sourceTree = "<group>"; };
 		AF24B7731CE587BE003E3B19 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AF24B7821CE5C139003E3B19 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AF4004761D211051008BF9A4 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
@@ -669,6 +675,17 @@
 			path = CommonProjectUITests;
 			sourceTree = "<group>";
 		};
+		AF2214911D33361F00044B3C /* GridView */ = {
+			isa = PBXGroup;
+			children = (
+				AF2214921D3375D000044B3C /* GridMenuView.h */,
+				AF2214931D3375D000044B3C /* GridMenuView.m */,
+				AF2214951D3379F200044B3C /* GridMenuCell.h */,
+				AF2214961D3379F200044B3C /* GridMenuCell.m */,
+			);
+			path = GridView;
+			sourceTree = "<group>";
+		};
 		AF4004721D211051008BF9A4 /* ThirdSDKs */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +881,7 @@
 		AF4004C11D211051008BF9A4 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				AF2214911D33361F00044B3C /* GridView */,
 				AF4004C21D211051008BF9A4 /* CycleBannerView */,
 				AF4004C51D211051008BF9A4 /* FadePromptView */,
 				AF4004C81D211051008BF9A4 /* LineView */,
@@ -1597,12 +1615,14 @@
 				AF4006061D211052008BF9A4 /* JPUIKit.m in Sources */,
 				AF4006451D211052008BF9A4 /* SVProgressHUD.m in Sources */,
 				AF40061E1D211052008BF9A4 /* ZipArchiveEx.m in Sources */,
+				AF2214941D3375D000044B3C /* GridMenuView.m in Sources */,
 				AF4005EE1D211052008BF9A4 /* TTTArrayFormatter.m in Sources */,
 				AF40062D1D211052008BF9A4 /* OHAttributedLabel.m in Sources */,
 				AFE809D81D2A21270006BC83 /* NetworkTask.m in Sources */,
 				AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */,
 				AF4006141D211052008BF9A4 /* MASViewAttribute.m in Sources */,
 				AF4005DE1D211052008BF9A4 /* NSData+Crypto.m in Sources */,
+				AF2214971D3379F200044B3C /* GridMenuCell.m in Sources */,
 				AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */,
 				AF4005DD1D211052008BF9A4 /* URLParseManager.m in Sources */,
 				AF4005D11D211052008BF9A4 /* BluetoothEngine.m in Sources */,

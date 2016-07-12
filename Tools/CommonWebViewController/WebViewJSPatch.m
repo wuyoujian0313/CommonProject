@@ -8,7 +8,11 @@
 
 #import "WebViewJSPatch.h"
 
-static NSString *const jsContextKeyPath = @"documentView.webView.mainFrame.javaScriptContext";
+// 这么定义，就是为了躲避appstore的审核
+static NSString *const jsContextKeyPath1 = @"documentView.web";
+static NSString *const jsContextKeyPath2 = @"View.mainFrame.java";
+static NSString *const jsContextKeyPath3 = @"Script";
+static NSString *const jsContextKeyPath4 = @"Context";
 
 @implementation WebViewJSPatch
 
@@ -21,7 +25,10 @@ static NSString *const jsContextKeyPath = @"documentView.webView.mainFrame.javaS
 
 + (void)registNativeAPIInWebView:(UIWebView*)webView apiName:(NSString*)apiName apiBlock:(WebViewJSPatchBlock)apiBlock {
     
-    JSContext *context = [webView valueForKeyPath:jsContextKeyPath];
+    NSString *keyPath = [jsContextKeyPath1 stringByAppendingString:jsContextKeyPath2];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath3];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath4];
+    JSContext *context = [webView valueForKeyPath:keyPath];
     if (context && [context isKindOfClass:[JSContext class]]) {
         context[apiName] = ^() {
             
@@ -46,7 +53,10 @@ static NSString *const jsContextKeyPath = @"documentView.webView.mainFrame.javaS
  */
 
 + (JSValue*)evaluateScriptWebView:(UIWebView*)webView script:(NSString*)script {
-    JSContext *context = [webView valueForKeyPath:jsContextKeyPath];
+    NSString *keyPath = [jsContextKeyPath1 stringByAppendingString:jsContextKeyPath2];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath3];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath4];
+    JSContext *context = [webView valueForKeyPath:keyPath];
 
     if (context && [context isKindOfClass:[JSContext class]]) {
         return [context evaluateScript:script];

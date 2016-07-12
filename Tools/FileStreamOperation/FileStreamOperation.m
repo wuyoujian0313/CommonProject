@@ -121,7 +121,7 @@
 // 切分文件片段
 - (void)cutFileForFragments {
     
-    NSUInteger offset = FileFragmentMaxSize;
+    NSUInteger offset = kFileFragmentMaxSize;
     // 块数
     NSUInteger chunks = (_fileSize%offset==0)?(_fileSize/offset):(_fileSize/(offset) + 1);
     
@@ -131,12 +131,12 @@
         FileFragment *fFragment = [[FileFragment alloc] init];
         fFragment.fragmentStatus = NO;
         fFragment.fragmentId = [[self class] fileKey];
-        fFragment.fragementOffset = i * offset;
+        fFragment.fragmentOffset = i * offset;
 
         if (i != chunks - 1) {
             fFragment.fragmentSize = offset;
         } else {
-            fFragment.fragmentSize = _fileSize - fFragment.fragementOffset;
+            fFragment.fragmentSize = _fileSize - fFragment.fragmentOffset;
         }
         
         [fragments addObject:fFragment];
@@ -149,7 +149,7 @@
 - (NSData*)readDateOfFragment:(FileFragment*)fragment {
     
     if (fragment) {
-        [self seekToFileOffset:fragment.fragementOffset];
+        [self seekToFileOffset:fragment.fragmentOffset];
         return [_readFileHandle readDataOfLength:fragment.fragmentSize];
     }
     
@@ -215,7 +215,7 @@
     
     [aCoder encodeObject:[self fragmentId] forKey:@"fragmentId"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self fragmentSize]] forKey:@"fragmentSize"];
-    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self fragementOffset]] forKey:@"fragementOffset"];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self fragmentOffset]] forKey:@"fragmentOffset"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self fragmentStatus]] forKey:@"fragmentStatus"];
 }
 
@@ -224,7 +224,7 @@
     if (self != nil) {
         [self setFragmentId:[aDecoder decodeObjectForKey:@"fragmentId"]];
         [self setFragmentSize:[[aDecoder decodeObjectForKey:@"fragmentSize"] unsignedIntegerValue]];
-        [self setFragementOffset:[[aDecoder decodeObjectForKey:@"fragementOffset"] unsignedIntegerValue]];
+        [self setFragmentOffset:[[aDecoder decodeObjectForKey:@"fragmentOffset"] unsignedIntegerValue]];
         [self setFragmentStatus:[[aDecoder decodeObjectForKey:@"fragmentStatus"] boolValue]];
     }
     
