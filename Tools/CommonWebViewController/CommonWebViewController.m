@@ -14,7 +14,7 @@
 #import "SharedManager.h"
 #import "URLParseManager.h"
 #import "CacheURLProtocol.h"
-#import "WebViewJSPatch.h"
+#import "UIWebView+JSPatch.h"
 
 
 @interface CommonWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
@@ -86,7 +86,7 @@
     [_contentWebView loadRequest:request];
     
     __weak CommonWebViewController *wSelf = self;
-    [WebViewJSPatch registNativeAPIInWebView:_contentWebView apiName:@"JSToNative" apiBlock:^(NSArray<JSValue *> *arguments) {
+    [_contentWebView registNativeAPIInWebViewApiName:@"JSToNative" apiBlock:^(NSArray<JSValue *> *arguments) {
         //
         
         NSString *arg1 = nil;
@@ -115,7 +115,7 @@
 
     }];
     
-    [WebViewJSPatch registNativeAPIInWebView:_contentWebView apiName:@"JSToNative2" apiBlock:^(NSArray<JSValue *> *arguments) {
+    [_contentWebView registNativeAPIInWebViewApiName:@"JSToNative2" apiBlock:^(NSArray<JSValue *> *arguments) {
         
         [FadePromptView showPromptStatus:@"JSToNative2被调用" duration:2.0 finishBlock:^{
             //
@@ -128,9 +128,8 @@
 
 - (void)toJS:(UIBarButtonItem*)sender {
     
-    [WebViewJSPatch evaluateScriptWebView:_contentWebView script:@"showAlert('通过Native调用JS增加的节点');"];
-
-    [WebViewJSPatch evaluateScriptWebView:_contentWebView script:@"addElementNode('通过Native调用JS增加的节点');"];
+    [_contentWebView evaluateScript:@"showAlert('通过Native调用JS增加的节点');"];
+    [_contentWebView evaluateScript:@"addElementNode('通过Native调用JS增加的节点');"];
 }
 
 - (void)didReceiveMemoryWarning {
