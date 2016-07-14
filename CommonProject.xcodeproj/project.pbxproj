@@ -133,8 +133,6 @@
 		AF40307E1D37B43C00DB3B74 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FD41D37B43C00DB3B74 /* MJRefreshHeaderView.m */; };
 		AF40307F1D37B43C00DB3B74 /* NetResultBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FD71D37B43C00DB3B74 /* NetResultBase.m */; };
 		AF4030801D37B43C00DB3B74 /* NetworkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FD91D37B43C00DB3B74 /* NetworkTask.m */; };
-		AF4030811D37B43C00DB3B74 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FDC1D37B43C00DB3B74 /* NJKWebViewProgress.m */; };
-		AF4030821D37B43C00DB3B74 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FDE1D37B43C00DB3B74 /* NJKWebViewProgressView.m */; };
 		AF4030831D37B43C00DB3B74 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AF402FE01D37B43C00DB3B74 /* LICENSE */; };
 		AF4030841D37B43C00DB3B74 /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FE31D37B43C00DB3B74 /* CoreTextUtils.m */; };
 		AF4030851D37B43C00DB3B74 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = AF402FE61D37B43C00DB3B74 /* NSAttributedString+Attributes.m */; };
@@ -154,11 +152,15 @@
 		AF4030931D37B43C00DB3B74 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030061D37B43C00DB3B74 /* SVProgressHUD.m */; };
 		AF4030941D37B43C00DB3B74 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030091D37B43C00DB3B74 /* SZTextView.m */; };
 		AF4030951D37B43C00DB3B74 /* CacheURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF40300C1D37B43C00DB3B74 /* CacheURLProtocol.m */; };
-		AF4030961D37B43C00DB3B74 /* CommonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF40300E1D37B43C00DB3B74 /* CommonWebViewController.m */; };
-		AF4030971D37B43C00DB3B74 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = AF40300F1D37B43C00DB3B74 /* template.html */; };
 		AF4030981D37B43C00DB3B74 /* UIWebView+JSPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030111D37B43C00DB3B74 /* UIWebView+JSPatch.m */; };
-		AF4030991D37B43C00DB3B74 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030131D37B43C00DB3B74 /* URLParseManager.m */; };
 		AF40309A1D37B43C00DB3B74 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030161D37B43C00DB3B74 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		AF40309D1D37B87E00DB3B74 /* WebViewKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF40309C1D37B87E00DB3B74 /* WebViewKitController.m */; };
+		AF4030AA1D37BB0E00DB3B74 /* CommonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */; };
+		AF4030AB1D37BB0E00DB3B74 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = AF4030A71D37BB0E00DB3B74 /* template.html */; };
+		AF4030AC1D37BB0E00DB3B74 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */; };
+		AF4030B21D37BC3900DB3B74 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030AF1D37BC3900DB3B74 /* NJKWebViewProgress.m */; };
+		AF4030B31D37BC3900DB3B74 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030B11D37BC3900DB3B74 /* NJKWebViewProgressView.m */; };
+		AF4030B61D37BD3E00DB3B74 /* ScriptPluginBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030B51D37BD3E00DB3B74 /* ScriptPluginBase.m */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
 		AF9152901D2DF83A00C9FABF /* upload.JPG in Resources */ = {isa = PBXBuildFile; fileRef = AF91528F1D2DF83A00C9FABF /* upload.JPG */; };
@@ -458,10 +460,6 @@
 		AF402FD71D37B43C00DB3B74 /* NetResultBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetResultBase.m; sourceTree = "<group>"; };
 		AF402FD81D37B43C00DB3B74 /* NetworkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTask.h; sourceTree = "<group>"; };
 		AF402FD91D37B43C00DB3B74 /* NetworkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTask.m; sourceTree = "<group>"; };
-		AF402FDB1D37B43C00DB3B74 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
-		AF402FDC1D37B43C00DB3B74 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
-		AF402FDD1D37B43C00DB3B74 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
-		AF402FDE1D37B43C00DB3B74 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		AF402FE01D37B43C00DB3B74 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AF402FE21D37B43C00DB3B74 /* CoreTextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextUtils.h; sourceTree = "<group>"; };
 		AF402FE31D37B43C00DB3B74 /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
@@ -498,15 +496,23 @@
 		AF4030091D37B43C00DB3B74 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		AF40300B1D37B43C00DB3B74 /* CacheURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheURLProtocol.h; sourceTree = "<group>"; };
 		AF40300C1D37B43C00DB3B74 /* CacheURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheURLProtocol.m; sourceTree = "<group>"; };
-		AF40300D1D37B43C00DB3B74 /* CommonWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonWebViewController.h; sourceTree = "<group>"; };
-		AF40300E1D37B43C00DB3B74 /* CommonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonWebViewController.m; sourceTree = "<group>"; };
-		AF40300F1D37B43C00DB3B74 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		AF4030101D37B43C00DB3B74 /* UIWebView+JSPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+JSPatch.h"; sourceTree = "<group>"; };
 		AF4030111D37B43C00DB3B74 /* UIWebView+JSPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+JSPatch.m"; sourceTree = "<group>"; };
-		AF4030121D37B43C00DB3B74 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
-		AF4030131D37B43C00DB3B74 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
 		AF4030151D37B43C00DB3B74 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		AF4030161D37B43C00DB3B74 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		AF40309B1D37B87E00DB3B74 /* WebViewKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewKitController.h; sourceTree = "<group>"; };
+		AF40309C1D37B87E00DB3B74 /* WebViewKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewKitController.m; sourceTree = "<group>"; };
+		AF4030A51D37BB0E00DB3B74 /* CommonWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonWebViewController.h; sourceTree = "<group>"; };
+		AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonWebViewController.m; sourceTree = "<group>"; };
+		AF4030A71D37BB0E00DB3B74 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+		AF4030A81D37BB0E00DB3B74 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
+		AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
+		AF4030AE1D37BC3900DB3B74 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		AF4030AF1D37BC3900DB3B74 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		AF4030B01D37BC3900DB3B74 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		AF4030B11D37BC3900DB3B74 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
+		AF4030B41D37BD3E00DB3B74 /* ScriptPluginBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptPluginBase.h; sourceTree = "<group>"; };
+		AF4030B51D37BD3E00DB3B74 /* ScriptPluginBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptPluginBase.m; sourceTree = "<group>"; };
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		AF7EA17A1D20C4B800E3F1CD /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		AF7EA17B1D20C4B800E3F1CD /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
@@ -747,7 +753,6 @@
 				AF402FBB1D37B43C00DB3B74 /* minzip */,
 				AF402FCA1D37B43C00DB3B74 /* MJRefresh */,
 				AF402FD51D37B43C00DB3B74 /* Network */,
-				AF402FDA1D37B43C00DB3B74 /* NJKWebViewProgress */,
 				AF402FDF1D37B43C00DB3B74 /* OHAttributedLabel */,
 				AF402FF61D37B43C00DB3B74 /* Pay */,
 				AF402FFE1D37B43C00DB3B74 /* Shared */,
@@ -763,6 +768,7 @@
 		AF402EE11D37B43B00DB3B74 /* BaseSrc */ = {
 			isa = PBXGroup;
 			children = (
+				AF4030AD1D37BC3900DB3B74 /* NJKWebViewProgress */,
 				AF402EE21D37B43B00DB3B74 /* AFNetworking */,
 				AF402EF01D37B43B00DB3B74 /* BaseViewController */,
 				AF402EF51D37B43B00DB3B74 /* Category */,
@@ -1208,17 +1214,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		AF402FDA1D37B43C00DB3B74 /* NJKWebViewProgress */ = {
-			isa = PBXGroup;
-			children = (
-				AF402FDB1D37B43C00DB3B74 /* NJKWebViewProgress.h */,
-				AF402FDC1D37B43C00DB3B74 /* NJKWebViewProgress.m */,
-				AF402FDD1D37B43C00DB3B74 /* NJKWebViewProgressView.h */,
-				AF402FDE1D37B43C00DB3B74 /* NJKWebViewProgressView.m */,
-			);
-			path = NJKWebViewProgress;
-			sourceTree = "<group>";
-		};
 		AF402FDF1D37B43C00DB3B74 /* OHAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,15 +1317,14 @@
 		AF40300A1D37B43C00DB3B74 /* WebViewKits */ = {
 			isa = PBXGroup;
 			children = (
-				AF40300F1D37B43C00DB3B74 /* template.html */,
 				AF40300B1D37B43C00DB3B74 /* CacheURLProtocol.h */,
 				AF40300C1D37B43C00DB3B74 /* CacheURLProtocol.m */,
-				AF40300D1D37B43C00DB3B74 /* CommonWebViewController.h */,
-				AF40300E1D37B43C00DB3B74 /* CommonWebViewController.m */,
 				AF4030101D37B43C00DB3B74 /* UIWebView+JSPatch.h */,
 				AF4030111D37B43C00DB3B74 /* UIWebView+JSPatch.m */,
-				AF4030121D37B43C00DB3B74 /* URLParseManager.h */,
-				AF4030131D37B43C00DB3B74 /* URLParseManager.m */,
+				AF40309B1D37B87E00DB3B74 /* WebViewKitController.h */,
+				AF40309C1D37B87E00DB3B74 /* WebViewKitController.m */,
+				AF4030B41D37BD3E00DB3B74 /* ScriptPluginBase.h */,
+				AF4030B51D37BD3E00DB3B74 /* ScriptPluginBase.m */,
 			);
 			path = WebViewKits;
 			sourceTree = "<group>";
@@ -1342,6 +1336,17 @@
 				AF4030161D37B43C00DB3B74 /* GDataXMLNode.m */,
 			);
 			path = Xpath;
+			sourceTree = "<group>";
+		};
+		AF4030AD1D37BC3900DB3B74 /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				AF4030AE1D37BC3900DB3B74 /* NJKWebViewProgress.h */,
+				AF4030AF1D37BC3900DB3B74 /* NJKWebViewProgress.m */,
+				AF4030B01D37BC3900DB3B74 /* NJKWebViewProgressView.h */,
+				AF4030B11D37BC3900DB3B74 /* NJKWebViewProgressView.m */,
+			);
+			path = NJKWebViewProgress;
 			sourceTree = "<group>";
 		};
 		AF7EA1791D20C4B800E3F1CD /* DB */ = {
@@ -1356,7 +1361,6 @@
 		AFA1484A1D0EB4F100EB20BD /* demo */ = {
 			isa = PBXGroup;
 			children = (
-				AF91528F1D2DF83A00C9FABF /* upload.JPG */,
 				AF7EA1791D20C4B800E3F1CD /* DB */,
 				AFA148611D0EB58F00EB20BD /* DemoAssets.xcassets */,
 				AFA148501D0EB4F100EB20BD /* HomeTabBarController.h */,
@@ -1373,6 +1377,12 @@
 				AFA148571D0EB4F100EB20BD /* WebCacheViewController.m */,
 				AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */,
 				AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */,
+				AF91528F1D2DF83A00C9FABF /* upload.JPG */,
+				AF4030A51D37BB0E00DB3B74 /* CommonWebViewController.h */,
+				AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */,
+				AF4030A71D37BB0E00DB3B74 /* template.html */,
+				AF4030A81D37BB0E00DB3B74 /* URLParseManager.h */,
+				AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */,
 			);
 			name = demo;
 			path = UI/demo;
@@ -1538,7 +1548,7 @@
 				AF40307A1D37B43C00DB3B74 /* MJRefresh.bundle in Resources */,
 				AF4030471D37B43C00DB3B74 /* FormatterKit.strings in Resources */,
 				AF4030451D37B43C00DB3B74 /* SQLCipher.xcconfig in Resources */,
-				AF4030971D37B43C00DB3B74 /* template.html in Resources */,
+				AF4030AB1D37BB0E00DB3B74 /* template.html in Resources */,
 				AF4030691D37B43C00DB3B74 /* pick_bg@2x.png in Resources */,
 				AF4030651D37B43C00DB3B74 /* line@2x.png in Resources */,
 				AF4005C41D211052008BF9A4 /* ShareSDKUI.bundle in Resources */,
@@ -1579,6 +1589,7 @@
 				AFBAEE101CBE0EE3006B9056 /* HomeVC.m in Sources */,
 				AF4030781D37B43C00DB3B74 /* ZipArchive.m in Sources */,
 				AF4030671D37B43C00DB3B74 /* LocalAbilityModel.m in Sources */,
+				AF4030B21D37BC3900DB3B74 /* NJKWebViewProgress.m in Sources */,
 				AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */,
 				AF40305E1D37B43C00DB3B74 /* JPUIGeometry.m in Sources */,
 				AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */,
@@ -1624,7 +1635,9 @@
 				AF4030551D37B43C00DB3B74 /* JPCGContext.m in Sources */,
 				AF4030931D37B43C00DB3B74 /* SVProgressHUD.m in Sources */,
 				AF4030891D37B43C00DB3B74 /* OHTouchesGestureRecognizer.m in Sources */,
+				AF4030B31D37BC3900DB3B74 /* NJKWebViewProgressView.m in Sources */,
 				AF40301A1D37B43C00DB3B74 /* AFURLRequestSerialization.m in Sources */,
+				AF4030B61D37BD3E00DB3B74 /* ScriptPluginBase.m in Sources */,
 				AF4030201D37B43C00DB3B74 /* NSString+Utility.m in Sources */,
 				AF4030391D37B43C00DB3B74 /* NSData+Crypto.m in Sources */,
 				AF4030571D37B43C00DB3B74 /* JPCGImage.m in Sources */,
@@ -1633,16 +1646,17 @@
 				AFA1485E1D0EB4F100EB20BD /* WebCacheViewController.m in Sources */,
 				AF4030191D37B43C00DB3B74 /* AFSecurityPolicy.m in Sources */,
 				AFBAEE0D1CBE0E8B006B9056 /* LoginVC.m in Sources */,
+				AF4030AA1D37BB0E00DB3B74 /* CommonWebViewController.m in Sources */,
 				AF4030321D37B43C00DB3B74 /* UIImage+GIF.m in Sources */,
 				AF4030361D37B43C00DB3B74 /* UIImageView+WebCache.m in Sources */,
 				AFA1485D1D0EB4F100EB20BD /* SecurityViewController.m in Sources */,
+				AF40309D1D37B87E00DB3B74 /* WebViewKitController.m in Sources */,
 				AF40302A1D37B43C00DB3B74 /* SDImageCache.m in Sources */,
 				AF4030181D37B43C00DB3B74 /* AFNetworkReachabilityManager.m in Sources */,
 				AFA148591D0EB4F100EB20BD /* CommonViewController.m in Sources */,
 				AF4030611D37B43C00DB3B74 /* JPUIKit.m in Sources */,
 				AFA1485B1D0EB4F100EB20BD /* HomeTabBarController.m in Sources */,
 				AF40308D1D37B43C00DB3B74 /* PayDataModel.m in Sources */,
-				AF4030821D37B43C00DB3B74 /* NJKWebViewProgressView.m in Sources */,
 				AF4030221D37B43C00DB3B74 /* UIImage+ResizeMagick.m in Sources */,
 				AF40303F1D37B43C00DB3B74 /* FileStreamOperation.m in Sources */,
 				AF4030841D37B43C00DB3B74 /* CoreTextUtils.m in Sources */,
@@ -1672,6 +1686,7 @@
 				AF40307F1D37B43C00DB3B74 /* NetResultBase.m in Sources */,
 				AF4030291D37B43C00DB3B74 /* NSData+ImageContentType.m in Sources */,
 				AF4030761D37B43C00DB3B74 /* unzip.c in Sources */,
+				AF4030AC1D37BB0E00DB3B74 /* URLParseManager.m in Sources */,
 				AF4030701D37B43C00DB3B74 /* MASViewConstraint.m in Sources */,
 				AF40308B1D37B43C00DB3B74 /* OHASBasicMarkupParser.m in Sources */,
 				AF40308A1D37B43C00DB3B74 /* OHASBasicHTMLParser.m in Sources */,
@@ -1679,7 +1694,6 @@
 				AF40305D1D37B43C00DB3B74 /* JPStructPointer.m in Sources */,
 				AF40301E1D37B43C00DB3B74 /* WYJNavigationController.m in Sources */,
 				AF40303E1D37B43C00DB3B74 /* FileCache.m in Sources */,
-				AF4030811D37B43C00DB3B74 /* NJKWebViewProgress.m in Sources */,
 				7009B4631CBCCE6C003BCE30 /* AppDelegate.m in Sources */,
 				AF4030311D37B43C00DB3B74 /* UIButton+WebCache.m in Sources */,
 				7009B4601CBCCE6C003BCE30 /* main.m in Sources */,
@@ -1690,7 +1704,6 @@
 				AF40303C1D37B43C00DB3B74 /* GridMenuView.m in Sources */,
 				AF40306A1D37B43C00DB3B74 /* QRViewController.m in Sources */,
 				AF4030171D37B43C00DB3B74 /* AFHTTPSessionManager.m in Sources */,
-				AF4030991D37B43C00DB3B74 /* URLParseManager.m in Sources */,
 				AF40303D1D37B43C00DB3B74 /* DeviceInfo.m in Sources */,
 				AF4030411D37B43C00DB3B74 /* FMDatabaseAdditions.m in Sources */,
 				AF40306F1D37B43C00DB3B74 /* MASViewAttribute.m in Sources */,
@@ -1707,7 +1720,6 @@
 				AF4030371D37B43C00DB3B74 /* UIView+WebCacheOperation.m in Sources */,
 				AF4030281D37B43C00DB3B74 /* MKAnnotationView+WebCache.m in Sources */,
 				AF40303A1D37B43C00DB3B74 /* CycleBannerView.m in Sources */,
-				AF4030961D37B43C00DB3B74 /* CommonWebViewController.m in Sources */,
 				AF40304E1D37B43C00DB3B74 /* TTTTimeIntervalFormatter.m in Sources */,
 				AF4030801D37B43C00DB3B74 /* NetworkTask.m in Sources */,
 				AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */,

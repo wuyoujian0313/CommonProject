@@ -12,7 +12,7 @@
 #import "MailSMSController.h"
 
 typedef NS_ENUM(NSInteger, LocalAbilityType) {
-    LocalAbilityTypeMail,
+    LocalAbilityTypeMail = 0,
     LocalAbilityTypeSMS,
     LocalAbilityTypeDail,
     LocalAbilityTypePickerImage_AllowsEditing,
