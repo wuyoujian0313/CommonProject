@@ -12,6 +12,11 @@
 @interface GridMenuView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView          *mainMenuView;
 @property (nonatomic, strong) NSMutableArray            *menuDatas;
+
+@property (nonatomic, assign) NSUInteger                menuWidth;
+@property (nonatomic, assign) NSUInteger                menuHeight;
+
+
 @end
 
 @implementation GridMenuView
@@ -21,13 +26,30 @@
     self = [super initWithFrame:frame];
     if (self) {
         //
+        //初始化
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        flowLayout.minimumInteritemSpacing = 0 ;
+        flowLayout.minimumLineSpacing = 0;
+        flowLayout.headerReferenceSize = CGSizeZero;
+        flowLayout.footerReferenceSize = CGSizeZero;
         
+        self.mainMenuView = [[UICollectionView alloc] initWithFrame:self.bounds     collectionViewLayout:flowLayout];
+        // 注册
+        [_mainMenuView registerClass:[GridMenuCell class] forCellWithReuseIdentifier:kGridMenuCellIdentifier];
+        _mainMenuView.backgroundColor = [UIColor whiteColor];
+        _mainMenuView.showsVerticalScrollIndicator = NO;
+        _mainMenuView.showsHorizontalScrollIndicator = NO;
+        _mainMenuView.delegate = self;
+        _mainMenuView.dataSource = self;
+        _mainMenuView.bounces = YES;
+        _mainMenuView.scrollEnabled = NO;
+        [self addSubview:_mainMenuView];
     }
     return self;
 }
 
 - (void)reloadGridView {
-    
     [_mainMenuView reloadData];
 }
 
@@ -41,9 +63,18 @@
     [_mainMenuView reloadData];
 }
 
-// 设置一行count列，列宽为:屏幕宽度/count。默认count为3;
+// 设置一行count列，列宽为:self.bounds.size.width/count
 - (void)setColumnCount:(NSUInteger)count {
+
+    self.menuWidth = (NSUInteger)self.bounds.size.width / count;
+    [_mainMenuView reloadData];
+}
+
+// 设置九宫格的行高
+- (void)setRowHeight:(CGFloat)height {
     
+    self.menuHeight = height;
+    [_mainMenuView reloadData];
 }
 
 
@@ -55,13 +86,19 @@
 
 //每个分区上的元素个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 33;
+    return [_menuDatas count];
 }
 
 //设置元素内容
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return nil;
+    GridMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGridMenuCellIdentifier forIndexPath:indexPath];
+    
+    [cell sizeToFit];
+    cell.indexPath = indexPath;
+    [cell setGridMenu:[_menuDatas objectAtIndex:indexPath.row]];
+
+    return cell;
 }
 
 //
@@ -72,7 +109,7 @@
 
 //设置元素大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake([DeviceInfo screenWidth]/3.0,100);
+    return CGSizeMake(_menuWidth,_menuHeight);
 }
 
 
