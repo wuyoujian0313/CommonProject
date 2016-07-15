@@ -10,6 +10,8 @@
 #import "CommonWebViewController.h"
 #import "CommonViewController.h"
 #import "DeviceViewController.h"
+#import "WebViewKitController.h"
+#import "ExtendScriptPlugin.h"
 
 
 
@@ -32,7 +34,7 @@
     [self.tabBar setBarTintColor:[UIColor lightTextColor]];
     [self.tabBar setTintColor:[UIColor colorWithHex:0x12b8f6]];
 
-    CommonWebViewController *webVC = [[CommonWebViewController alloc] init];
+    WebViewKitController *webVC = [[WebViewKitController alloc] init];
     UITabBarItem *itemObj1 = [[UITabBarItem alloc] initWithTitle:@"H5能力"
                                                            image:[UIImage imageNamed:@"tabbar_circle"]
                                                    selectedImage:nil];
@@ -58,7 +60,14 @@
     WYJNavigationController *nav3 = [[WYJNavigationController alloc] initWithRootViewController:deviceVC];
 
     [self setViewControllers:[[NSArray alloc] initWithObjects:nav1,nav2,nav3,nil]];
-    [self setSelectedIndex:0];    
+    [self setSelectedIndex:0];
+    
+    [webVC loadWebViewForURL:@"http://www.baidu.com"];
+    [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, id response) {
+        //
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

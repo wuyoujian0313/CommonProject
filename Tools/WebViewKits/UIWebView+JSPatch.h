@@ -13,6 +13,8 @@ typedef void(^WebViewJSPatchBlock)(NSArray<JSValue*> *arguments);
 
 @interface UIWebView (JSPatch)
 
+- (JSContext *)webViewContext;
+
 /**
  *  向webview中注册js调用Native的api
  *  @param webView 对应的WebView

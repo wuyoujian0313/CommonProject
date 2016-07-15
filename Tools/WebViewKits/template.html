@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script>
+
+    
+    function sharedAction() {
+        ScriptPluginBase.JN_Shared('标题','分享文字','分享数据');
+    }
+    
+    function payAction() {
+    }
+    
+    function selectImageAction() {
+        ScriptPluginBase.JN_SelectImageAllowsEditing(false);
+    }
+    
+    function photograghAction() {
+        ScriptPluginBase.JN_PhotographAllowsEditing(false);
+    }
+    
+    function videotapeAction() {
+        ScriptPluginBase.JN_Videotape();
+    }
+    
+    function scanQRCodeAction() {
+        ScriptPluginBase.JN_ScanQRCode();
+    }
+    
+    function emailAction() {
+        ScriptPluginBase.JN_Email('邮件主题','邮件内容');
+    }
+    
+    function smsAction() {
+        ScriptPluginBase.JN_SMSContent('短信内容');
+    }
+    
+    function dailAction() {
+        ScriptPluginBase.JN_DailPhoneNumber('18600746313');
+    }
+    
+    function addElementNode(text) {
+        var para=document.createElement("p");
+        var node=document.createTextNode(text);
+        para.appendChild(node);
+        
+        var element=document.getElementById("div");
+        element.appendChild(para);
+    }
+    
+    function extendAction() {
+        ExtendScriptPlugin.JN_ShowAlert('扩展插件');
+    }
+    
+    function showAlert(text) {
+        // alert需要延迟一下
+        setTimeout(function(){alert(text);}, 1);
+    }
+    
+    </script>
+    
+</head>
+<body>
+    <div id="div">
+        <p><a href="href" onclick="sharedAction()">测试分享</a></p>
+        <p><a href="href" onclick="payAction()">测试支付</a></p>
+        <p><a href="href" onclick="selectImageAction()">测试选择图片</a></p>
+        <p><a href="href" onclick="photograghAction()">测试拍照</a></p>
+        <p><a href="href" onclick="videotapeAction()">测试录像</a></p>
+        <p><a href="href" onclick="scanQRCodeAction()">扫描二维码</a></p>
+        <p><a href="href" onclick="emailAction()">测试邮件</a></p>
+        <p><a href="href" onclick="smsAction()">测试短信</a></p>
+        <p><a href="href" onclick="dailAction()">测试电话</a></p>
+        <p><a href="href" onclick="extendAction()">扩展插件</a></p>
+        
+        <p><a href="tel://18600746313">测试拨打电话(webview自带)</a></p>
+        <p><a href="sms://18600746313">测试发短信(webview自带)</a></p>
+        <p><a href="mailto://wuyj@asiainfo.com" id="demo">测试发邮件(webview自带)</a></p>
+    </div>
+
+</body>
+</html>

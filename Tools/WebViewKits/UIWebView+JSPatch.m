@@ -15,6 +15,18 @@ static NSString *const jsContextKeyPath3 = @"Script";
 static NSString *const jsContextKeyPath4 = @"Context";
 
 @implementation UIWebView (JSPatch)
+
+
+- (JSContext *)webViewContext {
+    
+    NSString *keyPath = [jsContextKeyPath1 stringByAppendingString:jsContextKeyPath2];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath3];
+    keyPath = [keyPath stringByAppendingString:jsContextKeyPath4];
+    JSContext *context = [self valueForKeyPath:keyPath];
+    
+    return context;
+}
+
 /**
  *  向webview中注册js调用Native的api
  *  @param webView 对应的WebView
@@ -24,10 +36,7 @@ static NSString *const jsContextKeyPath4 = @"Context";
 
 - (void)registNativeAPIInWebViewApiName:(NSString*)apiName apiBlock:(WebViewJSPatchBlock)apiBlock {
     
-    NSString *keyPath = [jsContextKeyPath1 stringByAppendingString:jsContextKeyPath2];
-    keyPath = [keyPath stringByAppendingString:jsContextKeyPath3];
-    keyPath = [keyPath stringByAppendingString:jsContextKeyPath4];
-    JSContext *context = [self valueForKeyPath:keyPath];
+    JSContext *context = [self webViewContext];
     if (context && [context isKindOfClass:[JSContext class]]) {
         context[apiName] = ^() {
             
@@ -52,10 +61,7 @@ static NSString *const jsContextKeyPath4 = @"Context";
  */
 
 - (JSValue*)evaluateScript:(NSString*)script {
-    NSString *keyPath = [jsContextKeyPath1 stringByAppendingString:jsContextKeyPath2];
-    keyPath = [keyPath stringByAppendingString:jsContextKeyPath3];
-    keyPath = [keyPath stringByAppendingString:jsContextKeyPath4];
-    JSContext *context = [self valueForKeyPath:keyPath];
+    JSContext *context = [self webViewContext];
     
     if (context && [context isKindOfClass:[JSContext class]]) {
         return [context evaluateScript:script];

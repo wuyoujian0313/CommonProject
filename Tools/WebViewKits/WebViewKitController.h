@@ -14,6 +14,7 @@
 // 加载对应的url web页面
 - (void)loadWebViewForURL:(NSString*)urlString;
 
-- (void)registerScriptPlugin:(ScriptPluginBase*)plugin;
+- (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(NativeCallbackHandler)callback;
 
+- (void)evaluateScript:(NSString*)script;
 @end

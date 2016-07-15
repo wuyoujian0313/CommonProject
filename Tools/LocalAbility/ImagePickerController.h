@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSInteger, ImagePickerStatus) {
     ImagePickerStatusSuccess,
     ImagePickerStatusFail,
-    ImagePickerTypeQRCancel,
+    ImagePickerStatusCancel,
 };
 
 typedef NS_ENUM(NSInteger, ImagePickerType) {
