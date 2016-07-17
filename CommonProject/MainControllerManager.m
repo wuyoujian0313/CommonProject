@@ -61,8 +61,10 @@
         self.currentController = homeVC;
         
         [_currentController didMoveToParentViewController:self];
+        [_currentController setNeedsStatusBarAppearanceUpdate];
     } completion:^(BOOL finished) {
         //
+        
     }];
 }
 
@@ -73,10 +75,11 @@
         //
         [fromVC removeFromParentViewController];
         self.currentController = loginVC;
-        
         [_currentController didMoveToParentViewController:self];
+        [_currentController setNeedsStatusBarAppearanceUpdate];
     } completion:^(BOOL finished) {
         //
+        
     }];
 }
 
@@ -91,6 +94,7 @@
 
 - (UIViewController *)setupHomeController {
     
+    // 根据工程的需要，修改一下对应的首页类
     HomeTabBarController *controller = [[HomeTabBarController alloc] init];
     [self addChildViewController:controller];
     [self.view addSubview:controller.view];

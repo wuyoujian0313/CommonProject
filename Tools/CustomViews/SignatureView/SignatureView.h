@@ -1,0 +1,33 @@
+//
+//  SignatureView.h
+//  CommonProject
+//
+//  Created by wuyoujian on 16/7/16.
+//  Copyright © 2016年 wuyoujian. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface SignatureView : UIView
+
+// 签名图片
+@property (nonatomic, readonly, strong) UIImage     *image;
+// 画笔颜色,默认黑色，背景色:白色
+@property (nonatomic, strong) UIColor               *penColor;
+// 画笔大小
+@property (nonatomic, assign) CGFloat               penSize;
+
+// @path 是图片保存的全路径
+- (void)saveImage2PNGAtPath:(NSString*)path;
+- (void)saveImage2JPEGAtPath:(NSString*)path;
+
+// 撤销上一笔
+- (void)undo;
+
+// 重做上一笔
+- (void)redo;
+
+// 清楚所有的笔画
+- (void)clear;
+
+@end

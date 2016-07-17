@@ -27,9 +27,9 @@
         sSelf.sharedMgr = obj;
         
         SharedDataModel *mObj = [[SharedDataModel alloc] init];
-        mObj.title = @"title";
-        mObj.content = @"content";
-        mObj.data = @"www.baidu.com";
+        mObj.title = title;
+        mObj.content = content;
+        mObj.data = data;
 
         UIApplication *app = [UIApplication sharedApplication];
         [obj sharedDataFromViewController:app.keyWindow.rootViewController withData:mObj finish:^(SharedStatusCode statusCode) {
@@ -48,65 +48,72 @@
             }
         }];
     });
-    
-    
 }
 
 
 - (void)JN_EmailSubject:(NSString*)subject content:(NSString*)content {
     
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    self.localAbilityMgr = obj;
-    UIApplication *app = [UIApplication sharedApplication];
-    
     __weak ScriptPluginBase *wSelf = self;
-    [obj pickerMailSMSController:app.keyWindow.rootViewController type:LocalAbilityTypeMail andSubject:subject andContent:content finish:^(SendType type, SendStatus status) {
-        //
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         ScriptPluginBase *sSelf = wSelf;
-        if (sSelf.callbackHandler) {
-            NSString *response = nil;
-            if (status == SendStatusSuccess) {
-                response = @"success";
-            } else if (status == SendStatusFail) {
-                response = @"fail";
-            } else if (status == SendStatusCancel) {
-                response = @"cancel";
-            } else if (status == SendStatusSave) {
-                response = @"save";
-            }
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        sSelf.localAbilityMgr = obj;
+        UIApplication *app = [UIApplication sharedApplication];
+        
+        [obj pickerMailSMSController:app.keyWindow.rootViewController type:LocalAbilityTypeMail andSubject:subject andContent:content finish:^(SendType type, SendStatus status) {
+            //
             
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-        }
-    }];
+            
+            if (sSelf.callbackHandler) {
+                NSString *response = nil;
+                if (status == SendStatusSuccess) {
+                    response = @"success";
+                } else if (status == SendStatusFail) {
+                    response = @"fail";
+                } else if (status == SendStatusCancel) {
+                    response = @"cancel";
+                } else if (status == SendStatusSave) {
+                    response = @"save";
+                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+            }
+        }];
+    });
 }
 
 
 - (void)JN_SMSContent:(NSString*)content {
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    self.localAbilityMgr = obj;
-    UIApplication *app = [UIApplication sharedApplication];
     
     __weak ScriptPluginBase *wSelf = self;
-    [obj pickerMailSMSController:app.keyWindow.rootViewController type:LocalAbilityTypeSMS andSubject:nil andContent:content finish:^(SendType type, SendStatus status) {
-        //
-        
+    dispatch_async(dispatch_get_main_queue(), ^{
         ScriptPluginBase *sSelf = wSelf;
-        if (sSelf.callbackHandler) {
-            NSString *response = nil;
-            if (status == SendStatusSuccess) {
-                response = @"success";
-            } else if (status == SendStatusFail) {
-                response = @"fail";
-            } else if (status == SendStatusCancel) {
-                response = @"cancel";
-            } else if (status == SendStatusSave) {
-                response = @"save";
-            }
+        
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        sSelf.localAbilityMgr = obj;
+        UIApplication *app = [UIApplication sharedApplication];
+        
+        [obj pickerMailSMSController:app.keyWindow.rootViewController type:LocalAbilityTypeSMS andSubject:nil andContent:content finish:^(SendType type, SendStatus status) {
+            //
             
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-        }
-    }];
+            
+            if (sSelf.callbackHandler) {
+                NSString *response = nil;
+                if (status == SendStatusSuccess) {
+                    response = @"success";
+                } else if (status == SendStatusFail) {
+                    response = @"fail";
+                } else if (status == SendStatusCancel) {
+                    response = @"cancel";
+                } else if (status == SendStatusSave) {
+                    response = @"save";
+                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+            }
+        }];
+    });
 }
 
 - (void)JN_DailPhoneNumber:(NSString*)phoneNumber {
@@ -125,58 +132,67 @@
 
 
 - (void)JN_SelectImageAllowsEditing:(BOOL)isEditing {
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    self.localAbilityMgr = obj;
-    UIApplication *app = [UIApplication sharedApplication];
-    
-    LocalAbilityType type = isEditing ? LocalAbilityTypePickerImage_AllowsEditing : LocalAbilityTypePickerImage_ForbidEditing;
     
     __weak ScriptPluginBase *wSelf = self;
-    [obj pickerCameraController:app.keyWindow.rootViewController type:type finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-        //
-        
+    dispatch_async(dispatch_get_main_queue(), ^{
         ScriptPluginBase *sSelf = wSelf;
-        if (sSelf.callbackHandler) {
-            NSString *response = nil;
-            if (status == ImagePickerStatusSuccess) {
-                response = @"success";
-            } else if (status == ImagePickerStatusFail) {
-                response = @"fail";
-            } else if (status == ImagePickerStatusCancel) {
-                response = @"cancel";
-            }
+        
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        sSelf.localAbilityMgr = obj;
+        UIApplication *app = [UIApplication sharedApplication];
+        
+        LocalAbilityType type = isEditing ? LocalAbilityTypePickerImage_AllowsEditing : LocalAbilityTypePickerImage_ForbidEditing;
+        
+        [obj pickerCameraController:app.keyWindow.rootViewController type:type finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+            //
             
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-        }
-    }];
+            
+            if (sSelf.callbackHandler) {
+                NSString *response = nil;
+                if (status == ImagePickerStatusSuccess) {
+                    response = @"success";
+                } else if (status == ImagePickerStatusFail) {
+                    response = @"fail";
+                } else if (status == ImagePickerStatusCancel) {
+                    response = @"cancel";
+                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+            }
+        }];
+    });
 }
 
 
 - (void)JN_PhotographAllowsEditing:(BOOL)isEditing {
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    self.localAbilityMgr = obj;
-    UIApplication *app = [UIApplication sharedApplication];
-    
-    LocalAbilityType type = isEditing ? LocalAbilityTypePickerPhotograph_AllowsEditing : LocalAbilityTypePickerPhotograph_ForbidEditing;
     
     __weak ScriptPluginBase *wSelf = self;
-    [obj pickerCameraController:app.keyWindow.rootViewController type:type finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-        //
-        
+    dispatch_async(dispatch_get_main_queue(), ^{
         ScriptPluginBase *sSelf = wSelf;
-        if (sSelf.callbackHandler) {
-            NSString *response = nil;
-            if (status == ImagePickerStatusSuccess) {
-                response = @"success";
-            } else if (status == ImagePickerStatusFail) {
-                response = @"fail";
-            } else if (status == ImagePickerStatusCancel) {
-                response = @"cancel";
-            }
+        
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        sSelf.localAbilityMgr = obj;
+        UIApplication *app = [UIApplication sharedApplication];
+        
+        LocalAbilityType type = isEditing ? LocalAbilityTypePickerPhotograph_AllowsEditing : LocalAbilityTypePickerPhotograph_ForbidEditing;
+        
+        [obj pickerCameraController:app.keyWindow.rootViewController type:type finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+            //
             
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-        }
-    }];
+            if (sSelf.callbackHandler) {
+                NSString *response = nil;
+                if (status == ImagePickerStatusSuccess) {
+                    response = @"success";
+                } else if (status == ImagePickerStatusFail) {
+                    response = @"fail";
+                } else if (status == ImagePickerStatusCancel) {
+                    response = @"cancel";
+                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+            }
+        }];
+    });
 }
 
 - (void)JN_ScanQRCode {
@@ -192,6 +208,34 @@
             //
             
             if (sSelf.callbackHandler) {
+//                NSString *response = nil;
+//                if (status == ImagePickerStatusSuccess) {
+//                    response = @"success";
+//                } else if (status == ImagePickerStatusFail) {
+//                    response = @"fail";
+//                } else if (status == ImagePickerStatusCancel) {
+//                    response = @"cancel";
+//                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),data);
+            }
+        }];
+    });
+}
+
+- (void)JN_Videotape {
+    __weak ScriptPluginBase *wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ScriptPluginBase *sSelf = wSelf;
+        LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
+        sSelf.localAbilityMgr = obj;
+        UIApplication *app = [UIApplication sharedApplication];
+
+        [obj pickerCameraController:app.keyWindow.rootViewController type:LocalAbilityTypePickerVideotape finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
+            //
+            
+            if (sSelf.callbackHandler) {
                 NSString *response = nil;
                 if (status == ImagePickerStatusSuccess) {
                     response = @"success";
@@ -201,34 +245,10 @@
                     response = @"cancel";
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
             }
         }];
     });
-}
-
-- (void)JN_Videotape {
-    
-    LocalAbilityManager *obj = [[LocalAbilityManager alloc] init];
-    self.localAbilityMgr = obj;
-    UIApplication *app = [UIApplication sharedApplication];
-    __weak ScriptPluginBase *wSelf = self;
-    [obj pickerCameraController:app.keyWindow.rootViewController type:LocalAbilityTypePickerVideotape finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
-        //
-        ScriptPluginBase *sSelf = wSelf;
-        if (sSelf.callbackHandler) {
-            NSString *response = nil;
-            if (status == ImagePickerStatusSuccess) {
-                response = @"success";
-            } else if (status == ImagePickerStatusFail) {
-                response = @"fail";
-            } else if (status == ImagePickerStatusCancel) {
-                response = @"cancel";
-            }
-            
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-        }
-    }];
 }
 
 @end

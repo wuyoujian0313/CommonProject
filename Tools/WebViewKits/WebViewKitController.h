@@ -14,7 +14,11 @@
 // 加载对应的url web页面
 - (void)loadWebViewForURL:(NSString*)urlString;
 
+// 注册插件，支持注册多个插件
 - (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(NativeCallbackHandler)callback;
 
+// 执行js
 - (void)evaluateScript:(NSString*)script;
+
+
 @end

@@ -100,6 +100,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     {
         id reachability = [[self alloc] initWithReachabilityRef:ref];
 
+        CFRelease(ref);
         return reachability;
     }
     
@@ -112,7 +113,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     if (ref) 
     {
         id reachability = [[self alloc] initWithReachabilityRef:ref];
-        
+        CFRelease(ref);
         return reachability;
     }
     

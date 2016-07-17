@@ -12,6 +12,7 @@
 #import "Reachability.h"
 #import "DataManageViewController.h"
 #import "CycleBannerView.h"
+#import "SignatureViewController.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -76,6 +77,7 @@
                       @{@"name":@"数据处理",@"type":@"JumpToPage",@"Class":@"DataManageViewController"},
                       @{@"name":@"设备信息",@"type":@"AlertView"},
                       @{@"name":@"WebView缓存",@"type":@"JumpToPage",@"Class":@"WebCacheViewController"},
+                      @{@"name":@"手写签名",@"type":@"JumpToPage",@"Class":@"SignatureViewController"},
                       @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }

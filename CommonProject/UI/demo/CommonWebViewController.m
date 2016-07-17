@@ -40,6 +40,7 @@
 
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
     
 }

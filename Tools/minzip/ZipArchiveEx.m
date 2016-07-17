@@ -56,19 +56,19 @@
         }
         
         ZipArchive* zip = [[ZipArchive alloc] init];
-        BOOL bSuc = [zip CreateZipFile2:zipFile Password:password];
+        [zip CreateZipFile2:zipFile Password:password];
         for (NSString*sourceFile in sourceFiles) {
             if ([fileManager fileExistsAtPath:sourceFile]) {
                 [zip addFileToZip:sourceFile newname:[sourceFile lastPathComponent]];
             } else {
                 NSLog(@"sourceFile:%@ 不存在",sourceFile);
-                bSuc = [zip CloseZipFile2];
+                [zip CloseZipFile2];
                 return NO;
             }
         }
         
-        bSuc = [zip CloseZipFile2];
-        return bSuc;
+        [zip CloseZipFile2];
+        return YES;
         
     } else {
         return NO;

@@ -36,6 +36,7 @@ static const NSInteger kCacheMaxAge = 60 * 60 * 24 * 7; //每周清除一次
     unsigned char result[16];
     CC_MD5( cStr, (unsigned int)strlen(cStr), result );
     CFRelease(uuid);
+    CFRelease(cfstring);
     
     return [NSString stringWithFormat:
             @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%08lx",

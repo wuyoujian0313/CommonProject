@@ -12,6 +12,7 @@
 
 - (void)JN_ShowAlert:(NSString*)message {
     
+    __weak ExtendScriptPlugin * wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         
         UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -23,6 +24,11 @@
         
         UIApplication *app = [UIApplication sharedApplication];
         [app.keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        
+        ExtendScriptPlugin *sSelf = wSelf;
+        if (sSelf.callbackHandler) {
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),@"success");
+        }
         
     });
 }

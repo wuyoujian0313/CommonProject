@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NJKWebViewProgress        *progressProxy;
 
 @property (nonatomic, strong) ScriptPluginBase          *basePlugin;
-@property (nonatomic, strong) ScriptPluginBase          *extendPlugin;
+@property (nonatomic, strong) NSMutableArray            *extendPlugins;
 
 
 
@@ -77,9 +77,14 @@
     }
     
     if (plugin) {
-        self.extendPlugin = plugin;
-        _extendPlugin.callbackHandler = callback;
-        [_contentWebView webViewContext][NSStringFromClass([_extendPlugin class])] = _extendPlugin;
+        
+        if (_extendPlugins) {
+            self.extendPlugins = [[NSMutableArray alloc] initWithCapacity:0];
+        }
+        
+        plugin.callbackHandler = callback;
+        [_extendPlugins addObject:plugin];
+        [_contentWebView webViewContext][NSStringFromClass([plugin class])] = plugin;
     }
 }
 
@@ -88,16 +93,6 @@
         [_contentWebView evaluateScript:script];
     }
 }
-
-
-- (void)dealloc {
-    // [CacheURLProtocol unregisterCacheURLProtocol];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [_progressView removeFromSuperview];
-}
-
 
 - (void)layoutWebView {
     
@@ -118,6 +113,14 @@
         [_contentWebView setDelegate:_progressProxy];
         [self.view addSubview:_contentWebView];
     }
+}
+
+- (void)dealloc {
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_progressView removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -157,6 +160,10 @@
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    if ([[request.URL absoluteString] isEqualToString:@"href"]) {
+        return NO;
+    }
     
     return YES;
 }
