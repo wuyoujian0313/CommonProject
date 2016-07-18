@@ -7,8 +7,13 @@
 //
 
 #import "GridMenuCell.h"
-#import "SDImageCache.h"
-#import "UIImageView+WebCache.h"
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
 
 NSString *const kGridMenuCellIdentifier = @"kGridMenuCellIdentifier";
 

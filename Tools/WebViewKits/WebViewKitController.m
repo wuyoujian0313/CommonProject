@@ -7,11 +7,13 @@
 //
 
 #import "WebViewKitController.h"
-#import "NJKWebViewProgress.h"
-#import "NJKWebViewProgressView.h"
-#import "CacheURLProtocol.h"
-#import "UIWebView+JSPatch.h"
-#import "ScriptPluginBase.h"
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
 
 
 @interface WebViewKitController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>

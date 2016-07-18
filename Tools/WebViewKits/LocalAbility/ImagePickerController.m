@@ -11,7 +11,14 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "QRViewController.h"
-#import "UIImage+ResizeMagick.h"
+
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
 
 
 @interface ImagePickerController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>

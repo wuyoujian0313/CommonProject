@@ -152,13 +152,13 @@
 - (NSArray *)recognitionQRCodeFromImage {
     
     // 把图片缩放到硬件的分辨率
-    CGSize scaleSize = [DeviceInfo getDeviceScreenSize];
+    CGSize scaleSize = [[UIScreen mainScreen] currentMode].size;
     UIImage *imageScale = [self resizedImageByMagick:[NSString stringWithFormat:@"%ldx%ld",(long)scaleSize.width,(long)scaleSize.height]];
     CIImage *ciImage = [[CIImage alloc] initWithImage:imageScale];
     
     //CIImage *ciImage = [[CIImage alloc] initWithImage:self];
     //创建探测器
-    if ([DeviceInfo isOS8]) {
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
         CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode
                                                   context:[CIContext contextWithOptions:nil]
                                                   options:@{CIDetectorAccuracy:CIDetectorAccuracyLow,CIDetectorMinFeatureSize:@1.0}];

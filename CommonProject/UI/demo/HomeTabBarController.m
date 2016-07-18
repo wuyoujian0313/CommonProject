@@ -12,6 +12,7 @@
 #import "DeviceViewController.h"
 #import "WebViewKitController.h"
 #import "ExtendScriptPlugin.h"
+#import "AIBaseFramework.h"
 
 
 
@@ -55,9 +56,9 @@
     itemObj3.tag = 2;
     [deviceVC setTabBarItem:itemObj3];
     
-    WYJNavigationController *nav1 = [[WYJNavigationController alloc] initWithRootViewController:webVC];
-    WYJNavigationController *nav2 = [[WYJNavigationController alloc] initWithRootViewController:commonVC];
-    WYJNavigationController *nav3 = [[WYJNavigationController alloc] initWithRootViewController:deviceVC];
+    AINavigationController *nav1 = [[AINavigationController alloc] initWithRootViewController:webVC];
+    AINavigationController *nav2 = [[AINavigationController alloc] initWithRootViewController:commonVC];
+    AINavigationController *nav3 = [[AINavigationController alloc] initWithRootViewController:deviceVC];
 
     [self setViewControllers:[[NSArray alloc] initWithObjects:nav1,nav2,nav3,nil]];
     [self setSelectedIndex:0];

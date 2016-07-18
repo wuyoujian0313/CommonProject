@@ -7,9 +7,14 @@
 //
 
 #import "CycleBannerView.h"
-#import "DispatchTimer.h"
-#import "UIImageView+WebCache.h"
-#import "SDImageCache.h"
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
+
 
 @interface CycleBannerView ()<UIScrollViewDelegate,DispatchTimerDelegate>
 @property(nonatomic, strong) UIScrollView                   *scrollView;

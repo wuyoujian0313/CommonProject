@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface NSObject (Utility)
 //
 - (void)parseJsonAutomatic:(NSDictionary *)dictionaryJson;

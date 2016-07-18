@@ -10,8 +10,6 @@
 
 @interface BaseVC : UIViewController
 
-@property(nonatomic,strong)UIAlertView *currentAlertView;
-
 - (void)setNavTitle:(NSString*)title;
 - (void)setNavTitle:(NSString*)title titleColor:(UIColor *)color;
 

@@ -10,6 +10,7 @@
 #import "NSData+Crypto.h"
 #import "ZipArchiveEx.h"
 #import "DBManager.h"
+#import "AIBaseFramework.h"
 
 @interface SecurityViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;

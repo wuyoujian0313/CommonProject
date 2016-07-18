@@ -7,6 +7,8 @@
 //
 
 #import "BaseVC.h"
+#import "DeviceInfo.h"
+#import "Category.h"
 
 
 
@@ -88,11 +90,6 @@
 -(void)keyboardWillHide:(NSNotification *)note{}
 
 -(void)didEnterBackgroundNotification:(NSNotification *)note {
-
-    if (_currentAlertView) {
-        [_currentAlertView dismissWithClickedButtonIndex:_currentAlertView.cancelButtonIndex animated:NO];
-    }
-    
     [self.view endEditing:YES];
 }
 

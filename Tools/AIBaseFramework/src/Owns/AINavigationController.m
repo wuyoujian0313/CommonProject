@@ -1,14 +1,14 @@
 //
-//  WYJNavigationController.m
-//  FamilyNetwork
+//  AINavigationController.m
+//
 //
 //  Created by wuyj on 14-12-27.
 //  Copyright (c) 2014年 伍友健. All rights reserved.
 //
 
-#import "WYJNavigationController.h"
+#import "AINavigationController.h"
 
-@implementation WYJNavigationController
+@implementation AINavigationController
 
 - (void)dealloc
 {

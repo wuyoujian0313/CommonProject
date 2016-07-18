@@ -6,9 +6,16 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
+
 #import "NetworkTask.h"
 #import "NetResultBase.h"
-#import "AFNetworking.h"
 
 #if DEBUG
 #define RESPONSE_LOG \

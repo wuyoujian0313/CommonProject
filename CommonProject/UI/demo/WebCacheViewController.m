@@ -10,6 +10,7 @@
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
 #import "CacheURLProtocol.h"
+#import "AIBaseFramework.h"
 
 
 @interface WebCacheViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>

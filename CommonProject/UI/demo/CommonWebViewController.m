@@ -15,6 +15,7 @@
 #import "URLParseManager.h"
 #import "CacheURLProtocol.h"
 #import "UIWebView+JSPatch.h"
+#import "AIBaseFramework.h"
 
 
 @interface CommonWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>

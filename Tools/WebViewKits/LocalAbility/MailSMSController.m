@@ -7,8 +7,13 @@
 //
 
 #import "MailSMSController.h"
-#import "DeviceInfo.h"
-#import "FadePromptView.h"
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
 
 @interface MailSMSController ()
 

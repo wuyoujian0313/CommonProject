@@ -12,6 +12,7 @@
 #import "FileCache.h"
 #import "GDataXMLNode.h"
 #import "FileStreamOperation.h"
+#import "AIBaseFramework.h"
 
 
 static NSString *const jsonString   = @"{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}";

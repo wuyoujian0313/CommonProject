@@ -9,6 +9,7 @@
 #import "ScanQRCodeViewController.h"
 #import "LocalAbilityManager.h"
 #import "UIImage+ResizeMagick.h"
+#import "AIBaseFramework.h"
 
 @interface ScanQRCodeViewController ()
 

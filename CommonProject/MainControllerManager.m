@@ -7,6 +7,7 @@
 //
 
 #import "MainControllerManager.h"
+#import "AIBaseFramework.h"
 #import "LoginVC.h"
 //#import "HomeVC.h"
 #import "HomeTabBarController.h"
@@ -85,7 +86,7 @@
 
 - (UIViewController *)setupLoginVC {
     LoginVC *controller = [[LoginVC alloc] init];
-    WYJNavigationController *loginNav = [[WYJNavigationController alloc] initWithRootViewController:controller];
+    AINavigationController *loginNav = [[AINavigationController alloc] initWithRootViewController:controller];
     [self addChildViewController:loginNav];
     [self.view addSubview:loginNav.view];
     

@@ -7,7 +7,7 @@
 //
 
 #import "LineView.h"
-#import "UIColor+Utility.h"
+#import "Category.h"
 
 @implementation LineView
 

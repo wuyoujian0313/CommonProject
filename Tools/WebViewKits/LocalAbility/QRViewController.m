@@ -8,7 +8,13 @@
 
 #import "QRViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "DispatchTimer.h"
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
 
 @interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 @property (nonatomic, strong) AVCaptureSession              *session;

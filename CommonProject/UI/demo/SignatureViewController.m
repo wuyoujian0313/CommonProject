@@ -8,6 +8,7 @@
 
 #import "SignatureViewController.h"
 #import "SignatureView.h"
+#import "AIBaseFramework.h"
 
 @implementation SignatureViewController
 

@@ -7,8 +7,15 @@
 //
 
 #import "LocalAbilityManager.h"
-#import "UIImage+Utility.h"
 #import <LocalAuthentication/LocalAuthentication.h>
+
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
+
 
 @interface LocalAbilityManager ()
 
@@ -224,7 +231,7 @@
         if (error.code == kLAErrorPasscodeNotSet || error.code == kLAErrorTouchIDNotEnrolled) {
             // 有指纹设备，但未设置
             
-            if ([DeviceInfo isOS9]) {
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_8_3) {
                 
                 UIAlertAction *aAction2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     //

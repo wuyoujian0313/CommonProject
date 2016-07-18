@@ -14,6 +14,7 @@
 #import <arpa/inet.h>
 #import <net/if.h>
 
+
 @interface DeviceInfo(InternalMethod)
 @end
 
