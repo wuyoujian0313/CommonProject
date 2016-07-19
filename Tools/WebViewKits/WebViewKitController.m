@@ -45,6 +45,10 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [_contentWebView loadRequest:request];
     
+    if (_basePlugin) {
+        return;
+    }
+    
     ScriptPluginBase *basePlugin = [[ScriptPluginBase alloc] init];
     self.basePlugin = basePlugin;
     
@@ -80,8 +84,13 @@
     
     if (plugin) {
         
-        if (_extendPlugins) {
+        if (!_extendPlugins) {
             self.extendPlugins = [[NSMutableArray alloc] initWithCapacity:0];
+        } else {
+            if ([_extendPlugins containsObject:plugin]) {
+                // 已经注册过的插件跳过
+                return;
+            }
         }
         
         plugin.callbackHandler = callback;
