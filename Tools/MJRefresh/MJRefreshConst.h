@@ -6,6 +6,10 @@
 //  Copyright (c) 2014年 itcast. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+
 #ifdef DEBUG
 #define MJLog(...) NSLog(__VA_ARGS__)
 #else

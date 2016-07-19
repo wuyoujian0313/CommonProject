@@ -6,9 +6,11 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "ScriptPluginBase.h"
 #import "LocalAbilityManager.h"
 #import "SharedManager.h"
+
 
 @interface ScriptPluginBase ()
 @property (nonatomic, strong) LocalAbilityManager   *localAbilityMgr;

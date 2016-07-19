@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "LocalAbilityManager.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
@@ -241,9 +242,8 @@
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"指纹提示" message:@"请先在系统\"设置 > Touch ID与密码\"开启" preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:aAction2];
                 
-                AppDelegate *app =  [AppDelegate shareMyApplication];
-                
-                [app.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+                UIApplication *app =  [UIApplication sharedApplication];
+                [app.keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
             } else {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"指纹提示" message:@"请先在系统\"设置 > Touch ID与密码\"开启" delegate:self cancelButtonTitle:@"知道了"otherButtonTitles:nil];
                 [alert show];

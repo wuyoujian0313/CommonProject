@@ -10,6 +10,9 @@
 #import "NetworkTask.h"
 #import "LoginResult.h"
 #import "AIBaseFramework.h"
+#import "AppDelegate.h"
+#import "SVProgressHUD.h"
+
 
 @interface LoginVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NetworkTaskDelegate>
 

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
-//#import <AIBaseFramework/AIBaseFramework.h>
+#import "BaseVC.h"
 
 @interface HomeVC : BaseVC
 

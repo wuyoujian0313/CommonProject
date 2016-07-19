@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "ImagePickerController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>

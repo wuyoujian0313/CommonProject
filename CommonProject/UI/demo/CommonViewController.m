@@ -14,6 +14,7 @@
 #import "CycleBannerView.h"
 #import "SignatureViewController.h"
 #import "AIBaseFramework.h"
+#import "AppDelegate.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;

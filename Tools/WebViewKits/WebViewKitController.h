@@ -6,7 +6,13 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
-#import "BaseVC.h"
+#ifdef AIBASEFRAMEWORK_INDEVELOPING
+#import "AIBaseFramework.h"
+
+#else
+#import <AIBaseFramework/AIBaseFramework.h>
+#endif
+
 #import "ScriptPluginBase.h"
 
 @interface WebViewKitController : BaseVC

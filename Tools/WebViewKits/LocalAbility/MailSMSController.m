@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "MailSMSController.h"
 
 #ifdef AIBASEFRAMEWORK_INDEVELOPING
