@@ -100,18 +100,33 @@
     
     if (!_contentWebView) {
         
-        CGFloat progressBarHeight = 2.f;
-        CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
-        CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
-        self.progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
-        [_progressView setProgress:0.0];
-        [self.navigationController.navigationBar addSubview:_progressView];
+        CGFloat navHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        if (self.navigationController && ![self.navigationController isNavigationBarHidden]) {
+            CGFloat progressBarHeight = 2.f;
+            CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+            CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+            self.progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
+            [_progressView setProgress:0.0];
+            [self.navigationController.navigationBar addSubview:_progressView];
+            
+            navHeight = [DeviceInfo navigationBarHeight];
+        }
+        
+        CGFloat tabHeight = 0;
+        if (self.navigationController && !self.hidesBottomBarWhenPushed) {
+            tabHeight = self.tabBarController.tabBar.frame.size.height;
+        }
+        
+        CGFloat toolHeight = 0;
+        if (self.navigationController && ![self.navigationController isToolbarHidden]) {
+            toolHeight = self.navigationController.toolbar.frame.size.height;
+        }
         
         self.progressProxy = [[NJKWebViewProgress alloc] init];
         _progressProxy.webViewProxyDelegate = self;
         _progressProxy.progressDelegate = self;
         
-        self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo navigationBarHeight] - 49)];
+        self.contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, navHeight, self.view.frame.size.width, self.view.frame.size.height - navHeight - tabHeight - toolHeight)];
         [_contentWebView setDelegate:_progressProxy];
         [self.view addSubview:_contentWebView];
     }
@@ -123,6 +138,34 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
+}
+
+- (void)viewWillLayoutSubviews {
+    
+    if (!_contentWebView) {
+        
+        CGFloat navHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        if (self.navigationController && ![self.navigationController isNavigationBarHidden]) {
+            CGFloat progressBarHeight = 2.f;
+            CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+            CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+            [_progressView setFrame:barFrame];
+            
+            navHeight = [DeviceInfo navigationBarHeight];
+        }
+        
+        CGFloat tabHeight = 0;
+        if (self.tabBarController) {
+            tabHeight = self.tabBarController.tabBar.frame.size.height;
+        }
+        
+        CGFloat toolHeight = 0;
+        if (self.navigationController && ![self.navigationController isToolbarHidden]) {
+            toolHeight = self.navigationController.toolbar.frame.size.height;
+        }
+        
+        [_contentWebView setFrame:CGRectMake(0, navHeight, self.view.frame.size.width, self.view.frame.size.height - navHeight - tabHeight - toolHeight)];
+    }
 }
 
 - (void)viewDidLoad {

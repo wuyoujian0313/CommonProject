@@ -65,6 +65,7 @@
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
     [webVC loadWebViewForURL:url];
+    [webVC setNavTitle:@"H5能力"];
     [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, id response) {
         //
         [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{

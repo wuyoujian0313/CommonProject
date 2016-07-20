@@ -14,10 +14,11 @@
 @property (nonatomic, strong) UIImage           *image;
 @property (nonatomic, strong) NSMutableArray    *arrayStrokes;
 @property (nonatomic, strong) NSMutableArray    *arrayAbandonedStrokes;
+
+@property (nonatomic, copy) SignatureStautsCallback       callback;
 @end
 
 @implementation SignatureView
-
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -29,6 +30,23 @@
         self.penColor = [UIColor blackColor];
         self.arrayStrokes = [NSMutableArray array];
         self.arrayAbandonedStrokes = [NSMutableArray array];
+        self.callback = nil;
+    }
+    return self;
+}
+
+
+- (instancetype)initWithFrame:(CGRect)frame status:(SignatureStautsCallback)callback {
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code.
+        self.backgroundColor = [UIColor whiteColor];
+        
+        self.penSize = 4.0;
+        self.penColor = [UIColor blackColor];
+        self.arrayStrokes = [NSMutableArray array];
+        self.arrayAbandonedStrokes = [NSMutableArray array];
+        self.callback = callback;
     }
     return self;
 }
@@ -46,7 +64,16 @@
     [self saveImage2FileAtPath:path isPNG:NO];
 }
 
-- (void)undo {
+- (BOOL)canUndoSignature {
+    return ([_arrayStrokes count] > 0);
+}
+
+
+- (BOOL)canRedoSignature {
+    return ([_arrayAbandonedStrokes count] > 0);
+}
+
+- (void)undoSignature {
     if ([_arrayStrokes count]>0) {
         NSMutableDictionary* dictAbandonedStroke = [_arrayStrokes lastObject];
         [_arrayAbandonedStrokes addObject:dictAbandonedStroke];
@@ -55,7 +82,7 @@
     }
 }
 
-- (void)redo {
+- (void)redoSignature {
     if ([_arrayAbandonedStrokes count]>0) {
         NSMutableDictionary* dictReusedStroke = [_arrayAbandonedStrokes lastObject];
         [_arrayStrokes addObject:dictReusedStroke];
@@ -126,6 +153,10 @@
     [arrayPointsInStroke addObject:NSStringFromCGPoint(point)];
     
     [_arrayStrokes addObject:dictStroke];
+    
+    if (_callback) {
+        _callback(SignatureStatusBegin);
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -141,10 +172,18 @@
                                      fabs(point.y-prevPoint.y)+2*_penSize\
                                      );
     [self setNeedsDisplayInRect:rectToRedraw];
+    
+    if (_callback) {
+        _callback(SignatureStatusMoving);
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [_arrayAbandonedStrokes removeAllObjects];
+    
+    if (_callback) {
+        _callback(SignatureStatusEnd);
+    }
 }
 
 

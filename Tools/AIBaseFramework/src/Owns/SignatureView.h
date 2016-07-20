@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, SigntureStatus) {
+    SignatureStatusBegin,
+    SignatureStatusMoving,
+    SignatureStatusEnd,
+};
+
+typedef void(^SignatureStautsCallback)(SigntureStatus status);
+
 @interface SignatureView : UIView
 
 // 签名图片
@@ -17,15 +25,20 @@
 // 画笔大小
 @property (nonatomic, assign) CGFloat               penSize;
 
+- (instancetype)initWithFrame:(CGRect)frame status:(SignatureStautsCallback)callback;
+
 // @path 是图片保存的全路径
 - (void)saveImage2PNGAtPath:(NSString*)path;
 - (void)saveImage2JPEGAtPath:(NSString*)path;
 
+- (BOOL)canUndoSignature;
+- (BOOL)canRedoSignature;
+
 // 撤销上一笔
-- (void)undo;
+- (void)undoSignature;
 
 // 重做上一笔
-- (void)redo;
+- (void)redoSignature;
 
 // 清楚所有的笔画
 - (void)clear;
