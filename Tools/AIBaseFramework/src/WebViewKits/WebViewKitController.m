@@ -7,13 +7,10 @@
 //
 
 #import "WebViewKitController.h"
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../NJKWebViewProgress/NJKWebViewProgress.h"
+#import "../NJKWebViewProgress/NJKWebViewProgressView.h"
+#import "../Category/UIWebView+JSPatch.h"
+#import "../Owns/DeviceInfo.h"
 
 
 @interface WebViewKitController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
@@ -32,15 +29,9 @@
 
 
 // 加载对应的url web页面
-- (void)loadWebViewForURL:(NSString*)urlString {
+- (void)loadWebViewForURL:(NSURL*)url {
     
     [self layoutWebView];
-    
-#if 0
-    NSURL *url = [NSURL URLWithString:urlString];
-#else
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
-#endif
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [_contentWebView loadRequest:request];
@@ -138,17 +129,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.leftBarButtonItem = nil;
-    [self setNavTitle:@"WebView"];
     [self layoutWebView];
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"To-JS" style:UIBarButtonItemStylePlain target:self action:@selector(toJS:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-}
-
-- (void)toJS:(UIBarButtonItem*)sender {
-    
-    [self evaluateScript:@"showAlert('通过Native调用JS增加的节点');"];
-    [self evaluateScript:@"addElementNode('通过Native调用JS增加的节点');"];
 }
 
 - (void)didReceiveMemoryWarning {

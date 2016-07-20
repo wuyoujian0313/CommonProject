@@ -63,7 +63,8 @@
     [self setViewControllers:[[NSArray alloc] initWithObjects:nav1,nav2,nav3,nil]];
     [self setSelectedIndex:0];
     
-    [webVC loadWebViewForURL:@"http://www.baidu.com"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
+    [webVC loadWebViewForURL:url];
     [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, id response) {
         //
         [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{

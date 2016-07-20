@@ -8,13 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MailSMSController.h"
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../Owns/FadePromptView.h"
 
 @interface MailSMSController ()
 

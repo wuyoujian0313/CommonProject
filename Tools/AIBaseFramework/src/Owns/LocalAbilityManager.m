@@ -9,13 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LocalAbilityManager.h"
 #import <LocalAuthentication/LocalAuthentication.h>
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../Category/UIImage+Utility.h"
 
 
 @interface LocalAbilityManager ()

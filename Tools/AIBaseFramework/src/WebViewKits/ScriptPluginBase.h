@@ -14,9 +14,7 @@ typedef void(^NativeCallbackHandler)(NSString *apiName, id response);
 
 @protocol JN_LocalAbilityExport <JSExport>
 
-JSExportAs(JN_Shared,- (void)JN_SharedTitle:(NSString*)title content:(NSString *)content data:(id)data);
 JSExportAs(JN_Email,- (void)JN_EmailSubject:(NSString*)subject content:(NSString*)content);
-
 
 - (void)JN_SMSContent:(NSString*)content;
 - (void)JN_DailPhoneNumber:(NSString*)phoneNumber;

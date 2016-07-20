@@ -118,6 +118,7 @@
                               pwdString,@"password",nil];
         [SVProgressHUD setBackgroundColor:[UIColor colorWithHex:0xcccccc]];
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+        [[NetworkTask sharedNetworkTask] setServerAddress:kNetworkAPIServer];
         [[NetworkTask sharedNetworkTask] startPOSTTaskApi:API_Login
                                                  forParam:param
                                                  delegate:self

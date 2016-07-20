@@ -14,13 +14,6 @@
 #import "QRViewController.h"
 
 
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
-
 
 @interface ImagePickerController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 

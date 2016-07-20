@@ -7,13 +7,7 @@
 //
 
 #import "NetResultBase.h"
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../Category/NSObject+Utility.h"
 
 @implementation NetResultBase
 

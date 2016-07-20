@@ -8,50 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ScriptPluginBase.h"
-#import "LocalAbilityManager.h"
-#import "SharedManager.h"
+#import "../Owns/LocalAbilityManager.h"
 
 
 @interface ScriptPluginBase ()
 @property (nonatomic, strong) LocalAbilityManager   *localAbilityMgr;
-@property (nonatomic, strong) SharedManager         *sharedMgr;
 @end
 
 @implementation ScriptPluginBase
-
-- (void)JN_SharedTitle:(NSString*)title content:(NSString *)content data:(id)data {
-    
-    __weak ScriptPluginBase *wSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        ScriptPluginBase *sSelf = wSelf;
-        SharedManager *obj = [[SharedManager alloc] init];
-        sSelf.sharedMgr = obj;
-        
-        SharedDataModel *mObj = [[SharedDataModel alloc] init];
-        mObj.title = title;
-        mObj.content = content;
-        mObj.data = data;
-
-        UIApplication *app = [UIApplication sharedApplication];
-        [obj sharedDataFromViewController:app.keyWindow.rootViewController withData:mObj finish:^(SharedStatusCode statusCode) {
-            //
-            if (sSelf.callbackHandler) {
-                NSString *response = nil;
-                if (statusCode == SharedStatusCodeSuccess) {
-                    response = @"success";
-                } else if (statusCode == SharedStatusCodeFail) {
-                    response = @"fail";
-                } else if (statusCode == SharedStatusCodeCancel) {
-                    response = @"cancel";
-                }
-                
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
-            }
-        }];
-    });
-}
-
 
 - (void)JN_EmailSubject:(NSString*)subject content:(NSString*)content {
     

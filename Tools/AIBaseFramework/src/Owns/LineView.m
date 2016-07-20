@@ -7,7 +7,7 @@
 //
 
 #import "LineView.h"
-#import "Category.h"
+#import "../Category/Category.h"
 
 @implementation LineView
 

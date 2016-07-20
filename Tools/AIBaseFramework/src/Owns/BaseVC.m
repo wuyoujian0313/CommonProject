@@ -8,7 +8,7 @@
 
 #import "BaseVC.h"
 #import "DeviceInfo.h"
-#import "Category.h"
+#import "../Category/Category.h"
 
 
 
@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-   // self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, self.view.frame.size.height - [DeviceInfo navigationBarHeight])];
     [rootView setBackgroundColor:[UIColor colorWithHex:0xebeef0]];

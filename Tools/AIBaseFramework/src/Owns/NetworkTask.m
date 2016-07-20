@@ -6,16 +6,9 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
-
 #import "NetworkTask.h"
 #import "NetResultBase.h"
+#import "../AFNetworking/AFNetworking.h"
 
 #if DEBUG
 #define RESPONSE_LOG \
@@ -125,7 +118,7 @@ NSLog(@"response:%@",responseStr);
     [_afManager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     __weak NetworkTask *weakSelf = self;
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
+    NSString * urlString = [NSString stringWithFormat:@"%@/%@",_serverAddress,api];
     if ([method isEqualToString:@"GET"]) {
         
         [_afManager GET:urlString parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -190,7 +183,7 @@ NSLog(@"response:%@",responseStr);
     
     [_afManager.requestSerializer setTimeoutInterval:_taskTimeout];
     [_afManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
-    NSString * urlString = [NSString stringWithFormat:@"%@/%@",kNetworkAPIServer,api];
+    NSString * urlString = [NSString stringWithFormat:@"%@/%@",_serverAddress,api];
     
     __weak NetworkTask *weakSelf = self;
     

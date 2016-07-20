@@ -6,19 +6,13 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
-
+#import "../Owns/BaseVC.h"
 #import "ScriptPluginBase.h"
 
 @interface WebViewKitController : BaseVC
 
 // 加载对应的url web页面
-- (void)loadWebViewForURL:(NSString*)urlString;
+- (void)loadWebViewForURL:(NSURL*)url;
 
 // 注册插件，支持注册多个插件
 - (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(NativeCallbackHandler)callback;

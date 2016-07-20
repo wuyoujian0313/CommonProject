@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger, NetStatusCode) {
 @interface NetworkTask : NSObject
 
 @property(nonatomic, assign) NSTimeInterval taskTimeout;
+@property(nonatomic, copy) NSString         *serverAddress;
 
 + (NetworkTask *)sharedNetworkTask;
 

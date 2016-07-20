@@ -7,13 +7,10 @@
 //
 
 #import "CycleBannerView.h"
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../Owns/DispatchTimer.h"
+#import "../SDWebImage/SDImageCache.h"
+#import "../SDWebImage/UIImageView+WebCache.h"
+#import "../Category/UIImage+Utility.h"
 
 
 @interface CycleBannerView ()<UIScrollViewDelegate,DispatchTimerDelegate>

@@ -8,13 +8,10 @@
 
 #import "QRViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
-#import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
+#import "../Owns/DispatchTimer.h"
+#import "../Category/UIView+SizeUtility.h"
+#import "LineImageByteData.h"
+#import "PickBGImageByteData.h"
 
 @interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 @property (nonatomic, strong) AVCaptureSession              *session;
@@ -109,13 +106,17 @@
     
     [self initCaptureDevice];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pick_bg.png"]];
+    NSData *data = [PickBGImageByteData byteData];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
     imageView.frame = CGRectMake(self.view.bounds.size.width * 0.5 - 140, self.view.bounds.size.height * 0.5 - 140, 280, 280);
     [self.view addSubview:imageView];
     
     
     self.lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 220, 2)];
-    _lineImageView.image = [UIImage imageNamed:@"line.png"];
+    
+    NSData *data1 = [LineImageByteData byteData];
+    _lineImageView.image = [UIImage imageWithData:data1];
     [imageView addSubview:_lineImageView];
     
     
