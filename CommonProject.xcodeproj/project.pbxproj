@@ -199,6 +199,7 @@
 		AFE366681D1A222A00B2423E /* UserAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366661D1A222A00B2423E /* UserAccountResult.m */; };
 		AFE366691D1A222A00B2423E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE366671D1A222A00B2423E /* UserInfo.m */; };
 		AFE3CF071D0FEDF100FA7A80 /* DataManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */; };
+		AFEA5D461D40A351001095C0 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFEA5D451D40A351001095C0 /* GridViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -582,6 +583,8 @@
 		AFE366671D1A222A00B2423E /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Models/UserInfo.m; sourceTree = "<group>"; };
 		AFE3CF051D0FEDF100FA7A80 /* DataManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManageViewController.h; sourceTree = "<group>"; };
 		AFE3CF061D0FEDF100FA7A80 /* DataManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManageViewController.m; sourceTree = "<group>"; };
+		AFEA5D441D40A351001095C0 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		AFEA5D451D40A351001095C0 /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1323,6 +1326,8 @@
 				AF3EE8611D3A33BA00ADEC23 /* SignatureViewController.m */,
 				AF4030A81D37BB0E00DB3B74 /* URLParseManager.h */,
 				AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */,
+				AFEA5D441D40A351001095C0 /* GridViewController.h */,
+				AFEA5D451D40A351001095C0 /* GridViewController.m */,
 			);
 			name = demo;
 			path = UI/demo;
@@ -1619,6 +1624,7 @@
 				AF27C9A31D3E463B0039AE13 /* UIWebView+JSPatch.m in Sources */,
 				AF27C9B01D3E463B0039AE13 /* GridMenuView.m in Sources */,
 				AF27C9C91D3E463B0039AE13 /* UIImageView+HighlightedWebCache.m in Sources */,
+				AFEA5D461D40A351001095C0 /* GridViewController.m in Sources */,
 				AF27C9C11D3E463B0039AE13 /* SDWebImageDownloader.m in Sources */,
 				AF4030751D37B43C00DB3B74 /* mztools.c in Sources */,
 				AF4030521D37B43C00DB3B74 /* HPTextViewInternal.m in Sources */,

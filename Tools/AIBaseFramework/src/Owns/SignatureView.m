@@ -179,7 +179,7 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [_arrayAbandonedStrokes removeAllObjects];
+    //[_arrayAbandonedStrokes removeAllObjects];
     
     if (_callback) {
         _callback(SignatureStatusEnd);

@@ -10,4 +10,6 @@
 
 @interface SignatureViewController : BaseVC
 
+@property (nonatomic, copy) NSString *orderNo;
+
 @end

@@ -115,6 +115,10 @@
 
 //点击元素触发事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didSelectGridMenuIndex:)]) {
+        [_delegate didSelectGridMenuIndex:indexPath.row];
+    }
 }
 
 @end

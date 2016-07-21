@@ -67,23 +67,21 @@ NSString *const kGridMenuCellIdentifier = @"kGridMenuCellIdentifier";
     if ([icon hasPrefix:@"http"]) {
         // 远程icon
         SDImageCache * imageCache = [SDImageCache sharedImageCache];
-        NSString *imageUrl = menu.icon;
-        UIImage *image = [imageCache imageFromDiskCacheForKey:imageUrl];
+        UIImage * cacheimage = [imageCache imageFromDiskCacheForKey:icon];
         
-        if (image == nil) {
-            image = [UIImage imageNamed:@"defaultMeHead"];
+        if (cacheimage == nil) {
             
-            [_iconImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]
-                              placeholderImage:image
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                         if (image) {
-                                             _iconImageView.image = image;
-                                             [[SDImageCache sharedImageCache] storeImage:image forKey:imageUrl];
-                                         }
-                                     }
-             ];
+            __weak GridMenuCell *wSelf = self;
+            [_iconImageView  sd_setImageWithURL:[NSURL URLWithString:icon] placeholderImage:cacheimage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                GridMenuCell *sSelf = wSelf;
+                if (image) {
+                    sSelf.iconImageView.image = image;
+                    [[SDImageCache sharedImageCache] storeImage:image forKey:icon];
+                }
+            }];
         } else {
-            _iconImageView.image = image;
+            _iconImageView.image = cacheimage;
         }
     } else {
         // 本地icon

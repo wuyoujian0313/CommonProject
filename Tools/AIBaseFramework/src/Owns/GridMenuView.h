@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GridMenuCell.h"
 
 
 @protocol GridMenuViewDelegate <NSObject>
 - (void)didSelectGridMenuIndex:(NSInteger)index;
 @end
 
-@class GridMenuItem;
 @interface GridMenuView : UIView
 
 @property (nonatomic, weak) id <GridMenuViewDelegate> delegate;
