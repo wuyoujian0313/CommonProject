@@ -21,11 +21,22 @@
 @property (nonatomic, strong) ScriptPluginBase          *basePlugin;
 @property (nonatomic, strong) NSMutableArray            *extendPlugins;
 
+@property (nonatomic, strong) JSManagedValue            *baseJSManagedValue;
+@property (nonatomic, strong) NSMutableArray<JSManagedValue*>            *extendJSManagedValues;
 
 
 @end
 
 @implementation WebViewKitController
+
+
+- (void)dealloc {
+    [[_contentWebView webViewContext].virtualMachine removeManagedReference:_baseJSManagedValue withOwner:self];
+    
+    for (JSManagedValue* obj in _extendJSManagedValues) {
+        [[_contentWebView webViewContext].virtualMachine removeManagedReference:obj withOwner:self];
+    }
+}
 
 
 // 加载对应的url web页面
@@ -44,26 +55,38 @@
     self.basePlugin = basePlugin;
     
     [_contentWebView webViewContext][NSStringFromClass([basePlugin class])] = _basePlugin;
+    JSValue *obj = [_contentWebView webViewContext][NSStringFromClass([basePlugin class])];
+    
+    // 内存管理
+    self.baseJSManagedValue = [JSManagedValue managedValueWithValue:obj];
+    [[_contentWebView webViewContext].virtualMachine addManagedReference:_baseJSManagedValue withOwner:self];
+    
+    __weak WebViewKitController *wSelf = self;
     _basePlugin.callbackHandler = ^(NSString *apiName, id response) {
         
-        if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
+        WebViewKitController *sSelf = wSelf;
+        if (sSelf.basePluginCallback) {
+            if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_EmailSubject:content:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_SMSContent:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_DailPhoneNumber:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_SelectImageAllowsEditing:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_ScanQRCode:"]) {
+                
+            } else if ([apiName isEqualToString:@"JN_Videotape:"]) {
+                
+            }
             
-        } else if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_EmailSubject:content:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_SMSContent:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_DailPhoneNumber:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_SelectImageAllowsEditing:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_ScanQRCode:"]) {
-            
-        } else if ([apiName isEqualToString:@"JN_Videotape:"]) {
-            
+            sSelf.basePluginCallback(apiName,response);
         }
     };
 }
@@ -77,6 +100,7 @@
         
         if (!_extendPlugins) {
             self.extendPlugins = [[NSMutableArray alloc] initWithCapacity:0];
+            self.extendJSManagedValues = [[NSMutableArray alloc] initWithCapacity:0];
         } else {
             if ([_extendPlugins containsObject:plugin]) {
                 // 已经注册过的插件跳过
@@ -87,6 +111,12 @@
         plugin.callbackHandler = callback;
         [_extendPlugins addObject:plugin];
         [_contentWebView webViewContext][NSStringFromClass([plugin class])] = plugin;
+        
+        // 内存管理
+        JSValue *obj = [_contentWebView webViewContext][NSStringFromClass([plugin class])];
+        JSManagedValue* extendJSManagedValue = [JSManagedValue managedValueWithValue:obj];
+        [[_contentWebView webViewContext].virtualMachine addManagedReference:extendJSManagedValue withOwner:self];
+        [_extendJSManagedValues addObject:extendJSManagedValue];
     }
 }
 
@@ -130,9 +160,6 @@
         [_contentWebView setDelegate:_progressProxy];
         [self.view addSubview:_contentWebView];
     }
-}
-
-- (void)dealloc {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

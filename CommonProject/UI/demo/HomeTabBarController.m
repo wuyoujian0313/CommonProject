@@ -72,6 +72,12 @@
             //
         }];
     }];
+    
+    webVC.basePluginCallback = ^(NSString *apiName, id respose) {
+        [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
+            //
+        }];
+    };
 }
 
 - (void)didReceiveMemoryWarning {

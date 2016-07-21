@@ -9,7 +9,10 @@
 #import "../Owns/BaseVC.h"
 #import "ScriptPluginBase.h"
 
+
 @interface WebViewKitController : BaseVC
+
+@property (nonatomic, copy) NativeCallbackHandler basePluginCallback;
 
 // 加载对应的url web页面
 - (void)loadWebViewForURL:(NSURL*)url;
