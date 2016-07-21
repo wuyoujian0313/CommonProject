@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-typedef void(^NativeCallbackHandler)(NSString *apiName, id response);
+typedef void(^PluginCallbackHandler)(NSString *apiName, id response);
 
 
 @protocol JN_LocalAbilityExport <JSExport>
@@ -26,5 +26,5 @@ JSExportAs(JN_Email,- (void)JN_EmailSubject:(NSString*)subject content:(NSString
 @end
 
 @interface ScriptPluginBase : NSObject<JN_LocalAbilityExport>
-@property (nonatomic, copy) NativeCallbackHandler        callbackHandler;
+@property (nonatomic, copy) PluginCallbackHandler        callbackHandler;
 @end

@@ -91,7 +91,7 @@
     };
 }
 
-- (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(NativeCallbackHandler)callback {
+- (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(PluginCallbackHandler)callback {
     if (!_contentWebView) {
         assert(@"WebView未加载数据");
     }
