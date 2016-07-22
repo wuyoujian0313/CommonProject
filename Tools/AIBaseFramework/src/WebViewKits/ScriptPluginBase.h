@@ -9,7 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-typedef void(^PluginCallbackHandler)(NSString *apiName, id response);
+typedef NS_ENUM(NSInteger, PluginCallbackStatus) {
+    PluginCallbackStatusNone,
+    PluginCallbackStatusSuccessWithData,
+    PluginCallbackStatusSuccessWithoutData,
+    PluginCallbackStatusFail,
+    PluginCallbackStatusCancel,
+    PluginCallbackStatusSave,
+};
+
+//
+typedef void(^PluginCallbackHandler)(NSString *apiName, PluginCallbackStatus status, id response);
 
 
 @protocol JN_LocalAbilityExport <JSExport>

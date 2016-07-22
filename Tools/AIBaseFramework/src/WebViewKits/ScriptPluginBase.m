@@ -32,18 +32,18 @@
             
             
             if (sSelf.callbackHandler) {
-                NSString *response = nil;
+                PluginCallbackStatus status = PluginCallbackStatusNone;
                 if (status == SendStatusSuccess) {
-                    response = @"success";
+                    status = PluginCallbackStatusSuccessWithoutData;
                 } else if (status == SendStatusFail) {
-                    response = @"fail";
+                    status = PluginCallbackStatusFail;
                 } else if (status == SendStatusCancel) {
-                    response = @"cancel";
+                    status = PluginCallbackStatusCancel;
                 } else if (status == SendStatusSave) {
-                    response = @"save";
+                    status = PluginCallbackStatusSave;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil);
             }
         }];
     });
@@ -65,18 +65,18 @@
             
             
             if (sSelf.callbackHandler) {
-                NSString *response = nil;
+                PluginCallbackStatus status = PluginCallbackStatusNone;
                 if (status == SendStatusSuccess) {
-                    response = @"success";
+                    status = PluginCallbackStatusSuccessWithoutData;
                 } else if (status == SendStatusFail) {
-                    response = @"fail";
+                    status = PluginCallbackStatusFail;
                 } else if (status == SendStatusCancel) {
-                    response = @"cancel";
+                    status = PluginCallbackStatusCancel;
                 } else if (status == SendStatusSave) {
-                    response = @"save";
+                    status = PluginCallbackStatusSave;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil);
             }
         }];
     });
@@ -91,7 +91,7 @@
         
         ScriptPluginBase *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),@"success");
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil);
         }
     });
 }
@@ -111,19 +111,17 @@
         
         [obj pickerCameraController:app.keyWindow.rootViewController type:type finish:^(ImagePickerType type, ImagePickerStatus status, id data) {
             //
-            
-            
             if (sSelf.callbackHandler) {
-                NSString *response = nil;
-                if (status == ImagePickerStatusSuccess) {
-                    response = @"success";
-                } else if (status == ImagePickerStatusFail) {
-                    response = @"fail";
-                } else if (status == ImagePickerStatusCancel) {
-                    response = @"cancel";
+                PluginCallbackStatus status = PluginCallbackStatusNone;
+                if (status == SendStatusSuccess) {
+                    status = PluginCallbackStatusSuccessWithData;
+                } else if (status == SendStatusFail) {
+                    status = PluginCallbackStatusFail;
+                } else if (status == SendStatusCancel) {
+                    status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
             }
         }];
     });
@@ -146,16 +144,16 @@
             //
             
             if (sSelf.callbackHandler) {
-                NSString *response = nil;
-                if (status == ImagePickerStatusSuccess) {
-                    response = @"success";
-                } else if (status == ImagePickerStatusFail) {
-                    response = @"fail";
-                } else if (status == ImagePickerStatusCancel) {
-                    response = @"cancel";
+                PluginCallbackStatus status = PluginCallbackStatusNone;
+                if (status == SendStatusSuccess) {
+                    status = PluginCallbackStatusSuccessWithData;
+                } else if (status == SendStatusFail) {
+                    status = PluginCallbackStatusFail;
+                } else if (status == SendStatusCancel) {
+                    status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
             }
         }];
     });
@@ -174,16 +172,16 @@
             //
             
             if (sSelf.callbackHandler) {
-//                NSString *response = nil;
-//                if (status == ImagePickerStatusSuccess) {
-//                    response = @"success";
-//                } else if (status == ImagePickerStatusFail) {
-//                    response = @"fail";
-//                } else if (status == ImagePickerStatusCancel) {
-//                    response = @"cancel";
-//                }
+                PluginCallbackStatus status = PluginCallbackStatusNone;
+                if (status == SendStatusSuccess) {
+                    status = PluginCallbackStatusSuccessWithData;
+                } else if (status == SendStatusFail) {
+                    status = PluginCallbackStatusFail;
+                } else if (status == SendStatusCancel) {
+                    status = PluginCallbackStatusCancel;
+                }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
             }
         }];
     });
@@ -202,16 +200,16 @@
             //
             
             if (sSelf.callbackHandler) {
-                NSString *response = nil;
-                if (status == ImagePickerStatusSuccess) {
-                    response = @"success";
-                } else if (status == ImagePickerStatusFail) {
-                    response = @"fail";
-                } else if (status == ImagePickerStatusCancel) {
-                    response = @"cancel";
+                PluginCallbackStatus status = PluginCallbackStatusNone;
+                if (status == SendStatusSuccess) {
+                    status = PluginCallbackStatusSuccessWithData;
+                } else if (status == SendStatusFail) {
+                    status = PluginCallbackStatusFail;
+                } else if (status == SendStatusCancel) {
+                    status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),response);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
             }
         }];
     });

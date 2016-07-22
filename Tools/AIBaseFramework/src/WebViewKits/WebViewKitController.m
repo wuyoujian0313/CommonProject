@@ -62,31 +62,31 @@
     [[_contentWebView webViewContext].virtualMachine addManagedReference:_baseJSManagedValue withOwner:self];
     
     __weak WebViewKitController *wSelf = self;
-    _basePlugin.callbackHandler = ^(NSString *apiName, id response) {
+    _basePlugin.callbackHandler = ^(NSString *apiName, PluginCallbackStatus status, id response) {
         
         WebViewKitController *sSelf = wSelf;
         if (sSelf.basePluginCallback) {
-            if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_EmailSubject:content:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_SMSContent:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_DailPhoneNumber:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_SelectImageAllowsEditing:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_ScanQRCode:"]) {
-                
-            } else if ([apiName isEqualToString:@"JN_Videotape:"]) {
-                
-            }
+            sSelf.basePluginCallback(apiName,status,response);
             
-            sSelf.basePluginCallback(apiName,response);
+//            if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_EmailSubject:content:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_SMSContent:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_DailPhoneNumber:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_SelectImageAllowsEditing:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_ScanQRCode:"]) {
+//                
+//            } else if ([apiName isEqualToString:@"JN_Videotape:"]) {
+//                
+//            }
         }
     };
 }

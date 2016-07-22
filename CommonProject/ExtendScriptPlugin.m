@@ -28,7 +28,7 @@
         
         ExtendScriptPlugin *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),@"success");
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),@"success",nil);
         }
         
     });
