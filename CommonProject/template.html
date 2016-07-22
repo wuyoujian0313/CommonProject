@@ -4,11 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script>
 
-    
-    function sharedAction() {
-        ScriptPluginBase.JN_Shared('标题','分享文字','分享数据');
-    }
-    
     function payAction() {
     }
     
@@ -53,17 +48,21 @@
         ExtendScriptPlugin.JN_ShowAlert('扩展插件');
     }
     
+    function sharedAction() {
+        ExtendScriptPlugin.JN_Shared('标题','分享文字','分享数据');
+    }
+    
     function showAlert(text) {
         // alert需要延迟一下
         setTimeout(function(){alert(text);}, 1);
     }
-    
+
     </script>
     
 </head>
 <body>
     <div id="div">
-        <p><a href="href" onclick="sharedAction()">测试分享</a></p>
+        
         <p><a href="href" onclick="payAction()">测试支付</a></p>
         <p><a href="href" onclick="selectImageAction()">测试选择图片</a></p>
         <p><a href="href" onclick="photograghAction()">测试拍照</a></p>
@@ -73,6 +72,7 @@
         <p><a href="href" onclick="smsAction()">测试短信</a></p>
         <p><a href="href" onclick="dailAction()">测试电话</a></p>
         <p><a href="href" onclick="extendAction()">扩展插件</a></p>
+        <p><a href="href" onclick="sharedAction()">扩展分享</a></p>
         
         <p><a href="tel://18600746313">测试拨打电话(webview自带)</a></p>
         <p><a href="sms://18600746313">测试发短信(webview自带)</a></p>

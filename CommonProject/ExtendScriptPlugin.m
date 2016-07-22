@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ExtendScriptPlugin.h"
+#import "SharedManager.h"
+
+@interface ExtendScriptPlugin ()
+@property (nonatomic, strong) SharedManager         *sharedMgr;
+@end
 
 @implementation ExtendScriptPlugin
 
@@ -28,9 +33,42 @@
         
         ExtendScriptPlugin *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),@"success",nil);
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil);
         }
         
+    });
+}
+
+- (void)JN_SharedTitle:(NSString*)title content:(NSString *)content data:(id)data {
+    
+    __weak ExtendScriptPlugin *wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ExtendScriptPlugin *sSelf = wSelf;
+        SharedManager *obj = [[SharedManager alloc] init];
+        sSelf.sharedMgr = obj;
+        
+        SharedDataModel *mObj = [[SharedDataModel alloc] init];
+        mObj.title = title;
+        mObj.content = content;
+        mObj.data = data;
+        
+        UIApplication *app = [UIApplication sharedApplication];
+        [obj sharedDataFromViewController:app.keyWindow.rootViewController withData:mObj finish:^(SharedStatusCode statusCode) {
+            //
+            if (sSelf.callbackHandler) {
+                NSString *response = nil;
+                if (statusCode == SharedStatusCodeSuccess) {
+                    response = @"success";
+                } else if (statusCode == SharedStatusCodeFail) {
+                    response = @"fail";
+                } else if (statusCode == SharedStatusCodeCancel) {
+                    response = @"cancel";
+                }
+                
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil);
+            }
+        }];
     });
 }
 

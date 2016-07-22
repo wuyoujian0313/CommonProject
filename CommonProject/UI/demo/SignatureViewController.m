@@ -19,10 +19,13 @@
 
 @implementation SignatureViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavTitle:@"手写签名"];
+    [self setContentViewBackgroundColor:[UIColor whiteColor]];
     
     [self layoutSignatureView];
     [self setToolBarView];
@@ -69,8 +72,8 @@
             break;
         case 13: {
             
-            NSString *signFile = [[DeviceInfo getDocumentsPath] stringByAppendingPathComponent:@"signture.jpeg"];
-            [_signView saveImage2JPEGAtPath:signFile];
+            NSString *signFile = [[DeviceInfo getDocumentsPath] stringByAppendingPathComponent:@"signture.png"];
+            [_signView saveImage2PNGAtPath:signFile];
             
             // 发送给服务器
             

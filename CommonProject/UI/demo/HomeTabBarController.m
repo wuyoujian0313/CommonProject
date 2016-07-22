@@ -10,14 +10,12 @@
 #import "CommonWebViewController.h"
 #import "CommonViewController.h"
 #import "DeviceViewController.h"
-#import "WebViewKitController.h"
 #import "ExtendScriptPlugin.h"
 #import "AIBaseFramework.h"
 
 
 
 @interface HomeTabBarController ()
-
 @end
 
 @implementation HomeTabBarController

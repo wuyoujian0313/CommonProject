@@ -24,7 +24,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code.
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         
         self.penSize = 4.0;
         self.penColor = [UIColor blackColor];
@@ -40,7 +40,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code.
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         
         self.penSize = 4.0;
         self.penColor = [UIColor blackColor];
@@ -192,6 +192,7 @@
     
     UIGraphicsBeginImageContext(self.bounds.size);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [self.layer setBackgroundColor:[UIColor clearColor].CGColor];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

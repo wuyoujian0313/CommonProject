@@ -10,6 +10,8 @@
 
 @interface BaseVC : UIViewController
 
+- (void)setContentViewBackgroundColor:(UIColor*)color;
+
 - (void)setNavTitle:(NSString*)title;
 - (void)setNavTitle:(NSString*)title titleColor:(UIColor *)color;
 

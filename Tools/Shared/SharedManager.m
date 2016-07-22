@@ -157,6 +157,9 @@
                                                                  cancelButtonTitle:@"OK"
                                                                  otherButtonTitles:nil, nil];
                            [alert show];
+                           if (finishBlock) {
+                               finishBlock(SharedStatusCodeFail);
+                           }
                            break;
                        }
                            
@@ -167,6 +170,9 @@
                                                                      cancelButtonTitle:@"确定"
                                                                      otherButtonTitles:nil];
                            [alertView show];
+                           if (finishBlock) {
+                               finishBlock(SharedStatusCodeCancel);
+                           }
                            break;
                        }
                        default:

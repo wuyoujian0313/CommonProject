@@ -13,10 +13,14 @@
 
 
 @interface BaseVC ()<UIGestureRecognizerDelegate>
-
+@property (nonatomic,strong) UIView *contentView;
 @end
 
 @implementation BaseVC
+
+- (void)setContentViewBackgroundColor:(UIColor*)color {
+    [_contentView setBackgroundColor:color];
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -43,9 +47,9 @@
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
-    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, self.view.frame.size.height - [DeviceInfo navigationBarHeight])];
-    [rootView setBackgroundColor:[UIColor colorWithHex:0xebeef0]];
-    [self.view addSubview:rootView];
+    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], self.view.frame.size.width, self.view.frame.size.height - [DeviceInfo navigationBarHeight])];
+    [_contentView setBackgroundColor:[UIColor colorWithHex:0xebeef0]];
+    [self.view addSubview:_contentView];
     
     
     // 默认增加back 按钮
