@@ -164,6 +164,8 @@
 		AF40309A1D37B43C00DB3B74 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030161D37B43C00DB3B74 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AF4030AA1D37BB0E00DB3B74 /* CommonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */; };
 		AF4030AC1D37BB0E00DB3B74 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */; };
+		AF6022011D436B1F00EFBFBE /* CaptchaControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6022001D436B1F00EFBFBE /* CaptchaControl.m */; };
+		AF6022041D4370C000EFBFBE /* GetPhoneCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6022031D4370C000EFBFBE /* GetPhoneCodeViewController.m */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
 		AF9152901D2DF83A00C9FABF /* upload.JPG in Resources */ = {isa = PBXBuildFile; fileRef = AF91528F1D2DF83A00C9FABF /* upload.JPG */; };
@@ -531,6 +533,10 @@
 		AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonWebViewController.m; sourceTree = "<group>"; };
 		AF4030A81D37BB0E00DB3B74 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
 		AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
+		AF6021FF1D436B1F00EFBFBE /* CaptchaControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaControl.h; sourceTree = "<group>"; };
+		AF6022001D436B1F00EFBFBE /* CaptchaControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaControl.m; sourceTree = "<group>"; };
+		AF6022021D4370C000EFBFBE /* GetPhoneCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPhoneCodeViewController.h; sourceTree = "<group>"; };
+		AF6022031D4370C000EFBFBE /* GetPhoneCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPhoneCodeViewController.m; sourceTree = "<group>"; };
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		AF7EA17A1D20C4B800E3F1CD /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		AF7EA17B1D20C4B800E3F1CD /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
@@ -836,6 +842,8 @@
 				AFD00B731D3F2CD6009AA8E0 /* LineImageByteData.m */,
 				AFD00B751D3F2E00009AA8E0 /* PickBGImageByteData.h */,
 				AFD00B761D3F2E00009AA8E0 /* PickBGImageByteData.m */,
+				AF6021FF1D436B1F00EFBFBE /* CaptchaControl.h */,
+				AF6022001D436B1F00EFBFBE /* CaptchaControl.m */,
 			);
 			path = Owns;
 			sourceTree = "<group>";
@@ -1308,6 +1316,8 @@
 				AF91528F1D2DF83A00C9FABF /* upload.JPG */,
 				AFA1484C1D0EB4F100EB20BD /* CommonViewController.h */,
 				AFA1484D1D0EB4F100EB20BD /* CommonViewController.m */,
+				AF6022021D4370C000EFBFBE /* GetPhoneCodeViewController.h */,
+				AF6022031D4370C000EFBFBE /* GetPhoneCodeViewController.m */,
 				AF3EE8591D39E15F00ADEC23 /* HomeTabBarController.h */,
 				AF3EE85A1D39E15F00ADEC23 /* HomeTabBarController.m */,
 				AFA1484E1D0EB4F100EB20BD /* DeviceViewController.h */,
@@ -1586,6 +1596,7 @@
 				AF4030791D37B43C00DB3B74 /* ZipArchiveEx.m in Sources */,
 				AFA1485E1D0EB4F100EB20BD /* WebCacheViewController.m in Sources */,
 				AFBAEE0D1CBE0E8B006B9056 /* LoginVC.m in Sources */,
+				AF6022011D436B1F00EFBFBE /* CaptchaControl.m in Sources */,
 				AF4030AA1D37BB0E00DB3B74 /* CommonWebViewController.m in Sources */,
 				AF3EE85B1D39E15F00ADEC23 /* HomeTabBarController.m in Sources */,
 				AF27C9BA1D3E463B0039AE13 /* QRViewController.m in Sources */,
@@ -1671,6 +1682,7 @@
 				AF40304E1D37B43C00DB3B74 /* TTTTimeIntervalFormatter.m in Sources */,
 				AFD00B741D3F2CD6009AA8E0 /* LineImageByteData.m in Sources */,
 				AF27C9C61D3E463B0039AE13 /* UIImage+GIF.m in Sources */,
+				AF6022041D4370C000EFBFBE /* GetPhoneCodeViewController.m in Sources */,
 				AF27C9DB1D3E47E40039AE13 /* PayDataModel.m in Sources */,
 				AF27C9A91D3E463B0039AE13 /* CycleBannerView.m in Sources */,
 				AF27C9CC1D3E463B0039AE13 /* CacheURLProtocol.m in Sources */,

@@ -15,6 +15,7 @@
 #import "DeviceInfo.h"
 #import "DispatchTimer.h"
 #import "FadePromptView.h"
+#import "CaptchaControl.h"
 #import "LineView.h"
 #import "CycleBannerView.h"
 #import "GridMenuCell.h"
@@ -34,6 +35,7 @@
 
 #import "LineImageByteData.h"
 #import "PickBGImageByteData.h"
+
 
 
 #endif /* Owns_h */

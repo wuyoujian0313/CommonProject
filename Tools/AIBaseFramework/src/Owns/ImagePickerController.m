@@ -165,7 +165,9 @@
         ImagePickerController *wSelf = self;
         dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
             NSString *key = UIImagePickerControllerOriginalImage;
-            if (_allowsEditing) {
+            
+            ImagePickerController *sSelf = wSelf;
+            if (sSelf.allowsEditing) {
                 key = UIImagePickerControllerEditedImage;
             }
             UIImage *image = [info objectForKey:key];
@@ -173,7 +175,7 @@
                 //
                 [picker dismissViewControllerAnimated:YES completion:^{
                     //
-                    ImagePickerController *sSelf = wSelf;
+                    
                     if (sSelf.finishBlock) {
                         sSelf.finishBlock(ImagePickerTypeImage,ImagePickerStatusSuccess,image);
                     }
@@ -188,7 +190,8 @@
             ImagePickerController *wSelf = self;
             dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
                 NSString *key = UIImagePickerControllerOriginalImage;
-                if (_allowsEditing) {
+                ImagePickerController *sSelf = wSelf;
+                if (sSelf.allowsEditing) {
                     key = UIImagePickerControllerEditedImage;
                 }
                 UIImage *image = [info objectForKey:key];
@@ -197,7 +200,6 @@
                     //
                     [picker dismissViewControllerAnimated:YES completion:^{
                         //
-                        ImagePickerController *sSelf = wSelf;
                         if (sSelf.finishBlock) {
                             sSelf.finishBlock(ImagePickerTypePhotograph,ImagePickerStatusSuccess,image);
                         }

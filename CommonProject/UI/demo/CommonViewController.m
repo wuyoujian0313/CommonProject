@@ -16,6 +16,7 @@
 #import "AIBaseFramework.h"
 #import "AppDelegate.h"
 #import "GridViewController.h"
+#import "GetPhoneCodeViewController.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -82,6 +83,7 @@
                       @{@"name":@"WebView缓存",@"type":@"JumpToPage",@"Class":@"WebCacheViewController"},
                       @{@"name":@"手写签名",@"type":@"JumpToPage",@"Class":@"SignatureViewController"},
                       @{@"name":@"九宫格",@"type":@"JumpToPage",@"Class":@"GridViewController"},
+                      @{@"name":@"验证码",@"type":@"JumpToPage",@"Class":@"GetPhoneCodeViewController"},
                       @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }
