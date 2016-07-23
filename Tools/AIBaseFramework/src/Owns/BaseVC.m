@@ -53,7 +53,11 @@
     
     
     // 默认增加back 按钮
-    [self configBackButton];
+    if (self.navigationController && [[self.navigationController.viewControllers firstObject] isEqual:self]) {
+        
+    } else {
+        [self configBackButton];
+    }
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -106,18 +110,20 @@
     UILabel* label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     label.backgroundColor=[UIColor clearColor];
     label.font = [UIFont systemFontOfSize:18];
-    label.textColor = [UIColor colorWithHex:0x333333];
+    label.textColor = [UIColor blackColor];
     label.text=title;
     label.textAlignment=NSTextAlignmentCenter;
-    self.navigationItem.titleView=label;
+    self.navigationItem.titleView = label;
     
     self.title = title;
+    
+    
 }
 
 - (void)setNavTitle:(NSString*)title titleColor:(UIColor *)color {
     UILabel* label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     label.backgroundColor=[UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:17];
+    label.font = [UIFont systemFontOfSize:18];
     label.textColor = color;
     label.text = title;
     label.textAlignment=NSTextAlignmentCenter;
@@ -131,7 +137,7 @@
     UIBarButtonItem *itemBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(popBack)];
     
     self.navigationItem.leftBarButtonItem = itemBtn;
-
+    
     return itemBtn;
 }
 
@@ -163,15 +169,23 @@
     return button;
 }
 
--(UIBarButtonItem*)configBarButtonWithTitle:(NSString*)title target:(id)target selector:(SEL)selector {
-
+- (UIBarButtonItem*)configBarButtonWithTitle:(NSString*)title titleTextAttributes:(NSDictionary*)attrDic target:(id)target selector:(SEL)selector {
+    
     UIBarButtonItem *itemBtn = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:target action:selector];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [UIColor colorWithHex:0x3f9bf2],NSForegroundColorAttributeName,
+                          [UIColor blackColor],NSForegroundColorAttributeName,
                           [UIFont systemFontOfSize:15],NSFontAttributeName,nil];
     [itemBtn setTitleTextAttributes:dict forState:UIControlStateNormal];
     
     return itemBtn;
+}
+
+- (UIBarButtonItem*)configBarButtonWithTitle:(NSString*)title target:(id)target selector:(SEL)selector {
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [UIColor blackColor],NSForegroundColorAttributeName,
+                          [UIFont systemFontOfSize:15],NSFontAttributeName,nil];
+    return [self configBarButtonWithTitle:title titleTextAttributes:dict target:target selector:selector];
 }
 
 - (void)configRightBarButtonWithCustomView:(UIView*)aView {

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 用引号应用头文件，目的是为了源码工程配套使用，不要定义两套.h文件；
 
 #ifndef AIBaseFramework_h
 #define AIBaseFramework_h

@@ -12,10 +12,13 @@
 #import "DeviceViewController.h"
 #import "ExtendScriptPlugin.h"
 #import "AIBaseFramework.h"
+#import "SignatureViewController.h"
 
 
 
 @interface HomeTabBarController ()
+
+@property (nonatomic, strong) WebViewKitController *webVC;
 @end
 
 @implementation HomeTabBarController
@@ -34,6 +37,7 @@
     [self.tabBar setTintColor:[UIColor colorWithHex:0x12b8f6]];
 
     WebViewKitController *webVC = [[WebViewKitController alloc] init];
+    self.webVC = webVC;
     UITabBarItem *itemObj1 = [[UITabBarItem alloc] initWithTitle:@"H5能力"
                                                            image:[UIImage imageNamed:@"tabbar_circle"]
                                                    selectedImage:nil];
@@ -64,11 +68,23 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
     [webVC loadWebViewForURL:url];
     [webVC setNavTitle:@"H5能力"];
+    
+    //__weak WebViewKitController *wSelf = webVC;
     [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, PluginCallbackStatus status, id response) {
         //
-        [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
-            //
-        }];
+        //WebViewKitController *sSelf = wSelf;
+        if ([apiName isEqualToString:@"JN_Signature:"]) {
+            SignatureViewController *vc = [[SignatureViewController alloc] init];
+            vc.orderNo = response;
+            vc.hidesBottomBarWhenPushed = YES;
+            [webVC.navigationController pushViewController:vc animated:YES];
+        } else {
+            [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
+                //
+                
+            }];
+        }
+        
     }];
     
     webVC.basePluginCallback = ^(NSString *apiName, PluginCallbackStatus status, id response) {
@@ -76,6 +92,17 @@
             //
         }];
     };
+    
+    // invokeMethod;
+    webVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(testInvoke)];
+}
+
+- (void)testInvoke {
+    
+//    [_webVC invokeMethod:@"invokeMethod1" withArguments:[NSArray arrayWithObject:@"wuyoujian"]];
+//    [_webVC evaluateScript:@"invokeMethod('wuyoujian')"];
+    
+    [_webVC invokeObjectName:@"ExtendScriptObj" method:@"changeName" withArguments:[NSArray arrayWithObject:@"wuyoujian"]];
 }
 
 - (void)didReceiveMemoryWarning {

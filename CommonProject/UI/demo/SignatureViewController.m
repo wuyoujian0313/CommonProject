@@ -19,7 +19,9 @@
 
 @implementation SignatureViewController
 
-
+- (void)dealloc {
+    NSLog(@"SignatureViewController_dealloc");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,11 +35,13 @@
 
 - (void)layoutSignatureView {
     
+    __weak SignatureViewController *wSelf = self;
+    
     self.signView = [[SignatureView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo navigationBarHeight] - 44) status:^(SigntureStatus status) {
         //
-        
+        SignatureViewController *sSelf = wSelf;
         if (status == SignatureStatusBegin) {
-            [_undoItem setEnabled:YES];
+            [sSelf.undoItem setEnabled:YES];
         }
     }];
     

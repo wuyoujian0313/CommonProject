@@ -72,4 +72,15 @@
     });
 }
 
+- (void)JN_Signature:(NSString*)userName {
+    __weak ExtendScriptPlugin * wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ExtendScriptPlugin *sSelf = wSelf;
+        if (sSelf.callbackHandler) {
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithData,userName);
+        }
+    });
+}
+
 @end

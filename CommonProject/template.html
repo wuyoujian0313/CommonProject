@@ -56,6 +56,30 @@
         // alert需要延迟一下
         setTimeout(function(){alert(text);}, 1);
     }
+    
+    function signatureAction() {
+        ExtendScriptPlugin.JN_Signature('18600746313');
+    }
+    
+    function invokeMethod(text) {
+        setTimeout(function(){alert(text);}, 1);
+    }
+    
+    function person(firstname,lastname,age,eyecolor)
+    {
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.age=age;
+        this.eyecolor=eyecolor;
+        
+        this.changeName=changeName;
+        function changeName(name)
+        {
+            this.lastname=name;
+            setTimeout(function(){alert(this.lastname);}, 1);
+        }
+    }
+    ExtendScriptObj = new person("Steve","Jobs",56,"green");
 
     </script>
     
@@ -73,6 +97,7 @@
         <p><a href="href" onclick="dailAction()">测试电话</a></p>
         <p><a href="href" onclick="extendAction()">扩展插件</a></p>
         <p><a href="href" onclick="sharedAction()">扩展分享</a></p>
+        <p><a href="href" onclick="signatureAction()">手写签字</a></p>
         
         <p><a href="tel://18600746313">测试拨打电话(webview自带)</a></p>
         <p><a href="sms://18600746313">测试发短信(webview自带)</a></p>

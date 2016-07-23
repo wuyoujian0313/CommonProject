@@ -19,12 +19,7 @@
 #import <ShareSDK/ShareSDK+Base.h>
 
 
-#ifdef AIBASEFRAMEWORK_INDEVELOPING
 #import "AIBaseFramework.h"
-
-#else
-#import <AIBaseFramework/AIBaseFramework.h>
-#endif
 
 // 分享相关
 #define ShareSDKAppKey              @"e7d5f19efdb0"

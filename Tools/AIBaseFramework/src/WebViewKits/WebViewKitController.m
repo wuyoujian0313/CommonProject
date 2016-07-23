@@ -14,16 +14,15 @@
 
 
 @interface WebViewKitController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
-@property (nonatomic, strong) UIWebView                 *contentWebView;
-@property (nonatomic, strong) NJKWebViewProgressView    *progressView;
-@property (nonatomic, strong) NJKWebViewProgress        *progressProxy;
+@property (nonatomic, strong) UIWebView                         *contentWebView;
+@property (nonatomic, strong) NJKWebViewProgressView            *progressView;
+@property (nonatomic, strong) NJKWebViewProgress                *progressProxy;
 
-@property (nonatomic, strong) ScriptPluginBase          *basePlugin;
-@property (nonatomic, strong) NSMutableArray            *extendPlugins;
+@property (nonatomic, strong) ScriptPluginBase                  *basePlugin;
+@property (nonatomic, strong) NSMutableArray                    *extendPlugins;
 
-@property (nonatomic, strong) JSManagedValue            *baseJSManagedValue;
-@property (nonatomic, strong) NSMutableArray<JSManagedValue*>            *extendJSManagedValues;
-
+@property (nonatomic, strong) JSManagedValue                    *baseJSManagedValue;
+@property (nonatomic, strong) NSMutableArray<JSManagedValue*>   *extendJSManagedValues;
 
 @end
 
@@ -67,26 +66,6 @@
         WebViewKitController *sSelf = wSelf;
         if (sSelf.basePluginCallback) {
             sSelf.basePluginCallback(apiName,status,response);
-            
-//            if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_SharedTitle:content:data:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_EmailSubject:content:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_SMSContent:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_DailPhoneNumber:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_SelectImageAllowsEditing:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_ScanQRCode:"]) {
-//                
-//            } else if ([apiName isEqualToString:@"JN_Videotape:"]) {
-//                
-//            }
         }
     };
 }
@@ -123,6 +102,30 @@
 - (void)evaluateScript:(NSString*)script {
     if (_contentWebView) {
         [_contentWebView evaluateScript:script];
+    }
+}
+
+- (void)invokeMethod:(NSString *)method withArguments:(NSArray *)arguments {
+    JSValue *methodObj = [_contentWebView webViewContext][method];
+    if (![methodObj isUndefined]) {
+        [methodObj callWithArguments:arguments];
+    } else {
+        NSLog(@"JS方法：%@ 不存在",method);
+    }
+}
+
+- (void)invokeObjectName:(NSString*)objectName method:(NSString *)method withArguments:(NSArray *)arguments {
+    
+    JSValue *obj = [_contentWebView webViewContext][objectName];
+    if (![obj isUndefined]) {
+        JSValue *methodObj = obj[method];
+        if (![methodObj isUndefined]) {
+            [methodObj callWithArguments:arguments];
+        } else {
+            NSLog(@"JS对象：%@ 的方法%@ 不存在",objectName,method);
+        }
+    } else {
+        NSLog(@"JS对象：%@ 不存在",objectName);
     }
 }
 
@@ -198,7 +201,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.leftBarButtonItem = nil;
     [self layoutWebView];
 }
 
@@ -216,41 +218,39 @@
     }
 }
 
-
-
-
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    if ([[request.URL absoluteString] isEqualToString:@"href"]) {
-        return NO;
+
+    if (_delegate && [_delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+        //
+       return [_delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     }
     
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    
+    if (_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
+        [_delegate webViewDidStartLoad:webView];
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [_progressView setProgress:0.0];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
+        [_delegate webViewDidFinishLoad:webView];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error {
     [_progressView setProgress:0.0];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+        [_delegate webView:webView didFailLoadWithError:error];
+    }
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
 
