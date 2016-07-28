@@ -18,10 +18,7 @@
 @property (nonatomic, strong) NJKWebViewProgressView            *progressView;
 @property (nonatomic, strong) NJKWebViewProgress                *progressProxy;
 
-@property (nonatomic, strong) ScriptPluginBase                  *basePlugin;
 @property (nonatomic, strong) NSMutableArray                    *extendPlugins;
-
-@property (nonatomic, strong) JSManagedValue                    *baseJSManagedValue;
 @property (nonatomic, strong) NSMutableArray<JSManagedValue*>   *extendJSManagedValues;
 
 @end
@@ -30,13 +27,11 @@
 
 
 - (void)dealloc {
-    [[_contentWebView webViewContext].virtualMachine removeManagedReference:_baseJSManagedValue withOwner:self];
     
     for (JSManagedValue* obj in _extendJSManagedValues) {
         [[_contentWebView webViewContext].virtualMachine removeManagedReference:obj withOwner:self];
     }
 }
-
 
 // 加载对应的url web页面
 - (void)loadWebViewForURL:(NSURL*)url {
@@ -45,29 +40,6 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [_contentWebView loadRequest:request];
-    
-    if (_basePlugin) {
-        return;
-    }
-    
-    ScriptPluginBase *basePlugin = [[ScriptPluginBase alloc] init];
-    self.basePlugin = basePlugin;
-    
-    [_contentWebView webViewContext][NSStringFromClass([basePlugin class])] = _basePlugin;
-    JSValue *obj = [_contentWebView webViewContext][NSStringFromClass([basePlugin class])];
-    
-    // 内存管理
-    self.baseJSManagedValue = [JSManagedValue managedValueWithValue:obj];
-    [[_contentWebView webViewContext].virtualMachine addManagedReference:_baseJSManagedValue withOwner:self];
-    
-    __weak WebViewKitController *wSelf = self;
-    _basePlugin.callbackHandler = ^(NSString *apiName, PluginCallbackStatus status, id response) {
-        
-        WebViewKitController *sSelf = wSelf;
-        if (sSelf.basePluginCallback) {
-            sSelf.basePluginCallback(apiName,status,response);
-        }
-    };
 }
 
 - (void)registerScriptPlugin:(ScriptPluginBase*)plugin callback:(PluginCallbackHandler)callback {

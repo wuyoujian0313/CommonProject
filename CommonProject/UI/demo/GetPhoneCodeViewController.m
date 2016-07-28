@@ -19,11 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CaptchaControl *codeCtrl = [[CaptchaControl alloc] initWithFrame:CGRectMake(40, 100, 80, 30) interval:10];
-    
+    CaptchaControl *codeCtrl = [[CaptchaControl alloc] initWithFrame:CGRectMake(40, 100, 90, 30) interval:60];
+    [codeCtrl setBackgroundColor:[UIColor lightTextColor]];
     [codeCtrl addTarget:self action:@selector(getCode:) forControlEvents:UIControlEventTouchUpInside];
+    [codeCtrl setDefaultText:@"验证码"];
     
-    [codeCtrl setBackgroundColor:[UIColor lightGrayColor]];
     [self.view addSubview:codeCtrl];
 }
 

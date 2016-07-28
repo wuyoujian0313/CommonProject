@@ -43,7 +43,7 @@
                     status = PluginCallbackStatusSave;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil,nil,nil,nil);
             }
         }];
     });
@@ -76,7 +76,7 @@
                     status = PluginCallbackStatusSave;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,nil,nil,nil,nil);
             }
         }];
     });
@@ -91,13 +91,13 @@
         
         ScriptPluginBase *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil);
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil,nil,nil);
         }
     });
 }
 
 
-- (void)JN_SelectImageAllowsEditing:(BOOL)isEditing {
+- (void)JN_SelectImageAllowsEditing:(BOOL)isEditing argument:(NSString*)argument{
     
     __weak ScriptPluginBase *wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -121,14 +121,13 @@
                     status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,[NSNumber numberWithBool:isEditing],argument,nil);
             }
         }];
     });
 }
 
-
-- (void)JN_PhotographAllowsEditing:(BOOL)isEditing {
+- (void)JN_PhotographAllowsEditing:(BOOL)isEditing argument:(NSString*)argument{
     
     __weak ScriptPluginBase *wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -153,13 +152,13 @@
                     status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,[NSNumber numberWithBool:isEditing],argument,nil);
             }
         }];
     });
 }
 
-- (void)JN_ScanQRCode {
+- (void)JN_ScanQRCodeForArgument:(NSString*)argument {
     
     __weak ScriptPluginBase *wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -181,13 +180,13 @@
                     status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,argument,nil,nil);
             }
         }];
     });
 }
 
-- (void)JN_Videotape {
+- (void)JN_VideotapeForArgument:(NSString*)argument {
     __weak ScriptPluginBase *wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -209,7 +208,7 @@
                     status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,argument,nil,nil);
             }
         }];
     });

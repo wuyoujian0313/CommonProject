@@ -14,9 +14,6 @@
 @property (nonatomic, weak) id <UIWebViewDelegate> delegate;
 @property (nonatomic, readonly, strong) UIWebView *contentWebView;
 
-// 基础插件库的回调，请处理，例如，图片，视频，二维码等等；
-@property (nonatomic, copy) PluginCallbackHandler basePluginCallback;
-
 // 加载对应的url web页面
 - (void)loadWebViewForURL:(NSURL*)url;
 

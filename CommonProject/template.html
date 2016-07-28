@@ -8,19 +8,23 @@
     }
     
     function selectImageAction() {
-        ScriptPluginBase.JN_SelectImageAllowsEditing(false);
+        ScriptPluginBase.JN_SelectImage(false,'18600746313');
     }
     
     function photograghAction() {
-        ScriptPluginBase.JN_PhotographAllowsEditing(false);
+        if(ScriptPluginBase == undefine) {
+            alert('没有ScriptPluginBase');
+            return;
+        }
+        ScriptPluginBase.JN_Photograph(false,'18600746313');
     }
     
     function videotapeAction() {
-        ScriptPluginBase.JN_Videotape();
+        ScriptPluginBase.JN_Videotape('18600746313');
     }
     
     function scanQRCodeAction() {
-        ScriptPluginBase.JN_ScanQRCode();
+        ScriptPluginBase.JN_ScanQRCode('18600746313');
     }
     
     function emailAction() {
@@ -73,6 +77,8 @@
         this.eyecolor=eyecolor;
         
         this.changeName=changeName;
+        
+        
         function changeName(name)
         {
             this.lastname=name;

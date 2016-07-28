@@ -108,6 +108,11 @@
             return;
         }
         
+        AppDelegate *app = [AppDelegate shareMyApplication];
+        [app.mainVC switchToHomeVC];
+        
+        return;
+        
         [_nameTextField resignFirstResponder];
         [_pwdTextField resignFirstResponder];
         NSString *nameString = [NSString stringWithFormat:@"%@",_nameTextField.text];

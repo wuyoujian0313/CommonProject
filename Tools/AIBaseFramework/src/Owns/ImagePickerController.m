@@ -227,7 +227,15 @@
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:^{}];
+    
+    ImagePickerController *wSelf = self;
+    [picker dismissViewControllerAnimated:YES completion:^{
+    
+        ImagePickerController *sSelf = wSelf;
+        if (sSelf.finishBlock) {
+            sSelf.finishBlock(ImagePickerTypeUnknow,ImagePickerStatusCancel,nil);
+        }
+    }];
 }
 
 
