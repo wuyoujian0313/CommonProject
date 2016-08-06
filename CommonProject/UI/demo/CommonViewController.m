@@ -17,6 +17,7 @@
 #import "AppDelegate.h"
 #import "GridViewController.h"
 #import "GetPhoneCodeViewController.h"
+#import "CaptureViewController.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
@@ -37,7 +38,7 @@
     [self configAbilitys];
     
     //
-    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo  navigationBarHeight]) style:UITableViewStylePlain];
+    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, [DeviceInfo navigationBarHeight], [DeviceInfo screenWidth], [DeviceInfo screenHeight] - [DeviceInfo  navigationBarHeight] - 49) style:UITableViewStylePlain];
     [self setAbilityTableView:tableView];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -84,6 +85,7 @@
                       @{@"name":@"手写签名",@"type":@"JumpToPage",@"Class":@"SignatureViewController"},
                       @{@"name":@"九宫格",@"type":@"JumpToPage",@"Class":@"GridViewController"},
                       @{@"name":@"验证码",@"type":@"JumpToPage",@"Class":@"GetPhoneCodeViewController"},
+                      @{@"name":@"自定义拍照",@"type":@"JumpToPage",@"Class":@"CaptureViewController"},
                       @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }

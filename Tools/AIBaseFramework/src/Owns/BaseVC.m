@@ -34,6 +34,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self regieditKeyboardNotification];
+    
+    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+    
+    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -90,6 +96,16 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+}
+
+// 默认不支持旋转
+-(BOOL)shouldAutorotate {
+    return NO;
+}
+
+//默认支持的方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 #pragma mark - keyboard Notification

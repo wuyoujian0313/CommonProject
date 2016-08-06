@@ -33,7 +33,7 @@
         
         ExtendScriptPlugin *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil);
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil,nil,nil);
         }
         
     });
@@ -66,7 +66,7 @@
                     response = @"cancel";
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil,nil,nil);
             }
         }];
     });
@@ -78,7 +78,7 @@
         
         ExtendScriptPlugin *sSelf = wSelf;
         if (sSelf.callbackHandler) {
-            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithData,nil,userName);
+            sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithData,nil,userName,nil,nil);
         }
     });
 }

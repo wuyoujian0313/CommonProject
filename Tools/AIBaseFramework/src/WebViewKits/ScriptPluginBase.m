@@ -180,10 +180,11 @@
                     status = PluginCallbackStatusCancel;
                 }
                 
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,argument,nil,nil);
+                sSelf.callbackHandler(NSStringFromSelector(_cmd),status,data,argument,nil);
             }
         }];
     });
+    
 }
 
 - (void)JN_VideotapeForArgument:(NSString*)argument {

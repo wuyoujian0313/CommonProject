@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, PluginCallbackStatus) {
     PluginCallbackStatusSave,
 };
 
+
 /*
  @param apiName, OC下的函数名
  @param status, 状态
@@ -28,8 +29,25 @@ typedef NS_ENUM(NSInteger, PluginCallbackStatus) {
  注意！！！！
  1、多余2个参数的JS函数，就请在回调里遍历后面的参数；
  2、这种不定参数的回调，调用时，必须最后传入个nil参数；
+ 
+ 获取argument2之后的参数：
+ 
+ //    NSMutableArray *otherArray = [[NSMutableArray alloc] init];
+ //    va_list params;
+ //    va_start(params,argument2);
+ //    id arg;
+ //    if (argument) {
+ //        while((arg = va_arg(params,id))) {
+ //            if ( arg ){
+ //                [otherArray addObject:arg];
+ //            }
+ //        }
+ //    }
+ //    va_end(params);
  */
+
 typedef void(^PluginCallbackHandler)(NSString *apiName, PluginCallbackStatus status, id response, id argument1,id argument2,...);
+
 
 
 @protocol JN_LocalAbilityExport <JSExport>
@@ -49,5 +67,5 @@ JSExportAs(JN_Photograph,- (void)JN_PhotographAllowsEditing:(BOOL)isEditing argu
 @end
 
 @interface ScriptPluginBase : NSObject<JN_LocalAbilityExport>
-@property (nonatomic, copy) PluginCallbackHandler        callbackHandler;
+@property (nonatomic, copy) PluginCallbackHandler        callbackHandler ;
 @end

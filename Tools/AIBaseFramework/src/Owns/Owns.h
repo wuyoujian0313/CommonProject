@@ -35,6 +35,9 @@
 
 #import "LineImageByteData.h"
 #import "PickBGImageByteData.h"
+#import "AICaptureView.h"
+#import "AIConfiguration.h"
+#import "Reachability.h"
 
 
 

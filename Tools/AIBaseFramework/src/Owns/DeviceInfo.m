@@ -518,7 +518,12 @@
 }
 
 + (NSInteger)navigationBarHeight {
-    return ([[self class] isOS7] ? 64 : 44);
+    UIApplication *app = [UIApplication sharedApplication];
+    UIInterfaceOrientation orientation = app.statusBarOrientation;
+    
+    NSInteger height =  UIInterfaceOrientationIsPortrait(orientation) ? 44:32;
+    
+    return ([[self class] isOS7] ? height + 20 : height);
 }
 
 #define IOS_CELLULAR    @"pdp_ip0"

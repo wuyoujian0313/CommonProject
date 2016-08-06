@@ -17,5 +17,6 @@
 #import "UIView+SizeUtility.h"
 #import "UIWebView+JSPatch.h"
 #import "NSData+Crypto.h"
+#import "UIImage+Resize.h"
 
 #endif /* Category_h */

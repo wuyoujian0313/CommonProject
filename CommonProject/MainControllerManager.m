@@ -27,6 +27,8 @@
     [self switchToLoginVCFrom:_rootVC];
 }
 
+
+
 - (nullable UIViewController *)childViewControllerForStatusBarHidden {
     return _currentController;
 }

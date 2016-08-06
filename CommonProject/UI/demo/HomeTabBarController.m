@@ -66,7 +66,7 @@
     [self setViewControllers:[[NSArray alloc] initWithObjects:nav1,nav2,nav3,nil]];
     [self setSelectedIndex:0];
  
-#if 0
+#if 1
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"template" withExtension:@"html"];
 #else
     NSURL *url = [NSURL URLWithString:@"http://10.143.186.178:8080/ipersonserv/"];
@@ -74,59 +74,35 @@
     [webVC loadWebViewForURL:url];
     [webVC setNavTitle:@"H5能力"];
     
-//    //__weak WebViewKitController *wSelf = webVC;
-//    [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, PluginCallbackStatus status, id response, NSString *argument) {
-//        //
-//        //WebViewKitController *sSelf = wSelf;
-//        if ([apiName isEqualToString:@"JN_Signature:"]) {
-//            SignatureViewController *vc = [[SignatureViewController alloc] init];
-//            vc.orderNo = response;
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [webVC.navigationController pushViewController:vc animated:YES];
-//        } else {
-//            [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
-//                //
-//                
-//            }];
-//        }
-//        
-//    }];
-    
-//    webVC.basePluginCallback = ^(NSString *apiName, PluginCallbackStatus status, id response,NSString *argument) {
-//        [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
-//            //
-//        }];
-//    };
-    
-    // invokeMethod;
-    webVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(testInvoke)];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-    
-    if ([[webView.request.URL absoluteString] containsString:@"/ipersonserv/?service=page/Main"]) {
-        
-        [_webVC registerScriptPlugin:[[ScriptPluginBase alloc] init] callback:^(NSString *apiName, PluginCallbackStatus status, id response, NSString *argument,...) {
-            //
-            if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:argument:"]) {
+    __weak WebViewKitController *wSelf = webVC;
+    [webVC registerScriptPlugin:[[ExtendScriptPlugin alloc] init] callback:^(NSString *apiName, PluginCallbackStatus status, id response, id argument1,id argument2,...) {
+        //
+        //WebViewKitController *sSelf = wSelf;
+        if ([apiName isEqualToString:@"JN_Signature:"]) {
+            SignatureViewController *vc = [[SignatureViewController alloc] init];
+            vc.orderNo = response;
+            vc.hidesBottomBarWhenPushed = YES;
+            [wSelf.navigationController pushViewController:vc animated:YES];
+        } else {
+            [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
+                //
                 
-                [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
-                    //
-                }];
-
-            }
+            }];
+        }
+        
+    }];
+    
+    [_webVC registerScriptPlugin:[[ScriptPluginBase alloc] init] callback:^(NSString *apiName, PluginCallbackStatus status, id response, id argument1,id argument2,...) {
+        //
+        if ([apiName isEqualToString:@"JN_PhotographAllowsEditing:argument:"]) {
             
-        }];
-    }
-}
-
-- (void)testInvoke {
-    
-   [_webVC invokeMethod:@"photogragh" withArguments:nil];
-    //[_webVC evaluateScript:@"photogragh(ture,'wuyoujian')"];
-    
-   // [_webVC invokeObjectName:@"ExtendScriptObj" method:@"changeName" withArguments:[NSArray arrayWithObject:@"wuyoujian"]];
+            [FadePromptView showPromptStatus:apiName duration:1.0 finishBlock:^{
+                //
+            }];
+            
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
