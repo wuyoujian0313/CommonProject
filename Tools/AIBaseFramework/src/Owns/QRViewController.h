@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseVC.h"
 
 typedef NS_ENUM(NSInteger, QRCodeScanStatus) {
     QRCodeScanStatusSuccess,
@@ -16,7 +17,7 @@ typedef NS_ENUM(NSInteger, QRCodeScanStatus) {
 
 typedef void(^QRCodeFinishBlock)(NSString *result, QRCodeScanStatus status);
 
-@interface QRViewController : UIViewController
+@interface QRViewController : BaseVC
 
 @property (nonatomic, copy) QRCodeFinishBlock finishBlock;
 

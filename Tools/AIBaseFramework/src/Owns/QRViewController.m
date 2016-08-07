@@ -68,8 +68,6 @@
     
     output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeEAN8Code,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode39Code,AVMetadataObjectTypePDF417Code,AVMetadataObjectTypeAztecCode,AVMetadataObjectTypeCode93Code,AVMetadataObjectTypeEAN13Code,AVMetadataObjectTypeCode39Mod43Code];
     
-    
-    
     self.preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.preview.videoGravity = AVLayerVideoGravityResize;
     self.preview.frame = previewFrame;
@@ -81,8 +79,6 @@
     } else {
         [self.session setSessionPreset:AVCaptureSessionPresetHigh];
     }
-    
-    [output rectOfInterest];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [cancelBtn setFrame:CGRectMake(10, 20, 40, 30)];
