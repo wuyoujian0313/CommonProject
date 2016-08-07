@@ -22,7 +22,6 @@
 		AF00B3481D52EC5900756B5C /* NSObject+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2CE1D52EC5900756B5C /* NSObject+Utility.m */; };
 		AF00B3491D52EC5900756B5C /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2D01D52EC5900756B5C /* NSString+Utility.m */; };
 		AF00B34A1D52EC5900756B5C /* UIColor+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2D21D52EC5900756B5C /* UIColor+Utility.m */; };
-		AF00B34B1D52EC5900756B5C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2D41D52EC5900756B5C /* UIImage+Resize.m */; };
 		AF00B34C1D52EC5900756B5C /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2D61D52EC5900756B5C /* UIImage+ResizeMagick.m */; };
 		AF00B34D1D52EC5900756B5C /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2D81D52EC5900756B5C /* UIImage+Utility.m */; };
 		AF00B34E1D52EC5900756B5C /* UIView+SizeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AF00B2DA1D52EC5900756B5C /* UIView+SizeUtility.m */; };
@@ -262,8 +261,6 @@
 		AF00B2D01D52EC5900756B5C /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
 		AF00B2D11D52EC5900756B5C /* UIColor+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utility.h"; sourceTree = "<group>"; };
 		AF00B2D21D52EC5900756B5C /* UIColor+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utility.m"; sourceTree = "<group>"; };
-		AF00B2D31D52EC5900756B5C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		AF00B2D41D52EC5900756B5C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		AF00B2D51D52EC5900756B5C /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeMagick.h"; sourceTree = "<group>"; };
 		AF00B2D61D52EC5900756B5C /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeMagick.m"; sourceTree = "<group>"; };
 		AF00B2D71D52EC5900756B5C /* UIImage+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utility.h"; sourceTree = "<group>"; };
@@ -782,8 +779,6 @@
 				AF00B2D01D52EC5900756B5C /* NSString+Utility.m */,
 				AF00B2D11D52EC5900756B5C /* UIColor+Utility.h */,
 				AF00B2D21D52EC5900756B5C /* UIColor+Utility.m */,
-				AF00B2D31D52EC5900756B5C /* UIImage+Resize.h */,
-				AF00B2D41D52EC5900756B5C /* UIImage+Resize.m */,
 				AF00B2D51D52EC5900756B5C /* UIImage+ResizeMagick.h */,
 				AF00B2D61D52EC5900756B5C /* UIImage+ResizeMagick.m */,
 				AF00B2D71D52EC5900756B5C /* UIImage+Utility.h */,
@@ -1692,7 +1687,6 @@
 				AF00B3441D52EC5900756B5C /* AFURLRequestSerialization.m in Sources */,
 				AF00B3681D52EC5900756B5C /* PickBGImageByteData.m in Sources */,
 				AF40305C1D37B43C00DB3B74 /* JPMemory.m in Sources */,
-				AF00B34B1D52EC5900756B5C /* UIImage+Resize.m in Sources */,
 				AF00B3741D52EC5900756B5C /* UIButton+WebCache.m in Sources */,
 				AF4030621D37B43C00DB3B74 /* JPEngine.m in Sources */,
 				AF4030601D37B43C00DB3B74 /* JPUIImage.m in Sources */,
