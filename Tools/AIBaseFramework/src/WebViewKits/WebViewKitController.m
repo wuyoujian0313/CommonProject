@@ -61,19 +61,29 @@
         
         plugin.callbackHandler = callback;
         [_extendPlugins addObject:plugin];
-        [_contentWebView webViewContext][NSStringFromClass([plugin class])] = plugin;
         
-        // 内存管理
+        
         JSValue *obj = [_contentWebView webViewContext][NSStringFromClass([plugin class])];
-        JSManagedValue* extendJSManagedValue = [JSManagedValue managedValueWithValue:obj];
-        [[_contentWebView webViewContext].virtualMachine addManagedReference:extendJSManagedValue withOwner:self];
-        [_extendJSManagedValues addObject:extendJSManagedValue];
+        if (obj == nil || [obj isUndefined]) {
+            [_contentWebView webViewContext][NSStringFromClass([plugin class])] = plugin;
+            
+            // 内存管理
+            JSManagedValue* extendJSManagedValue = [JSManagedValue managedValueWithValue:obj];
+            [[_contentWebView webViewContext].virtualMachine addManagedReference:extendJSManagedValue withOwner:self];
+            [_extendJSManagedValues addObject:extendJSManagedValue];
+        }
     }
 }
 
 - (void)evaluateScript:(NSString*)script {
     if (_contentWebView) {
         [_contentWebView evaluateScript:script];
+    }
+}
+
+- (void)evaluateScriptByWebView:(NSString*)script {
+    if (_contentWebView) {
+        [_contentWebView evaluateScriptByWebView:script];
     }
 }
 
@@ -208,8 +218,22 @@
     }
 }
 
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [_progressView setProgress:0.0];
+    
+    for (ScriptPluginBase *plugin in _extendPlugins) {
+        
+        JSValue *obj = [_contentWebView webViewContext][NSStringFromClass([plugin class])];
+        if (obj == nil || [obj isUndefined]) {
+            [_contentWebView webViewContext][NSStringFromClass([plugin class])] = plugin;
+            
+            // 内存管理
+            JSManagedValue* extendJSManagedValue = [JSManagedValue managedValueWithValue:obj];
+            [[_contentWebView webViewContext].virtualMachine addManagedReference:extendJSManagedValue withOwner:self];
+            [_extendJSManagedValues addObject:extendJSManagedValue];
+        }
+    }
     
     if (_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
         [_delegate webViewDidFinishLoad:webView];

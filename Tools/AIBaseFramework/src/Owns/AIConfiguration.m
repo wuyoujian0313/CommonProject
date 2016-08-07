@@ -20,7 +20,7 @@
     
     NSURL *proURL = [[NSBundle mainBundle] URLForResource:fileName withExtension:ext];
     NSString *configString = [NSString stringWithContentsOfURL:proURL encoding:NSUTF8StringEncoding error:nil];
-    
+
     return [[self class] configurationString:configString];
 }
 

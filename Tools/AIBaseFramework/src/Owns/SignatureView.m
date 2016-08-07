@@ -201,7 +201,7 @@
 
 - (void)saveImage2FileAtPath:(NSString*)path isPNG:(BOOL)isPNG {
     NSData* data = isPNG ? UIImagePNGRepresentation(self.image):UIImageJPEGRepresentation(self.image,0);
-    [data writeToFile:path atomically:YES];
+    [data writeToFile:path atomically:NO];
 }
 
 - (CGPoint)midPoint:(CGPoint)p0 p1:(CGPoint)p1 {

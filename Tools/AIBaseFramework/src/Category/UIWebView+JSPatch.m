@@ -70,4 +70,8 @@ static NSString *const jsContextKeyPath4 = @"Context";
     return nil;
 }
 
+- (NSString*)evaluateScriptByWebView:(NSString*)script {
+    return [self stringByEvaluatingJavaScriptFromString:script];
+}
+
 @end

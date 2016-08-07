@@ -30,7 +30,10 @@
 
 //支持的方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return [self.topViewController supportedInterfaceOrientations];
+    if (self.topViewController.presentedViewController) {
+        return self.topViewController.presentedViewController.supportedInterfaceOrientations;
+    }
+    return self.topViewController.supportedInterfaceOrientations;
 }
 
 

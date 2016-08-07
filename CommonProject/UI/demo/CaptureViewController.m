@@ -38,8 +38,9 @@
     [self.view setBackgroundColor:[UIColor blackColor]];
     [self setContentViewBackgroundColor:[UIColor blackColor]];
     
-    CGFloat width = 210 * 269 / 184;
-    CGRect markFrame = CGRectMake((self.view.frame.size.width - width)/2.0, 180, width, 210);
+    //243px          高:153px
+    CGFloat width = 200 * 243 / 153;
+    CGRect markFrame = CGRectMake((self.view.frame.size.width - width)/2.0, 180, width, 200);
     AICaptureView *captureView = [[AICaptureView alloc] initWithFrame:self.view.bounds];
     self.captureView = captureView;
     [_captureView cropRectForInterest:markFrame];

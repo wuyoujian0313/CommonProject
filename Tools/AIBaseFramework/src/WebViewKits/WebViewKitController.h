@@ -23,6 +23,8 @@
 // 执行js
 - (void)evaluateScript:(NSString*)script;
 
+- (void)evaluateScriptByWebView:(NSString*)script;
+
 // 调用js function
 // 调用全局js方法
 - (void)invokeMethod:(NSString *)method withArguments:(NSArray *)arguments;

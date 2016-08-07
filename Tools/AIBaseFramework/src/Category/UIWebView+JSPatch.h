@@ -32,4 +32,11 @@ typedef void(^WebViewJSPatchBlock)(NSArray<JSValue*> *arguments);
  */
 - (JSValue*)evaluateScript:(NSString*)script;
 
+/**
+ *  在webView中执行js
+ *  @param webView 对应的WebView
+ *  @param script 需要执行的js代码
+ */
+- (NSString*)evaluateScriptByWebView:(NSString*)script;
+
 @end

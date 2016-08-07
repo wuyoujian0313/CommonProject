@@ -38,7 +38,7 @@
 }
 
 - (void)setupCameraView {
-
+    
     self.session = [[AVCaptureSession alloc] init];
     [_session beginConfiguration];
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -128,7 +128,7 @@
         
         CGRect rectCrop = CGRectMake(cropX,cropY, cropWidth, cropHeight);
         UIImage *croppedImage = [fixOriginImage croppedImage:rectCrop];
-    
+        
         if (callback) {
             callback(fixOriginImage,croppedImage);
         }
