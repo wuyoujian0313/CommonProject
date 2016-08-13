@@ -66,7 +66,11 @@
         [self.session addOutput:output];
     }
     
+#if TARGET_IPHONE_SIMULATOR
+#elif TARGET_OS_IPHONE
     output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeEAN8Code,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode39Code,AVMetadataObjectTypePDF417Code,AVMetadataObjectTypeAztecCode,AVMetadataObjectTypeCode93Code,AVMetadataObjectTypeEAN13Code,AVMetadataObjectTypeCode39Mod43Code];
+#endif
+    
     
     self.preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.preview.videoGravity = AVLayerVideoGravityResize;
@@ -89,7 +93,11 @@
 }
 
 - (void)startScanQRCode {
-    [self.session startRunning];
+    
+#if TARGET_IPHONE_SIMULATOR
+#elif TARGET_OS_IPHONE
+    [_session startRunning];
+#endif
 }
 
 - (void)startScanQRCodeWithFinish:(QRCodeFinishBlock)finishBlock {

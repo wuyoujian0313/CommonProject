@@ -85,7 +85,10 @@
 }
 
 - (void)startCapture {
+#if TARGET_IPHONE_SIMULATOR
+#elif TARGET_OS_IPHONE
     [_session startRunning];
+#endif
 }
 
 - (void)cropRectForInterest:(CGRect)cropRect {

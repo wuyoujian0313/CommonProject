@@ -808,6 +808,7 @@
 		AF00B2E21D52EC5900756B5C /* Owns */ = {
 			isa = PBXGroup;
 			children = (
+				AF00B30F1D52EC5900756B5C /* Owns.h */,
 				AF3AD2801D54B1F100426FF9 /* Reachability.h */,
 				AF3AD2811D54B1F100426FF9 /* Reachability.m */,
 				AF00B2E31D52EC5900756B5C /* AICaptureView.h */,
@@ -856,7 +857,6 @@
 				AF00B30C1D52EC5900756B5C /* NetResultBase.m */,
 				AF00B30D1D52EC5900756B5C /* NetworkTask.h */,
 				AF00B30E1D52EC5900756B5C /* NetworkTask.m */,
-				AF00B30F1D52EC5900756B5C /* Owns.h */,
 				AF00B3101D52EC5900756B5C /* PickBGImageByteData.h */,
 				AF00B3111D52EC5900756B5C /* PickBGImageByteData.m */,
 				AF00B3121D52EC5900756B5C /* QRViewController.h */,
