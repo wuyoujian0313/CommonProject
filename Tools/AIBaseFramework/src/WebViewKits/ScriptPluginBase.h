@@ -29,6 +29,14 @@ typedef NS_ENUM(NSInteger, PluginCallbackStatus) {
  注意！！！！
  1、多余2个参数的JS函数，就请在回调里遍历后面的参数；
  2、这种不定参数的回调，调用时，必须最后传入个nil参数；
+ 
+ 
+ 
+ *  扩展插件类
+ *  1、JSExport是JS与OC之间的穿梭机；
+ *  2、把需要扩展的API定义到protocol:JSExport里，在插件类里实现接口；
+ *  3、若是多参数的API，可以采用JSExportAs来声明接口,可以参考ScriptPluginBase；默认的情况，在JS端是会把参数tag首字母大写拼接成JS的function调用方式，例如：test:(NString*)str key:(NString*)k --> testKey(str,k);
+ *  4、注意，扩张的API，建议采用dispatch_async包装起来，在主线程里调用。很多情况，jscontext是非主线程调用API；
  */
 
 typedef void(^PluginCallbackHandler)(NSString *apiName, PluginCallbackStatus status, id response, id argument1,id argument2,...);

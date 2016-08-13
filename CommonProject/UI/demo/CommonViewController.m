@@ -19,7 +19,9 @@
 #import "GetPhoneCodeViewController.h"
 #import "CaptureViewController.h"
 
-@interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
+#import "AIActionSheet.h"
+
+@interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,AIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
 @end
@@ -86,6 +88,7 @@
                       @{@"name":@"九宫格",@"type":@"JumpToPage",@"Class":@"GridViewController"},
                       @{@"name":@"验证码",@"type":@"JumpToPage",@"Class":@"GetPhoneCodeViewController"},
                       @{@"name":@"自定义拍照",@"type":@"JumpToPage",@"Class":@"CaptureViewController"},
+                      @{@"name":@"自定义SheetView",@"type":@"sheetView"},
                       @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }
@@ -140,7 +143,24 @@
         
         UIActionSheet *sheet=[[UIActionSheet alloc] initWithTitle:@"确认退出登录？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil];
         [sheet showInView:self.view];
+    } else if ([type isEqualToString:@"sheetView"]) {
+        
+        AIActionSheet *sheet = [[AIActionSheet alloc] initInParentView:self.tabBarController.view delegate:self];
+        for (int i = 0; i < 7; i ++) {
+            AISheetItem * item = [[AISheetItem alloc] init];
+            item.icon = @"capture.png";
+            item.title = [NSString stringWithFormat:@"测试测-%d",i];
+            [sheet addActionItem:item];
+        }
+        [sheet show];
     }
+}
+
+#pragma mark - 
+- (void)didSelectedActionSheet:(AIActionSheet*)actionSheet buttonIndex:(NSInteger)buttonIndex {
+    [FadePromptView showPromptStatus:[NSString stringWithFormat:@"选择菜单：%ld",(long)(buttonIndex)] duration:1.5 finishBlock:^{
+        //
+    }];
 }
 
 

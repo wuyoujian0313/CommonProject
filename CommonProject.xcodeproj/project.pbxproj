@@ -170,6 +170,7 @@
 		AF40309A1D37B43C00DB3B74 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030161D37B43C00DB3B74 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AF4030AA1D37BB0E00DB3B74 /* CommonWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */; };
 		AF4030AC1D37BB0E00DB3B74 /* URLParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */; };
+		AF4D00A71D5D6D2600DE9A31 /* AIActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4D00A61D5D6D2600DE9A31 /* AIActionSheet.m */; };
 		AF6022041D4370C000EFBFBE /* GetPhoneCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6022031D4370C000EFBFBE /* GetPhoneCodeViewController.m */; };
 		AF6E92EB1CF444DD0097BD64 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */; };
 		AF7EA17E1D20C4B800E3F1CD /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7EA17B1D20C4B800E3F1CD /* DBManager.m */; };
@@ -548,6 +549,8 @@
 		AF4030A61D37BB0E00DB3B74 /* CommonWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonWebViewController.m; sourceTree = "<group>"; };
 		AF4030A81D37BB0E00DB3B74 /* URLParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParseManager.h; sourceTree = "<group>"; };
 		AF4030A91D37BB0E00DB3B74 /* URLParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParseManager.m; sourceTree = "<group>"; };
+		AF4D00A51D5D6D2600DE9A31 /* AIActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIActionSheet.h; sourceTree = "<group>"; };
+		AF4D00A61D5D6D2600DE9A31 /* AIActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIActionSheet.m; sourceTree = "<group>"; };
 		AF6022021D4370C000EFBFBE /* GetPhoneCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPhoneCodeViewController.h; sourceTree = "<group>"; };
 		AF6022031D4370C000EFBFBE /* GetPhoneCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPhoneCodeViewController.m; sourceTree = "<group>"; };
 		AF6E92EA1CF444DD0097BD64 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -835,6 +838,8 @@
 				AF00B2FC1D52EC5900756B5C /* GridMenuCell.m */,
 				AF00B2FD1D52EC5900756B5C /* GridMenuView.h */,
 				AF00B2FE1D52EC5900756B5C /* GridMenuView.m */,
+				AF4D00A51D5D6D2600DE9A31 /* AIActionSheet.h */,
+				AF4D00A61D5D6D2600DE9A31 /* AIActionSheet.m */,
 				AF00B2FF1D52EC5900756B5C /* ImagePickerController.h */,
 				AF00B3001D52EC5900756B5C /* ImagePickerController.m */,
 				AF00B3011D52EC5900756B5C /* LineImageByteData.h */,
@@ -1691,6 +1696,7 @@
 				AF4030621D37B43C00DB3B74 /* JPEngine.m in Sources */,
 				AF4030601D37B43C00DB3B74 /* JPUIImage.m in Sources */,
 				AF00B35C1D52EC5900756B5C /* FileCache.m in Sources */,
+				AF4D00A71D5D6D2600DE9A31 /* AIActionSheet.m in Sources */,
 				AF00B37D1D52EC5900756B5C /* WebViewKitController.m in Sources */,
 				AF40304E1D37B43C00DB3B74 /* TTTTimeIntervalFormatter.m in Sources */,
 				AF6022041D4370C000EFBFBE /* GetPhoneCodeViewController.m in Sources */,
