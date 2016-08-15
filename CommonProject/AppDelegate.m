@@ -31,6 +31,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self setupMainVC];
+    
+    NSString *value = [@"wu youjian" stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"value:%@",value);
+    
     return YES;
 }
 
