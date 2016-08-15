@@ -171,7 +171,7 @@
     
     // 可能存在图片未下载完成的情况
     UIImageView * imageView = [_pageViews objectAtIndex:index];
-    if (!imageView.image) {
+    if (imageView.image.size.height <= 0 || imageView.image.size.width <= 0) {
         //取图片缓存
         NSString *imageURLString = [_imageArray objectAtIndex:index];
         SDImageCache * imageCache = [SDImageCache sharedImageCache];

@@ -1872,9 +1872,9 @@
 					"$(PROJECT_DIR)/ThirdSDKs/ShareSDK_3.1.5/extends/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.answer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.shell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c7a8af26-9e19-44cb-8430-bb3be0412f0f";
+				PROVISIONING_PROFILE = "87c509e6-b2e7-4971-8779-b90e7368adde";
 			};
 			name = Debug;
 		};
@@ -1911,7 +1911,7 @@
 					"${SQLCIPHER_OTHER_CFLAGS}",
 				);
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.answer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weimeitc.shell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b209d096-03c7-4420-bc10-bf610ac0bebd";
 			};

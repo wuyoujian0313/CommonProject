@@ -146,7 +146,7 @@
     } else if ([type isEqualToString:@"sheetView"]) {
         
         AIActionSheet *sheet = [[AIActionSheet alloc] initInParentView:self.tabBarController.view delegate:self];
-        for (int i = 0; i < 1; i ++) {
+        for (int i = 0; i < 7; i ++) {
             AISheetItem * item = [[AISheetItem alloc] init];
             item.icon = @"capture.png";
             item.title = [NSString stringWithFormat:@"测试测-%d",i];
