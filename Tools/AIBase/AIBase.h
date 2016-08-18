@@ -1,6 +1,6 @@
 //
-//  AIBaseFramework.h
-//  AIBaseFramework
+//  AIBase.h
+//  AIBase
 //
 //  Created by wuyoujian on 16/7/18.
 //  Copyright © 2016年 Asiainfo. All rights reserved.
@@ -10,8 +10,8 @@
 
 // 用引号应用头文件，目的是为了源码工程配套使用，不要定义两套.h文件；
 
-#ifndef AIBaseFramework_h
-#define AIBaseFramework_h
+#ifndef AIBase_h
+#define AIBase_h
 
 // AFNetworking
 #import "src/AFNetworking/AFNetworking.h"

@@ -180,7 +180,7 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
     
     NSInteger screenWidth = [[UIScreen mainScreen] bounds].size.width;
     NSInteger columCount = 3;
-    if (screenWidth == 414) {
+    if (screenWidth >= 414) {
         // 6+ 4列
         columCount = 4;
     }

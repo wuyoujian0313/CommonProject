@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SharedManager.h"
+#import "WXApi.h"
 
 
 @interface AppDelegate ()
@@ -63,8 +64,7 @@
     // Override point for customization after application launch.
     [self setupMainVC];
     
-    SharedPlatformSDKInfo *sdk = [SharedPlatformSDKInfo platform:AISharedPlatformWechat appId:WeiXinSDKAppId secret:WeiXinSDKAppSecret];
-    [[SharedManager sharedSharedManager] registerSharedPlatform:[NSArray arrayWithObjects:sdk, nil]];
+    [self registerSharedSDK];
     
     return YES;
 }

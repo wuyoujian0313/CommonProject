@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "SharedDataModel.h"
-#import "WXApi.h"
+
+
+
 
 typedef NS_ENUM(NSInteger, AISharedPlatform) {
     AISharedPlatformWechat,
@@ -20,6 +22,7 @@ typedef NS_ENUM(NSInteger, AISharedStatusCode) {
     AISharedStatusCodeUnintallApp,  // 未安装对应的分享平台的应用
 };
 
+@class BaseResp;
 typedef void(^AISharedFinishBlock)(AISharedStatusCode statusCode,BaseResp* wxResp);
 
 @interface SharedPlatformSDKInfo : NSObject
@@ -32,6 +35,7 @@ typedef void(^AISharedFinishBlock)(AISharedStatusCode statusCode,BaseResp* wxRes
                   secret:(NSString*)appSecret;
 @end
 
+@protocol WXApiDelegate;
 @interface SharedManager : NSObject<WXApiDelegate>
 
 + (SharedManager *)sharedSharedManager;

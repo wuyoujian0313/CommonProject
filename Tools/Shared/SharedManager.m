@@ -13,6 +13,7 @@
 //微信平台
 #import "WechatAuthSDK.h"
 #import "WXApiObject.h"
+#import "WXApi.h"
 
 //QQ平台
 #import <TencentOpenAPI/QQApiInterface.h>
