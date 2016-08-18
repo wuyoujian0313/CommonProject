@@ -7,22 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,SharedDataType) {
-    SharedDataTypeURL,
-    SharedDataTypeText,
-    SharedDataTypeImage,
-    SharedDataTypeFile,
+    SharedDataTypeText,     // 文字分享
+    SharedDataTypeImage,    // 图片分享
+    SharedDataTypeURL,      // 网页分享
+    SharedDataTypeMusic,    // 音乐分享
+    SharedDataTypeVideo,    // 视频分享
 };
 
 @interface SharedDataModel : NSObject
 
 @property (nonatomic, assign) SharedDataType dataType;
-
-// 分享的数据，1、url、text ==》NSString; 2、image ==》UIImage； 3、file ==>data
-@property (nonatomic, strong) id data;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *content;// 在分享文字的时候，content=data
+@property (nonatomic, copy) NSString *content;//描述&文字内容
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *lowBandUrl;
+@property (nonatomic, strong) NSData *imageData;
+@property (nonatomic, strong) UIImage *thumbImage;
 
 
 @end

@@ -18,7 +18,6 @@
 
 @protocol JN_ExtendPluginExport <JSExport>
 - (void)JN_ShowAlert:(NSString*)message;
-JSExportAs(JN_Shared,- (void)JN_SharedTitle:(NSString*)title content:(NSString *)content data:(id)data);
 - (void)JN_Signature:(NSString*)userName;
 @end
 

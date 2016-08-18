@@ -7,27 +7,37 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "SharedDataModel.h"
+#import "WXApi.h"
 
-typedef NS_ENUM(NSInteger, SharedStatusCode) {
-    SharedStatusCodeSuccess,
-    SharedStatusCodeFail,
-    SharedStatusCodeCancel,
+typedef NS_ENUM(NSInteger, AISharedPlatform) {
+    AISharedPlatformWechat,
+    AISharedPlatformQQ,
 };
 
-typedef void(^SharedFinishBlock)(SharedStatusCode statusCode);
+typedef NS_ENUM(NSInteger, AISharedStatusCode) {
+    AISharedStatusCodeDone,         // 调起分享平台的应用成功
+    AISharedStatusCodeUnintallApp,  // 未安装对应的分享平台的应用
+};
 
-@interface SharedManager : NSObject
+typedef void(^AISharedFinishBlock)(AISharedStatusCode statusCode,BaseResp* wxResp);
 
-// 建议不用单例，可以只用局部变量或者作为类的一个strong成员变量
+@interface SharedPlatformSDKInfo : NSObject
+@property (nonatomic, assign) AISharedPlatform platform;
+@property (nonatomic, copy) NSString *appId;
+@property (nonatomic, copy) NSString *appSecret;
+
++ (instancetype)platform:(AISharedPlatform)platform
+                   appId:(NSString*)appId
+                  secret:(NSString*)appSecret;
+@end
+
+@interface SharedManager : NSObject<WXApiDelegate>
+
 + (SharedManager *)sharedSharedManager;
-
-/**
- *  分享
- *
- *  @param viewController 弹出
- */
-- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock;
+// 注册分享平台
+- (void)registerSharedPlatform:(NSArray<SharedPlatformSDKInfo*> *)platforms;
+// 分享
+- (void)sharedData:(SharedDataModel*)dataModel finish:(AISharedFinishBlock)finishBlock;
 
 @end

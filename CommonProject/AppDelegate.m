@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SharedManager.h"
 
 
 @interface AppDelegate ()
@@ -28,12 +29,42 @@
     [_window makeKeyAndVisible];
 }
 
+- (void)registerSharedSDK {
+    SharedPlatformSDKInfo *sdk = [SharedPlatformSDKInfo platform:AISharedPlatformWechat appId:WeiXinSDKAppId secret:WeiXinSDKAppSecret];
+    [[SharedManager sharedSharedManager] registerSharedPlatform:[NSArray arrayWithObjects:sdk, nil]];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+    }
+    
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+    }
+    
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+    }
+    
+    return YES;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self setupMainVC];
     
-    NSString *value = [@"wu youjian" stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSLog(@"value:%@",value);
+    SharedPlatformSDKInfo *sdk = [SharedPlatformSDKInfo platform:AISharedPlatformWechat appId:WeiXinSDKAppId secret:WeiXinSDKAppSecret];
+    [[SharedManager sharedSharedManager] registerSharedPlatform:[NSArray arrayWithObjects:sdk, nil]];
     
     return YES;
 }

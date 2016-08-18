@@ -9,5 +9,4 @@
 #import "SharedDataModel.h"
 
 @implementation SharedDataModel
-
 @end

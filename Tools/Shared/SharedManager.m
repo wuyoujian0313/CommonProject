@@ -6,34 +6,68 @@
 //  Copyright © 2016年 wuyoujian. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "SharedManager.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKConnector/ShareSDKConnector.h>
+#import "AIActionSheet.h"
+
+//微信平台
+#import "WechatAuthSDK.h"
+#import "WXApiObject.h"
+
+//QQ平台
 #import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/QQApiInterfaceObject.h>
+#import <TencentOpenAPI/sdkdef.h>
+#import <TencentOpenAPI/TencentApiInterface.h>
+#import <TencentOpenAPI/TencentMessageObject.h>
 #import <TencentOpenAPI/TencentOAuth.h>
-#import "WXApi.h"
-
-#import <ShareSDKUI/ShareSDK+SSUI.h>
-#import <ShareSDKUI/SSUIShareActionSheetStyle.h>
-#import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
-#import <ShareSDK/ShareSDK+Base.h>
+#import <TencentOpenAPI/TencentOAuthObject.h>
 
 
-#import "AIBaseFramework.h"
-
-// 分享相关
-#define ShareSDKAppKey              @"e7d5f19efdb0"
-
-#define QQSDKAppKey                 @"alkvsxWc7Eh7GwGk"
-#define QQSDKAppId                  @"1105106734"
-
-#define WeiXinSDKAppSecret          @"dce5699086e990df3104052ce298f573"
-#define WeiXinSDKAppId              @"wx7a296d05150143e5"
+#define IS_RETINA ([UIScreen mainScreen].scale == 2.0)
 
 
-@interface SharedManager ()
+typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
+    AISharedPlatformSceneSession,   //聊天
+    AISharedPlatformSceneTimeline,  //朋友圈&空间
+    AISharedPlatformSceneFavorite,  //收藏
+};
 
-@property(nonatomic, copy) SharedFinishBlock        finishBlock;
+@implementation SharedPlatformSDKInfo
++(instancetype)platform:(AISharedPlatform)platform
+                  appId:(NSString*)appId
+                 secret:(NSString*)appSecret
+{
+    
+    SharedPlatformSDKInfo *sdk = [[SharedPlatformSDKInfo alloc] init];
+    sdk.platform = platform;
+    sdk.appId = appId;
+    sdk.appSecret = appSecret;
+    return sdk;
+}
+
+@end
+
+@interface SharedPlatformScene : NSObject
+@property (nonatomic, assign) AISharedPlatform platform;
+@property (nonatomic, assign) AISharedPlatformScene scene;
++(instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform;
+@end
+
+@implementation SharedPlatformScene
++(instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform {
+    SharedPlatformScene *sharedscene = [[SharedPlatformScene alloc] init];
+    sharedscene.scene = scene;
+    sharedscene.platform = platform;
+    return sharedscene;
+}
+@end
+
+@interface SharedManager ()<AIActionSheetDelegate>
+@property (nonatomic, copy) AISharedFinishBlock        finishBlock;
+@property (nonatomic, strong) AIActionSheet            *actionSheet;
+@property (nonatomic, strong) NSMutableArray           *scenes;
+@property (nonatomic, strong) SharedDataModel          *sharedData;
 @end
 
 @implementation SharedManager
@@ -51,135 +85,179 @@
     self.finishBlock = nil;
 }
 
+- (void)registerSharedPlatform:(NSArray<SharedPlatformSDKInfo*> *)platforms {
 
-- (instancetype)init {
+    for (SharedPlatformSDKInfo *item  in platforms) {
+        AISharedPlatform platform = [item platform];
+        if (platform == AISharedPlatformWechat) {
+            // 微信
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [WXApi registerApp:[item appId] withDescription:NSStringFromClass([self class])];
+                
+                [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneSession platform:AISharedPlatformWechat]];
+                [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneTimeline platform:AISharedPlatformWechat]];
+                [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneFavorite platform:AISharedPlatformWechat]];
+            });
+
+        } else if (platform == AISharedPlatformQQ) {
+            //
+        }
+    }
+}
+
+- (void)addSharedPlatformScene:(SharedPlatformScene*)scene {
     
-    if (self = [super init]) {
-        //只需要注册一次
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [self registerShareSDK];
-            NSLog(@"dispatch_once");
-        });
+    if (_actionSheet == nil) {
+        self.actionSheet = [[AIActionSheet alloc] initInParentView:[UIApplication sharedApplication].keyWindow.rootViewController.view delegate:self];
+        self.scenes = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
-    return self;
+    for (SharedPlatformScene*item in _scenes) {
+        if (item.scene == scene.scene) {
+            return;
+        }
+    }
+    
+    NSString *resPath = [[NSBundle mainBundle] pathForResource:@"SharedUI" ofType:@"bundle"];
+    AISheetItem * item = [[AISheetItem alloc] init];
+    if (scene.platform == AISharedPlatformWechat ) {
+        if (scene.scene == AISharedPlatformSceneSession) {
+            if (IS_RETINA) {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechat@2x.png"];
+            } else {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechat.png"];
+            }
+            
+            item.title = @"微信好友";
+        } else if (scene.scene == AISharedPlatformSceneTimeline) {
+            if (IS_RETINA) {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechatTimeline@2x.png"];
+            } else {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechatTimeline.png"];
+            }
+            
+            item.title = @"微信朋友圈";
+        } else if (scene.scene == AISharedPlatformSceneFavorite) {
+            if (IS_RETINA) {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechatFav@2x.png"];
+            } else {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_wechatFav.png"];
+            }
+            
+            item.title = @"微信收藏";
+        }
+    }
+    
+
+    [_actionSheet addActionItem:item];
+    [_scenes addObject:scene];
 }
 
-- (void)registerShareSDK {
+- (void)sharedData:(SharedDataModel*)dataModel finish:(AISharedFinishBlock)finishBlock {
     
-    [ShareSDK registerApp:ShareSDKAppKey
-          activePlatforms:@[@(SSDKPlatformTypeQQ),@(SSDKPlatformTypeWechat)]
-                 onImport:^(SSDKPlatformType platformType) {
-                     
-                     switch (platformType) {
-                         case SSDKPlatformTypeWechat:
-                             [ShareSDKConnector connectWeChat:[WXApi class] delegate:self];
-                             break;
-                         case SSDKPlatformTypeQQ:
-                             [ShareSDKConnector connectQQ:[QQApiInterface class]
-                                        tencentOAuthClass:[TencentOAuth class]];
-                             break;
-                             
-                         default:
-                             break;
-                     }
-                 }
-          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
-              
-              switch (platformType) {
-                  case SSDKPlatformTypeWechat:
-                      [appInfo SSDKSetupWeChatByAppId:WeiXinSDKAppId
-                                            appSecret:WeiXinSDKAppSecret];
-                      break;
-                  case SSDKPlatformTypeQQ:
-                      [appInfo SSDKSetupQQByAppId:QQSDKAppId
-                                           appKey:QQSDKAppKey
-                                         authType:SSDKAuthTypeBoth];
-                      break;
-                  default:
-                      break;
-              }
-          }];
+    self.finishBlock = finishBlock;
+    self.sharedData = dataModel;
+    
+    if (_actionSheet) {
+        [_actionSheet show];
+    }
 }
 
-- (void)shared2OpenPlatformWithView:(UIView*)view withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock {
-    
-    //1、创建分享参数
-    NSString *title = dataModel.title;
-    NSString *url = dataModel.data;
-    NSString *content = dataModel.content;
-    UIImage *image = [UIImage imageFromColor:[UIColor grayColor]];
-    
-    
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:content
-                                     images:image
-                                        url:[NSURL URLWithString:url]
-                                      title:title
-                                       type:SSDKContentTypeAuto];
-    
-    //2、分享（可以弹出我们的分享菜单和编辑界面）
-    [ShareSDK showShareActionSheet:view
-                             items:nil
-                       shareParams:shareParams
-               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                   
-                   switch (state) {
-                       case SSDKResponseStateBegin: {
-                           
-                           break;
-                       }
-                           
-                           
-                       case SSDKResponseStateSuccess: {
-                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                               message:nil
-                                                                              delegate:nil
-                                                                     cancelButtonTitle:@"确定"
-                                                                     otherButtonTitles:nil];
-                           [alertView show];
-                           if (finishBlock) {
-                               finishBlock(SharedStatusCodeSuccess);
-                           }
-                           break;
-                       }
-                           
-                       case SSDKResponseStateFail: {
-                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
-                                                                           message:[NSString stringWithFormat:@"%@",error]
-                                                                          delegate:nil
-                                                                 cancelButtonTitle:@"OK"
-                                                                 otherButtonTitles:nil, nil];
-                           [alert show];
-                           if (finishBlock) {
-                               finishBlock(SharedStatusCodeFail);
-                           }
-                           break;
-                       }
-                           
-                       case SSDKResponseStateCancel: {
-                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
-                                                                               message:nil
-                                                                              delegate:nil
-                                                                     cancelButtonTitle:@"确定"
-                                                                     otherButtonTitles:nil];
-                           [alertView show];
-                           if (finishBlock) {
-                               finishBlock(SharedStatusCodeCancel);
-                           }
-                           break;
-                       }
-                       default:
-                           break;
-                   }
-               }
-     ];
+#pragma mark - AIActionSheetDelegate
+- (void)didSelectedActionSheet:(AIActionSheet*)actionSheet buttonIndex:(NSInteger)buttonIndex {
+    if (actionSheet.cancelButtonIndex != buttonIndex) {
+        SharedPlatformScene *scene = [_scenes objectAtIndex:buttonIndex];
+        if (scene.platform == AISharedPlatformWechat) {
+            
+            if (![WXApi isWXAppInstalled]) {
+                if (_finishBlock) {
+                    _finishBlock(AISharedStatusCodeUnintallApp,nil);
+                }
+                return;
+            }
+            
+            
+            //微信
+            SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+            req.scene = scene.scene;
+            
+            if (_sharedData.dataType == SharedDataTypeText) {
+                // 文字类型分享
+                req.text = _sharedData.content;
+                req.bText = YES;
+            } else if (_sharedData.dataType == SharedDataTypeImage) {
+                // 图片类型分享
+                req.bText = NO;
+                WXMediaMessage *message = [WXMediaMessage message];
+                [message setThumbImage:_sharedData.thumbImage];
+                
+                WXImageObject *imageObject = [WXImageObject object];
+                imageObject.imageData = _sharedData.imageData;
+                message.mediaObject = imageObject;
+                
+                req.message = message;
+                
+            } else if (_sharedData.dataType == SharedDataTypeMusic) {
+                // 音乐类型分享
+                req.bText = NO;
+                WXMediaMessage *message = [WXMediaMessage message];
+                message.title = _sharedData.title;
+                message.description = _sharedData.content;
+                [message setThumbImage:_sharedData.thumbImage];
+                
+                WXMusicObject *musicObject = [WXMusicObject object];
+                musicObject.musicUrl = _sharedData.url;
+                musicObject.musicLowBandUrl = musicObject.musicUrl;
+                musicObject.musicDataUrl = musicObject.musicUrl;
+                musicObject.musicLowBandDataUrl = musicObject.musicUrl;
+                message.mediaObject = musicObject;
+                
+                req.message = message;
+            } else if (_sharedData.dataType == SharedDataTypeVideo) {
+                // 视频类型分享
+                req.bText = NO;
+                WXMediaMessage *message = [WXMediaMessage message];
+                message.title = _sharedData.title;
+                message.description = _sharedData.content;
+                [message setThumbImage:_sharedData.thumbImage];
+                
+                WXVideoObject *videoObject = [WXVideoObject object];
+                videoObject.videoUrl = _sharedData.url;
+                videoObject.videoLowBandUrl = _sharedData.lowBandUrl;
+                message.mediaObject = videoObject;
+                
+                req.message = message;
+            } else if (_sharedData.dataType == SharedDataTypeURL) {
+                // 网页类型分享
+                req.bText = NO;
+                WXMediaMessage *message = [WXMediaMessage message];
+                message.title = _sharedData.title;
+                message.description = _sharedData.content;
+                [message setThumbImage:_sharedData.thumbImage];
+                
+                WXWebpageObject *webpageObject = [WXWebpageObject object];
+                webpageObject.webpageUrl = _sharedData.url;
+                message.mediaObject = webpageObject;
+                
+                req.message = message;
+                
+            } else {
+                
+            }
+            
+            [WXApi sendReq:req];
+        } else if (scene.platform == AISharedPlatformQQ) {
+            //QQ
+
+        }
+    }
 }
 
-- (void)sharedDataFromViewController:(UIViewController*)viewController withData:(SharedDataModel*)dataModel finish:(SharedFinishBlock)finishBlock {
-    
-    [self shared2OpenPlatformWithView:viewController.view withData:dataModel finish:finishBlock];
+#pragma mark - WXApiDelegate
+- (void)onResp:(BaseResp*)resp {
+    if (_finishBlock) {
+        _finishBlock(AISharedStatusCodeDone,resp);
+    }
 }
 
 @end

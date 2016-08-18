@@ -47,7 +47,15 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
 
 - (void)setSheetAction:(AISheetItem*)item {
     
-    [_iconImageView setImage:[UIImage imageNamed:item.icon]];
+    if (item.icon && [item.icon length] > 0) {
+        [_iconImageView setImage:[UIImage imageNamed:item.icon]];
+    }
+    
+    if (item.iconPath && [item.iconPath length] > 0) {
+        UIImage *image = [UIImage imageWithContentsOfFile:item.iconPath];
+        [_iconImageView setImage:image];
+    }
+    
     [_titleLabel setText:item.title];
 }
 
@@ -69,9 +77,15 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
 @property (nonatomic, strong) NSMutableArray *menuDatas;
 @property (nonatomic, assign) NSInteger cancelButtonIndex;
 @property (nonatomic, weak) id <AIActionSheetDelegate> delegate;
+@property (nonatomic, copy) AIActionSheetBlock block;
 @end
 
 @implementation AIActionSheet
+
+- (instancetype)initInParentView:(UIView*)parentView block:(AIActionSheetBlock)block {
+    self.block = block;
+    return [self initInParentView:parentView delegate:nil];
+}
 
 
 - (instancetype)initInParentView:(UIView*)parentView delegate:(id <AIActionSheetDelegate>)delegate {
@@ -80,6 +94,9 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
         // Initialization code.
         self.parentView = parentView;
         self.delegate = delegate;
+        if (delegate) {
+            self.block = nil;
+        }
         
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
         
@@ -136,11 +153,14 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
 }
 
 - (void)cancelAction:(UIButton*)sender {
+    [self dismiss];
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedActionSheet:buttonIndex:)]) {
         [_delegate didSelectedActionSheet:self buttonIndex:_cancelButtonIndex];
-        [self dismiss];
     }
-    [self dismiss];
+    
+    if (_block) {
+        _block(self,_cancelButtonIndex);
+    }
 }
 
 - (void)addActionItem:(AISheetItem*)item {
@@ -216,7 +236,6 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
         
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
-        wSelf.parentView = nil;
     }];
 }
 
@@ -265,9 +284,14 @@ static NSInteger const kAIActionSheetCellHeight = kAIActionSheetCellWidth + 20;
 //点击元素触发事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    [self dismiss];
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedActionSheet:buttonIndex:)]) {
         [_delegate didSelectedActionSheet:self buttonIndex:indexPath.row];
-        [self dismiss];
+        
+    }
+    
+    if (_block) {
+        _block(self,indexPath.row);
     }
 }
 

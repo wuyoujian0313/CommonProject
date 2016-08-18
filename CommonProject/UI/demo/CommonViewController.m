@@ -20,10 +20,12 @@
 #import "CaptureViewController.h"
 
 #import "AIActionSheet.h"
+#import "SharedManager.h"
 
 @interface CommonViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,AIActionSheetDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;
 @property (nonatomic, strong) NSArray               *abilitys;
+
 @end
 
 @implementation CommonViewController
@@ -89,6 +91,7 @@
                       @{@"name":@"验证码",@"type":@"JumpToPage",@"Class":@"GetPhoneCodeViewController"},
                       @{@"name":@"自定义拍照",@"type":@"JumpToPage",@"Class":@"CaptureViewController"},
                       @{@"name":@"自定义SheetView",@"type":@"sheetView"},
+                      @{@"name":@"分享",@"type":@"shared"},
                       @{@"name":@"注销",@"type":@"relogin"},
                       ];
 }
@@ -153,6 +156,15 @@
             [sheet addActionItem:item];
         }
         [sheet show];
+    } else if ([type isEqualToString:@"shared"]) {
+        
+        SharedDataModel *sharedData = [[SharedDataModel alloc] init];
+        sharedData.content = @"测试URL分享";
+        sharedData.url = @"http://www.asiainfo.com.cn";
+        sharedData.dataType = SharedDataTypeURL;
+        [[SharedManager sharedSharedManager] sharedData:sharedData finish:^(AISharedStatusCode statusCode,BaseResp* wxResp) {
+            //
+        }];
     }
 }
 

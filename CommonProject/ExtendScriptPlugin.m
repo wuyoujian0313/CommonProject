@@ -39,39 +39,6 @@
     });
 }
 
-- (void)JN_SharedTitle:(NSString*)title content:(NSString *)content data:(id)data {
-    
-    __weak ExtendScriptPlugin *wSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        ExtendScriptPlugin *sSelf = wSelf;
-        SharedManager *obj = [[SharedManager alloc] init];
-        sSelf.sharedMgr = obj;
-        
-        SharedDataModel *mObj = [[SharedDataModel alloc] init];
-        mObj.title = title;
-        mObj.content = content;
-        mObj.data = data;
-        
-        UIApplication *app = [UIApplication sharedApplication];
-        [obj sharedDataFromViewController:app.keyWindow.rootViewController withData:mObj finish:^(SharedStatusCode statusCode) {
-            //
-            if (sSelf.callbackHandler) {
-                NSString *response = nil;
-                if (statusCode == SharedStatusCodeSuccess) {
-                    response = @"success";
-                } else if (statusCode == SharedStatusCodeFail) {
-                    response = @"fail";
-                } else if (statusCode == SharedStatusCodeCancel) {
-                    response = @"cancel";
-                }
-                
-                sSelf.callbackHandler(NSStringFromSelector(_cmd),PluginCallbackStatusSuccessWithoutData,nil,nil,nil,nil);
-            }
-        }];
-    });
-}
-
 - (void)JN_Signature:(NSString*)userName {
     __weak ExtendScriptPlugin * wSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
