@@ -10,7 +10,7 @@
 #import "BluetoothEngine.h"
 #import "ScanQRCodeViewController.h"
 #import "LocalAbilityManager.h"
-#import "AIBaseFramework.h"
+#import "AIBase.h"
 
 @interface DeviceViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView           *abilityTableView;

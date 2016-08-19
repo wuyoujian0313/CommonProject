@@ -10,7 +10,7 @@
 #import "CommonViewController.h"
 #import "DeviceViewController.h"
 #import "ExtendScriptPlugin.h"
-#import "AIBaseFramework.h"
+#import "AIBase.h"
 #import "SignatureViewController.h"
 
 

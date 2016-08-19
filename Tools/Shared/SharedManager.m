@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SharedManager.h"
+
+#ifdef AISHARE
+#import <AIBase/src/Owns/AIActionSheet.h>
+#else
 #import "AIActionSheet.h"
+#endif
 
 //微信平台
 #import "WechatAuthSDK.h"
@@ -87,7 +92,7 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
 }
 
 - (void)registerSharedPlatform:(NSArray<SharedPlatformSDKInfo*> *)platforms {
-
+    
     for (SharedPlatformSDKInfo *item  in platforms) {
         AISharedPlatform platform = [item platform];
         if (platform == AISharedPlatformWechat) {
@@ -99,7 +104,7 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
                 [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneTimeline platform:AISharedPlatformWechat]];
                 [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneFavorite platform:AISharedPlatformWechat]];
             });
-
+            
         } else if (platform == AISharedPlatformQQ) {
             //
         }
@@ -149,7 +154,7 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
         }
     }
     
-
+    
     [_actionSheet addActionItem:item];
     [_scenes addObject:scene];
 }
@@ -249,7 +254,7 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
             [WXApi sendReq:req];
         } else if (scene.platform == AISharedPlatformQQ) {
             //QQ
-
+            
         }
     }
 }

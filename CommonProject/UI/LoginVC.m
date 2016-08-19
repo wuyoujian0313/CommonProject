@@ -9,7 +9,7 @@
 #import "LoginVC.h"
 #import "NetworkTask.h"
 #import "LoginResult.h"
-#import "AIBaseFramework.h"
+#import "AIBase.h"
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 

@@ -7,9 +7,8 @@
 //
 
 #import "MainControllerManager.h"
-#import "AIBaseFramework.h"
+#import "AIBase.h"
 #import "LoginVC.h"
-//#import "HomeVC.h"
 #import "HomeTabBarController.h"
 
 @interface MainControllerManager ()

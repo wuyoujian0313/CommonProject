@@ -13,7 +13,7 @@
 #import "DataManageViewController.h"
 #import "CycleBannerView.h"
 #import "SignatureViewController.h"
-#import "AIBaseFramework.h"
+#import "AIBase.h"
 #import "AppDelegate.h"
 #import "GridViewController.h"
 #import "GetPhoneCodeViewController.h"
