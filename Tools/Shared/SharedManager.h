@@ -10,20 +10,29 @@
 #import "SharedDataModel.h"
 
 
-
-
 typedef NS_ENUM(NSInteger, AISharedPlatform) {
     AISharedPlatformWechat,
     AISharedPlatformQQ,
 };
 
 typedef NS_ENUM(NSInteger, AISharedStatusCode) {
-    AISharedStatusCodeDone,         // 调起分享平台的应用成功
-    AISharedStatusCodeUnintallApp,  // 未安装对应的分享平台的应用
+    AISharedStatusCodeDone = 1000,          // 调起分享平台的应用成功
+    AISharedStatusCodeUnintallApp,          // 未安装对应的分享平台的应用
 };
 
-@class BaseResp;
-typedef void(^AISharedFinishBlock)(AISharedStatusCode statusCode,BaseResp* wxResp);
+// @param resp 是微信或者qq的回调对象
+// @param statusCode可以是AISharedStatusCode，也兼容QQ的QQApiSendResultCode
+typedef void(^AISharedFinishBlock)(NSInteger statusCode,id resp);
+
+@protocol WXApiDelegate;
+@interface WXSDKCallback : NSObject<WXApiDelegate>
+@end
+
+@protocol QQApiInterfaceDelegate;
+@interface QQSDKCallback : NSObject<QQApiInterfaceDelegate>
+
+@end
+
 
 @interface SharedPlatformSDKInfo : NSObject
 @property (nonatomic, assign) AISharedPlatform platform;
@@ -35,8 +44,11 @@ typedef void(^AISharedFinishBlock)(AISharedStatusCode statusCode,BaseResp* wxRes
                   secret:(NSString*)appSecret;
 @end
 
-@protocol WXApiDelegate;
-@interface SharedManager : NSObject<WXApiDelegate>
+
+@interface SharedManager : NSObject
+
+@property (nonatomic, strong) WXSDKCallback *wxCallback;
+@property (nonatomic, strong) QQSDKCallback *qqCallback;
 
 + (SharedManager *)sharedSharedManager;
 // 注册分享平台

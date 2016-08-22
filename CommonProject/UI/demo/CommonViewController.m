@@ -160,9 +160,10 @@
         
         SharedDataModel *sharedData = [[SharedDataModel alloc] init];
         sharedData.content = @"测试URL分享";
-        sharedData.url = @"http://www.asiainfo.com.cn";
-        sharedData.dataType = SharedDataTypeURL;
-        [[SharedManager sharedSharedManager] sharedData:sharedData finish:^(AISharedStatusCode statusCode,BaseResp* wxResp) {
+        sharedData.title = @"测试视频分享";
+        sharedData.url = @"http://www.tudou.com/programs/view/_cVM3aAp270/";
+        sharedData.dataType = SharedDataTypeVideo;
+        [[SharedManager sharedSharedManager] sharedData:sharedData finish:^(NSInteger statusCode,id resp) {
             //
         }];
     }

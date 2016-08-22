@@ -39,8 +39,50 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
     AISharedPlatformSceneFavorite,  //收藏
 };
 
+@interface WXSDKCallback ()
+@property (nonatomic, copy) AISharedFinishBlock        finishBlock;
+@end
+
+@implementation WXSDKCallback
+
+#pragma mark - WXApiDelegate
+- (void)dealloc {
+    self.finishBlock = nil;
+}
+
+- (void)onResp:(BaseResp*)resp {
+    if (_finishBlock) {
+        _finishBlock(AISharedStatusCodeDone,resp);
+    }
+}
+
+@end
+
+@interface QQSDKCallback ()
+@property (nonatomic, copy) AISharedFinishBlock        finishBlock;
+@end
+
+@implementation QQSDKCallback
+
+- (void)dealloc {
+    self.finishBlock = nil;
+}
+
+- (void)onResp:(QQBaseResp *)resp {
+    if (_finishBlock) {
+        _finishBlock(AISharedStatusCodeDone,resp);
+    }
+}
+
+- (void)onReq:(QQBaseReq *)req {}
+- (void)isOnlineResponse:(NSDictionary *)response {}
+@end
+
+
+
+
 @implementation SharedPlatformSDKInfo
-+(instancetype)platform:(AISharedPlatform)platform
++ (instancetype)platform:(AISharedPlatform)platform
                   appId:(NSString*)appId
                  secret:(NSString*)appSecret
 {
@@ -57,11 +99,11 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
 @interface SharedPlatformScene : NSObject
 @property (nonatomic, assign) AISharedPlatform platform;
 @property (nonatomic, assign) AISharedPlatformScene scene;
-+(instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform;
++ (instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform;
 @end
 
 @implementation SharedPlatformScene
-+(instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform {
++ (instancetype)scene:(AISharedPlatformScene)scene platform:(AISharedPlatform)platform {
     SharedPlatformScene *sharedscene = [[SharedPlatformScene alloc] init];
     sharedscene.scene = scene;
     sharedscene.platform = platform;
@@ -69,11 +111,12 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
 }
 @end
 
-@interface SharedManager ()<AIActionSheetDelegate>
-@property (nonatomic, copy) AISharedFinishBlock        finishBlock;
+@interface SharedManager ()<AIActionSheetDelegate,TencentSessionDelegate>
+
 @property (nonatomic, strong) AIActionSheet            *actionSheet;
 @property (nonatomic, strong) NSMutableArray           *scenes;
 @property (nonatomic, strong) SharedDataModel          *sharedData;
+@property (nonatomic, strong) TencentOAuth             *qqOAuth;
 @end
 
 @implementation SharedManager
@@ -87,28 +130,45 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
     return obj;
 }
 
-- (void)dealloc {
-    self.finishBlock = nil;
+- (instancetype)init {
+    if (self = [super init]) {
+        self.wxCallback = [[WXSDKCallback alloc] init];
+        self.qqCallback = [[QQSDKCallback alloc] init];
+    }
+    
+    return self;
 }
 
 - (void)registerSharedPlatform:(NSArray<SharedPlatformSDKInfo*> *)platforms {
     
-    for (SharedPlatformSDKInfo *item  in platforms) {
-        AISharedPlatform platform = [item platform];
-        if (platform == AISharedPlatformWechat) {
-            // 微信
-            dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        for (SharedPlatformSDKInfo *item  in platforms) {
+            AISharedPlatform platform = [item platform];
+            
+            
+            
+            if (platform == AISharedPlatformWechat) {
+                // 微信
+                
                 [WXApi registerApp:[item appId] withDescription:NSStringFromClass([self class])];
                 
                 [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneSession platform:AISharedPlatformWechat]];
                 [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneTimeline platform:AISharedPlatformWechat]];
                 [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneFavorite platform:AISharedPlatformWechat]];
-            });
+                
+                
+            } else if (platform == AISharedPlatformQQ) {
+                //
+                self.qqOAuth = [[TencentOAuth alloc] initWithAppId:[item appId] andDelegate:self];
+                
+                [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneSession platform:AISharedPlatformQQ]];
+                [self addSharedPlatformScene:[SharedPlatformScene scene:AISharedPlatformSceneTimeline platform:AISharedPlatformQQ]];
+            }
             
-        } else if (platform == AISharedPlatformQQ) {
-            //
         }
-    }
+    
+    });
 }
 
 - (void)addSharedPlatformScene:(SharedPlatformScene*)scene {
@@ -119,7 +179,7 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
     }
     
     for (SharedPlatformScene*item in _scenes) {
-        if (item.scene == scene.scene) {
+        if (item == scene) {
             return;
         }
     }
@@ -152,6 +212,24 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
             
             item.title = @"微信收藏";
         }
+    } else if (scene.platform == AISharedPlatformQQ ) {
+        if (scene.scene == AISharedPlatformSceneSession) {
+            if (IS_RETINA) {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_qq@2x.png"];
+            } else {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_qq.png"];
+            }
+            
+            item.title = @"QQ";
+        } else if (scene.scene == AISharedPlatformSceneTimeline) {
+            if (IS_RETINA) {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_qqzoom@2x.png"];
+            } else {
+                item.iconPath = [resPath stringByAppendingPathComponent:@"icon_qqzoom.png"];
+            }
+            
+            item.title = @"QQ空间";
+        }
     }
     
     
@@ -161,8 +239,9 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
 
 - (void)sharedData:(SharedDataModel*)dataModel finish:(AISharedFinishBlock)finishBlock {
     
-    self.finishBlock = finishBlock;
     self.sharedData = dataModel;
+    self.wxCallback.finishBlock = finishBlock;
+    self.qqCallback.finishBlock = finishBlock;
     
     if (_actionSheet) {
         [_actionSheet show];
@@ -176,12 +255,11 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
         if (scene.platform == AISharedPlatformWechat) {
             
             if (![WXApi isWXAppInstalled]) {
-                if (_finishBlock) {
-                    _finishBlock(AISharedStatusCodeUnintallApp,nil);
+                if (_wxCallback.finishBlock) {
+                    _wxCallback.finishBlock(AISharedStatusCodeUnintallApp,nil);
                 }
                 return;
             }
-            
             
             //微信
             SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
@@ -255,15 +333,111 @@ typedef NS_ENUM(NSInteger, AISharedPlatformScene) {
         } else if (scene.platform == AISharedPlatformQQ) {
             //QQ
             
+            if (![QQApiInterface isQQInstalled]) {
+                if (_wxCallback.finishBlock) {
+                    _wxCallback.finishBlock(AISharedStatusCodeUnintallApp,nil);
+                }
+                return;
+            }
+            
+            if (_sharedData.dataType == SharedDataTypeText || _sharedData.dataType == SharedDataTypeURL) {
+                // 文字类型分享
+                NSString *text = _sharedData.dataType == SharedDataTypeText ? _sharedData.content : _sharedData.url;
+                
+                if (scene.scene == AISharedPlatformSceneSession) {
+                    // 分享到聊天
+                    QQApiTextObject* txtObj = [QQApiTextObject objectWithText:text];
+                    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:txtObj];
+                    QQApiSendResultCode sentCode = [QQApiInterface sendReq:req];
+                    [self handleSendQQResult:sentCode];
+                    
+                    
+                } else if (scene.scene == AISharedPlatformSceneTimeline) {
+                    // 分享到空间
+                    QQApiImageArrayForQZoneObject *obj = [QQApiImageArrayForQZoneObject objectWithimageDataArray:nil title:text];
+                    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:obj];
+                    QQApiSendResultCode sentCode = [QQApiInterface SendReqToQZone:req];
+                    [self handleSendQQResult:sentCode];
+                    
+                }
+                
+            } else if (_sharedData.dataType == SharedDataTypeImage) {
+                // 图片类型分享
+                if (scene.scene == AISharedPlatformSceneSession) {
+
+                    // 分享到聊天
+                    QQApiImageObject* img = [QQApiImageObject objectWithData:_sharedData.imageData previewImageData:UIImagePNGRepresentation(_sharedData.thumbImage) title:_sharedData.title description:_sharedData.content];
+                    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:img];
+                    
+                    QQApiSendResultCode sentCode = [QQApiInterface sendReq:req];
+                    [self handleSendQQResult:sentCode];
+                    
+                } else if (scene.scene == AISharedPlatformSceneTimeline) {
+                    
+                    // 分享到空间
+                    QQApiImageArrayForQZoneObject *img = [QQApiImageArrayForQZoneObject objectWithimageDataArray:[NSArray arrayWithObject:_sharedData.imageData] title:_sharedData.title];
+                    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:img];
+                    QQApiSendResultCode sentCode = [QQApiInterface SendReqToQZone:req];
+                    [self handleSendQQResult:sentCode];
+                }
+                
+            } else if (_sharedData.dataType == SharedDataTypeVideo) {
+                // 视频类型分享
+                if (scene.scene == AISharedPlatformSceneSession) {
+                    
+                    // 分享到聊天
+                    NSURL* url = [NSURL URLWithString:_sharedData.url];
+                    QQApiNewsObject* img = [QQApiNewsObject objectWithURL:url title:_sharedData.title description:_sharedData.content previewImageData:UIImagePNGRepresentation(_sharedData.thumbImage)];
+                    
+                    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:img];
+                    QQApiSendResultCode sentCode = [QQApiInterface sendReq:req];
+                    [self handleSendQQResult:sentCode];
+                    
+                } else if (scene.scene == AISharedPlatformSceneTimeline) {
+                    
+                    // 分享到空间
+                    QQApiVideoForQZoneObject *video = [QQApiVideoForQZoneObject objectWithAssetURL:_sharedData.url title:_sharedData.title];
+                    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:video];
+                    QQApiSendResultCode sentCode = [QQApiInterface SendReqToQZone:req];
+                    [self handleSendQQResult:sentCode];
+                }
+            }
         }
     }
 }
 
-#pragma mark - WXApiDelegate
-- (void)onResp:(BaseResp*)resp {
-    if (_finishBlock) {
-        _finishBlock(AISharedStatusCodeDone,resp);
+- (void)handleSendQQResult:(QQApiSendResultCode)sendResult {
+    switch (sendResult) {
+        case EQQAPIAPPNOTREGISTED: {
+            break;
+        }
+        case EQQAPIMESSAGECONTENTINVALID:
+        case EQQAPIMESSAGECONTENTNULL:
+        case EQQAPIMESSAGETYPEINVALID: {
+            break;
+        }
+        case EQQAPIQQNOTINSTALLED: {
+            break;
+        }
+        case EQQAPIQQNOTSUPPORTAPI: {
+            if (_qqCallback.finishBlock) {
+                _qqCallback.finishBlock(sendResult,nil);
+            }
+            break;
+        }
+        case EQQAPISENDFAILD: {
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
+
+#pragma mark - TencentLoginDelegate
+- (void)tencentDidLogin {}
+- (void)tencentDidNotLogin:(BOOL)cancelled {}
+- (void)tencentDidNotNetWork {}
 
 @end

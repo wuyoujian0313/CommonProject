@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SharedManager.h"
 #import "WXApi.h"
+#import <TencentOpenAPI/QQApiInterface.h>
 
 
 @interface AppDelegate ()
@@ -31,13 +32,17 @@
 }
 
 - (void)registerSharedSDK {
-    SharedPlatformSDKInfo *sdk = [SharedPlatformSDKInfo platform:AISharedPlatformWechat appId:WeiXinSDKAppId secret:WeiXinSDKAppSecret];
-    [[SharedManager sharedSharedManager] registerSharedPlatform:[NSArray arrayWithObjects:sdk, nil]];
+    SharedPlatformSDKInfo *sdk1 = [SharedPlatformSDKInfo platform:AISharedPlatformWechat appId:WeiXinSDKAppId secret:WeiXinSDKAppSecret];
+    SharedPlatformSDKInfo *sdk2 = [SharedPlatformSDKInfo platform:AISharedPlatformQQ appId:QQSDKAppId secret:QQSDKAppKey];
+    [[SharedManager sharedSharedManager] registerSharedPlatform:[NSArray arrayWithObjects:sdk1,sdk2, nil]];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
-        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+        //
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager].wxCallback];
+    } else if ([[url absoluteString] hasPrefix:QQSDKAppId]) {
+        return [QQApiInterface handleOpenURL:url delegate:[SharedManager sharedSharedManager].qqCallback];
     }
     
     return YES;
@@ -45,7 +50,10 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
-        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+        //
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager].wxCallback];
+    } else if ([[url absoluteString] hasPrefix:QQSDKAppId]) {
+        return [QQApiInterface handleOpenURL:url delegate:[SharedManager sharedSharedManager].qqCallback];
     }
     
     return YES;
@@ -53,7 +61,10 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     if ([[url absoluteString] hasPrefix:WeiXinSDKAppId]) {
-        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager]];
+        //
+        return [WXApi handleOpenURL:url delegate:[SharedManager sharedSharedManager].wxCallback];
+    } else if ([[url absoluteString] hasPrefix:QQSDKAppId]) {
+        return [QQApiInterface handleOpenURL:url delegate:[SharedManager sharedSharedManager].qqCallback];
     }
     
     return YES;
